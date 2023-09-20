@@ -25,7 +25,7 @@ builder.Services.ConfigureCors();
 
 builder.Services.AddDbContext<FarmaciaContext>(optionsBuilder =>
 {
-    string connectionString = builder.Configuration.GetConnectionString("ConexMysqlCampus");
+    string connectionString = builder.Configuration.GetConnectionString("ConexMysqlPc");
     optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 var app = builder.Build();
