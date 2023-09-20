@@ -58,13 +58,11 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
 
         builder.HasOne(p => p.Usuario)
         .WithOne(p => p.Empleado)
-        .HasForeignKey<Empleado>(p => p.UsuarioId)
-        .IsRequired();
+        .HasForeignKey<Empleado>(p => p.UsuarioId);
 
         builder.HasOne(p => p.Direccion)
         .WithMany(p => p.Empleados)
-        .HasForeignKey(p => p.DireccionId)
-        .IsRequired();
+        .HasForeignKey(p => p.DireccionId);
 
     }
 }

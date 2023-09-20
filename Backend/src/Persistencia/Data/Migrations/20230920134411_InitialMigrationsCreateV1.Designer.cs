@@ -11,7 +11,7 @@ using Persistencia;
 namespace Persistencia.Data.Migrations
 {
     [DbContext(typeof(FarmaciaContext))]
-    [Migration("20230920123423_InitialMigrationsCreateV1")]
+    [Migration("20230920134411_InitialMigrationsCreateV1")]
     partial class InitialMigrationsCreateV1
     {
         /// <inheritdoc />
@@ -149,7 +149,7 @@ namespace Persistencia.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("DireccionId")
+                    b.Property<int?>("DireccionId")
                         .HasColumnType("int");
 
                     b.Property<string>("EPS")
@@ -181,7 +181,7 @@ namespace Persistencia.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<int?>("UsuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -295,7 +295,7 @@ namespace Persistencia.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("DireccionId")
+                    b.Property<int?>("DireccionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaNacimiento")
@@ -316,7 +316,7 @@ namespace Persistencia.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<int?>("UsuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -362,7 +362,7 @@ namespace Persistencia.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("DireccionId")
+                    b.Property<int?>("DireccionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaNacimiento")
@@ -383,7 +383,7 @@ namespace Persistencia.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<int?>("UsuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -533,15 +533,11 @@ namespace Persistencia.Data.Migrations
                 {
                     b.HasOne("Dominio.Entities.Direccion", "Direccion")
                         .WithMany("Empleados")
-                        .HasForeignKey("DireccionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DireccionId");
 
                     b.HasOne("Dominio.Entities.Usuario", "Usuario")
                         .WithOne("Empleado")
-                        .HasForeignKey("Dominio.Entities.Empleado", "UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Dominio.Entities.Empleado", "UsuarioId");
 
                     b.Navigation("Direccion");
 
@@ -601,15 +597,11 @@ namespace Persistencia.Data.Migrations
                 {
                     b.HasOne("Dominio.Entities.Direccion", "Direccion")
                         .WithMany("Pacientes")
-                        .HasForeignKey("DireccionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DireccionId");
 
                     b.HasOne("Dominio.Entities.Usuario", "Usuario")
                         .WithOne("Paciente")
-                        .HasForeignKey("Dominio.Entities.Paciente", "UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Dominio.Entities.Paciente", "UsuarioId");
 
                     b.Navigation("Direccion");
 
@@ -620,15 +612,11 @@ namespace Persistencia.Data.Migrations
                 {
                     b.HasOne("Dominio.Entities.Direccion", "Direccion")
                         .WithMany("Proveedores")
-                        .HasForeignKey("DireccionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DireccionId");
 
                     b.HasOne("Dominio.Entities.Usuario", "Usuario")
                         .WithOne("Proveedor")
-                        .HasForeignKey("Dominio.Entities.Proveedor", "UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Dominio.Entities.Proveedor", "UsuarioId");
 
                     b.Navigation("Direccion");
 
