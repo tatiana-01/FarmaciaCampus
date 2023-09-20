@@ -12,9 +12,9 @@ namespace Dominio.Entities
         public DateTime FechaNacimiento { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }
-        public int UsuarioId { get; set; }
+        public int ? UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
-        public int DireccionId { get; set; }
+        public int ? DireccionId { get; set; }
         public Direccion Direccion { get; set; }
 
         
