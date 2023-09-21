@@ -16,7 +16,7 @@ namespace ApiProyecto.Controllers;
 
     [HttpPost]
         [ApiVersion("1.0")]
-        [Authorize(Roles="Administrador")]
+        //[Authorize(Roles="Administrador")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<DepartamentoDTO>> Post(DepartamentoPostDTO departamentoDTO)
@@ -29,7 +29,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Pager<DepartamentoGetAllDTO>>> Get([FromQuery] Params param)

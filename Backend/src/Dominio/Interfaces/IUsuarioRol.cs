@@ -5,7 +5,7 @@ namespace Dominio.Interfaces;
 public interface IUsuarioRol
 {
     Task<UsuarioRol> GetByIdAsync(int idUsuario, int idRol);
-   // Task<IEnumerable<UsuarioRol>> GetAllAsync();
+    //Task<IEnumerable<UsuarioRol>> GetAllAsync();
     IEnumerable<UsuarioRol> Find(Expression<Func<UsuarioRol, bool>> expression);
     Task<(int totalRegistros, IEnumerable<UsuarioRol> registros)> GetAllAsync(int pageIndex, int pageSize, string search);
     void Add(UsuarioRol entity);

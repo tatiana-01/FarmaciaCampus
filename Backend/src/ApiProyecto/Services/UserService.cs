@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ApiProyecto.Dtos;
+using ApiProyecto.Dtos.Usuario;
 using ApiProyecto.Helpers;
 using Dominio.Entities;
 using Dominio.Interfaces;
@@ -26,7 +26,7 @@ public class UserService : IUserService
         _jwt = jwt.Value;
         _unitOfWork = unitOfWork;
         _passwordHasher = passwordHasher;
-       // _jwtGenerador = jwtGenerador;
+        // _jwtGenerador = jwtGenerador;
     }
     public async Task<string> ResgisterAsync(RegisterDto registerDto)
     {
@@ -134,7 +134,7 @@ public class UserService : IUserService
         return datosUsuarioDto;
     }
 
-     private JwtSecurityToken CreateJwtToken(Usuario usuario)
+    private JwtSecurityToken CreateJwtToken(Usuario usuario)
     {
         var roles = usuario.Roles;
         var roleClaims = new List<Claim>();
@@ -160,6 +160,85 @@ public class UserService : IUserService
             expires: DateTime.UtcNow.AddMinutes(_jwt.DurationInMinutes),
             signingCredentials: signingCredentials);
         return jwtSecurityToken;
+    }
+
+    //EDITAR EL USUARIO REGISTRADO
+    public async Task<Usuario> EditarUsuarioAsync(Usuario model)
+    {
+        Usuario usuario = new Usuario();
+        usuario.Password = _passwordHasher.HashPassword(usuario, model.Password);
+        _unitOfWork.Usuarios.Update(usuario);
+        await _unitOfWork.SaveAsync();
+        return usuario;
+    }
+//Metodo para registra crear un Usuario a partir dl tipo de persona que se registra (Proveedor/Paciente/Empleado)
+    public async Task<string> ResgisterAsync(RegisterDto registerDto, int opcionPersona, int personaId)
+    {
+        var usuario = new Usuario
+        {
+            Email = registerDto.Email,
+            Username = registerDto.Username,
+        };
+
+        usuario.Password = _passwordHasher.HashPassword(usuario, registerDto.Password);
+
+        var usuarioExiste = _unitOfWork.Usuarios
+                                    .Find(u => u.Username.ToLower() == registerDto.Username.ToLower())
+                                    .FirstOrDefault();
+
+        if (usuarioExiste == null)
+        {
+            var rolPredeterminado = _unitOfWork.Roles
+                                    .Find(u => u.Nombre == Autorizacion.rol_predeterminado.ToString())
+                                    .First();
+            try
+            {
+                usuario.Roles.Add(rolPredeterminado);
+                _unitOfWork.Usuarios.Add(usuario);
+                await _unitOfWork.SaveAsync();
+                AsignarPersonaAUsuario(opcionPersona,personaId,usuario);
+                await _unitOfWork.SaveAsync();
+
+                return $"El usuario  {registerDto.Username} ha sido registrado exitosamente";
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+                return $"Error: {message}";
+            }
+        }
+        else
+        {
+            return $"El usuario con {registerDto.Username} ya se encuentra registrado.";
+        }
+    }
+    //Funcion que agrega al nuevo Objeto de Usuario la persona correspondiente
+    public async void AsignarPersonaAUsuario(int opcionPersona, int personaId, Usuario usuario)
+    {
+        switch (opcionPersona)
+                {
+                    case 1:
+                        var empleado = await _unitOfWork.Empleados.GetByIdAsync(personaId);
+                        if(empleado is null) throw new Exception($"El empleado con ID {personaId} no existe");
+                        empleado.UsuarioId = usuario.Id;
+                        usuario.Empleado = empleado;
+                        break;
+                    case 2:
+                        var paciente = await _unitOfWork.Pacientes.GetByIdAsync(personaId);
+                        if(paciente is null) throw new Exception($"El paciente con ID {personaId} no existe");
+                         paciente.UsuarioId = usuario.Id;
+                        usuario.Paciente = paciente;
+                        break;
+                    case 3:
+                        var proveedor = await _unitOfWork.Proveedores.GetByIdAsync(personaId);
+                        if(proveedor is null) throw new Exception($"El proveedor con ID {personaId} no existe");
+                         proveedor.UsuarioId = usuario.Id;
+                        usuario.Proveedor = proveedor;
+                        break;
+                    default:
+                        throw new Exception("Opcion no es valida");
+                }
+
     }
 
     /* public async Task<LoginDto>  UserLogin(LoginDto model)

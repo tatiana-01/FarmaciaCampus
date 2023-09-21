@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ApiProyecto.Dtos;
+namespace ApiProyecto.Dtos.Usuario;
     public class DatosUsuarioDto
     {
         public string Mensaje { get; set; }

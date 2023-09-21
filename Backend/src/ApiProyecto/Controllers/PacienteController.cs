@@ -1,5 +1,7 @@
 
 using ApiProyecto.Dtos;
+using ApiProyecto.Dtos.Usuario;
+using ApiProyecto.Services;
 using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
@@ -9,8 +11,10 @@ namespace ApiProyecto.Controllers
 {
     public class PacienteController : BaseApiController
     {
-        public PacienteController(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+         private readonly IUserService _userService;
+        public PacienteController(IUnitOfWork unitOfWork, IMapper mapper,IUserService userService) : base(unitOfWork, mapper)
         {
+            _userService = userService;
         }
 
         [HttpPost]
@@ -20,6 +24,15 @@ namespace ApiProyecto.Controllers
             _unitOfWork.Pacientes.AddRange(nuevosPacientes);
             await _unitOfWork.SaveAsync();
             return Ok();
+        }
+
+        [HttpPost("register/{pacienteId:int}")]
+        public async Task<ActionResult> CrearUsuarioAPaciente(int pacienteId,RegisterDto registerDto )
+        {
+            //Numero entero equivalente a la categoria de Paciente nescesario para crear un usuario
+            int opcionPaciente = 2;
+            var result = await _userService.ResgisterAsync(registerDto,opcionPaciente,pacienteId);
+            return Ok(result);
         }
 
         [HttpGet]

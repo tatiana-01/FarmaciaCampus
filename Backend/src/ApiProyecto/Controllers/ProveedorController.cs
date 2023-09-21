@@ -1,5 +1,7 @@
 
 using ApiProyecto.Dtos;
+using ApiProyecto.Dtos.Usuario;
+using ApiProyecto.Services;
 using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
@@ -9,7 +11,10 @@ namespace ApiProyecto.Controllers
 {
     public class ProveedorController : BaseApiController
     {
-        public ProveedorController(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper){}
+        private readonly IUserService _userService;
+        public ProveedorController(IUnitOfWork unitOfWork, IMapper mapper,UserService userService) : base(unitOfWork, mapper){
+            _userService = userService;
+        }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -20,6 +25,15 @@ namespace ApiProyecto.Controllers
             _unitOfWork.Proveedores.AddRange(nuevosProveedores);
             await _unitOfWork.SaveAsync();
             return Ok();
+        }
+
+        [HttpPost("register/{proveedorId:int}")]
+        public async Task<ActionResult> CrearUsuarioAPaciente(int proveedorId,RegisterDto registerDto )
+        {
+            //Numero entero equivalente a la categoria de Proveedor nescesario para crear un usuario
+            int opcionProveedor = 3;
+            var result = await _userService.ResgisterAsync(registerDto,opcionProveedor,proveedorId);
+            return Ok(result);
         }
 
         [HttpGet]

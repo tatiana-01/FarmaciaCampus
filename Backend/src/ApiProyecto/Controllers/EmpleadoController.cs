@@ -1,5 +1,7 @@
 
 using ApiProyecto.Dtos;
+using ApiProyecto.Dtos.Usuario;
+using ApiProyecto.Services;
 using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
@@ -9,8 +11,10 @@ namespace ApiProyecto.Controllers
 {
     public class EmpleadoController : BaseApiController
     {
-        public EmpleadoController(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        private readonly IUserService _userService;
+        public EmpleadoController(IUnitOfWork unitOfWork, IMapper mapper , IUserService userService) : base(unitOfWork, mapper)
         {
+            _userService = userService;
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -21,6 +25,14 @@ namespace ApiProyecto.Controllers
             _unitOfWork.Empleados.AddRange(nuevosEmpleados);
             await _unitOfWork.SaveAsync();
             return Ok();
+        }
+
+        [HttpPost("register/{empleadoId:int}")]
+        public async Task<ActionResult> CrearUsuarioAEmpleado(int empleadoId,RegisterDto registerDto )
+        {
+            int opcionEmpleado = 1;
+            var result = await _userService.ResgisterAsync(registerDto,opcionEmpleado,empleadoId);
+            return Ok(result);
         }
 
         [HttpGet]
