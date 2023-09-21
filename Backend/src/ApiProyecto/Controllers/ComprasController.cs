@@ -37,21 +37,21 @@ namespace ApiProyecto.Controllers;
         //[Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Pager<CompraGetAllDTO>>> Get([FromQuery] Params param)
+        public async Task<ActionResult<Pager<CompraDTO>>> Get([FromQuery] Params param)
         {
             var compras = await _unitOfWork.Compras.GetAllAsync(param.PageIndex, param.PageSize, param.Search);
-            var lstCompras = _mapper.Map<List<CompraGetAllDTO>>(compras.registros);
-            return new Pager<CompraGetAllDTO>(lstCompras, compras.totalRegistros, param.PageIndex, param.PageSize, param.Search);
+            var lstCompras = _mapper.Map<List<CompraDTO>>(compras.registros);
+            return new Pager<CompraDTO>(lstCompras, compras.totalRegistros, param.PageIndex, param.PageSize, param.Search);
         }
 
         [HttpGet("{id}")]
         //[Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<CompraGetAllDTO>> Get(int id)
+        public async Task<ActionResult<CompraDTO>> Get(int id)
         {
             var compra = await _unitOfWork.Compras.GetByIdAsync(id);
-            return _mapper.Map<CompraGetAllDTO>(compra);
+            return _mapper.Map<CompraDTO>(compra);
         }
 
         [HttpPut("{id}")]
@@ -60,25 +60,14 @@ namespace ApiProyecto.Controllers;
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CompraDTO>> Put(int id, [FromBody] CompraPutDTO compraEdit)
         {
-            if (compraEdit == null) return NotFound();
+            var Anterior= await _unitOfWork.Compras.GetByIdAsync(id);
+            if (compraEdit == null || Anterior==null) return NotFound();
             var compra = _mapper.Map<Compra>(compraEdit);
             compra.Id = id;
-            _unitOfWork.Compras.Update(compra);
+            _unitOfWork.Compras.Update(compra, Anterior);
             await _unitOfWork.SaveAsync();
             return _mapper.Map<CompraDTO>(compra);
         }
 
-        [HttpDelete("{id}")]
-        //[Authorize(Roles="Administrador")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var compra = await _unitOfWork.Compras.GetByIdAsync(id);
-            if (compra == null) BadRequest();
-            _unitOfWork.Compras.Remove(compra);
-            await _unitOfWork.SaveAsync();
-            return NoContent();
-        }
 
     }

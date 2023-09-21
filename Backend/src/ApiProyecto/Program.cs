@@ -27,6 +27,7 @@ builder.Services.AddDbContext<FarmaciaContext>(optionsBuilder =>
 {
     string connectionString = builder.Configuration.GetConnectionString("ConexMysqlPc");
     optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    optionsBuilder.EnableSensitiveDataLogging();
 });
 var app = builder.Build();
 

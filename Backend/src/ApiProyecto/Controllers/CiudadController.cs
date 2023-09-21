@@ -22,7 +22,7 @@ namespace ApiProyecto.Controllers;
 
         [HttpPost]
         [ApiVersion("1.0")]
-        [Authorize(Roles="Administrador")]
+        //[Authorize(Roles="Administrador")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CiudadDTO>> Post(CiudadPostDTO ciudadDTO)
@@ -35,7 +35,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Pager<CiudadGetAllDTO>>> Get([FromQuery] Params param)
@@ -46,7 +46,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CiudadGetAllDTO>> Get(int id)
@@ -56,7 +56,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles="Administrador")]
+        //[Authorize(Roles="Administrador")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CiudadDTO>> Put(int id, [FromBody] CiudadPostDTO ciudadEdit)
@@ -70,7 +70,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles="Administrador")]
+        //[Authorize(Roles="Administrador")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Delete(int id)

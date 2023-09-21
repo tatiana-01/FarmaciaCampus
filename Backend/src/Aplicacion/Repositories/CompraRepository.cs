@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Persistencia;
 
 namespace Aplicacion.Repositories;
@@ -32,4 +33,30 @@ public class CompraRepository : GenericRepository<Compra>, ICompra
     {
         return await _context.Set<Compra>().Include(p=>p.MedicamentosComprados).FirstOrDefaultAsync(p=>p.Id==id);
     }
+
+    public override void Add(Compra entity)
+    {
+        foreach (var item in entity.MedicamentosComprados)
+        {
+            var medicamento=_context.Medicamentos.FirstOrDefault(p=>p.Id==item.MedicamentoId);
+            medicamento.Stock+=item.CantidadComprada;
+            _context.Set<Medicamento>().Update(medicamento);
+        }
+        _context.Set<Compra>().Add(entity);
+    }
+
+    public virtual void Update(Compra entity, Compra Anterior)
+    {
+        foreach (var item in entity.MedicamentosComprados)
+        {
+            var itemAnterior=Anterior.MedicamentosComprados.First(p=>p.Id==item.Id);
+            var diferencia=item.CantidadComprada-itemAnterior.CantidadComprada;
+            var medicamento= _context.Medicamentos.FirstOrDefault(p=>p.Id==item.MedicamentoId);
+            medicamento.Stock+=diferencia;
+        }
+        Anterior.FechaCompra=entity.FechaCompra;
+        Anterior.ProveedorId=entity.ProveedorId;
+        Anterior.MedicamentosComprados=entity.MedicamentosComprados;
+    } 
+
 }
