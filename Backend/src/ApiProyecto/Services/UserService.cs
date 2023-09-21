@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ApiProyecto.Dtos;
+using ApiProyecto.Dtos.Usuario;
 using ApiProyecto.Helpers;
 using Dominio.Entities;
 using Dominio.Interfaces;
@@ -160,6 +160,16 @@ public class UserService : IUserService
             expires: DateTime.UtcNow.AddMinutes(_jwt.DurationInMinutes),
             signingCredentials: signingCredentials);
         return jwtSecurityToken;
+    }
+
+    //EDITAR EL USUARIO REGISTRADO
+    public async Task<Usuario> EditarUsuarioAsync(Usuario model)
+    {
+        Usuario usuario = new Usuario();
+        usuario.Password = _passwordHasher.HashPassword(usuario, model.Password);
+        _unitOfWork.Usuarios.Update(usuario);
+        await _unitOfWork.SaveAsync();
+        return usuario;
     }
 
     /* public async Task<LoginDto>  UserLogin(LoginDto model)
