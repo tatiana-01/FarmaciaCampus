@@ -13,7 +13,7 @@ namespace ApiProyecto.Dtos
         public DateTime FechaNacimiento { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }
-        public DireccionCreationDTO Direccion { get; set; }
+        public DireccionDTO Direccion { get; set; }
         public string EPS { get; set; }
         public string ARL { get; set; }
         public double Salario { get; set; }

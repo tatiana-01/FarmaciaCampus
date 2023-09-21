@@ -44,7 +44,7 @@ namespace ApiProyecto.Controllers
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> EditEmpleado(int id, EmpleadoCreationDTO dtoEmpleado)
+        public async Task<ActionResult> EditEmpleado(int id, EmpleadoDTO dtoEmpleado)
         {
             bool existeEmpleado = _unitOfWork.Empleados.Exist(e => e.Id == id);
             if (existeEmpleado)

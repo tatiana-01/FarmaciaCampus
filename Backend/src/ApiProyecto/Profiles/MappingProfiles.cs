@@ -30,6 +30,7 @@ public class MappingProfiles : Profile
     CreateMap<Empleado,EmpleadoDTO>().ReverseMap();
 
     CreateMap<Direccion,DireccionCreationDTO>().ReverseMap();
+    CreateMap<Direccion,DireccionDTO>().ReverseMap();
 
     CreateMap<Paciente,PersonaCreationDTO>().ReverseMap();
     CreateMap<Paciente,PersonaDTO>().ReverseMap();
