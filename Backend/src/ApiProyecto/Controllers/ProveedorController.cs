@@ -12,7 +12,7 @@ namespace ApiProyecto.Controllers
     public class ProveedorController : BaseApiController
     {
         private readonly IUserService _userService;
-        public ProveedorController(IUnitOfWork unitOfWork, IMapper mapper,UserService userService) : base(unitOfWork, mapper){
+        public ProveedorController(IUnitOfWork unitOfWork, IMapper mapper,IUserService userService) : base(unitOfWork, mapper){
             _userService = userService;
         }
 

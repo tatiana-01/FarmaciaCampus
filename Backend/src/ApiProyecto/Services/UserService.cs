@@ -171,7 +171,7 @@ public class UserService : IUserService
         await _unitOfWork.SaveAsync();
         return usuario;
     }
-//Metodo para registra crear un Usuario a partir dl tipo de persona que se registra (Proveedor/Paciente/Empleado)
+//Metodo para crear un Usuario a partir dl tipo de persona que se registra (Proveedor/Paciente/Empleado)
     public async Task<string> ResgisterAsync(RegisterDto registerDto, int opcionPersona, int personaId)
     {
         var usuario = new Usuario
@@ -194,9 +194,10 @@ public class UserService : IUserService
             try
             {
                 usuario.Roles.Add(rolPredeterminado);
-                _unitOfWork.Usuarios.Add(usuario);
-                await _unitOfWork.SaveAsync();
                 AsignarPersonaAUsuario(opcionPersona,personaId,usuario);
+                _unitOfWork.Usuarios.Add(usuario);
+                //await _unitOfWork.SaveAsync();
+                
                 await _unitOfWork.SaveAsync();
 
                 return $"El usuario  {registerDto.Username} ha sido registrado exitosamente";
@@ -213,26 +214,23 @@ public class UserService : IUserService
         }
     }
     //Funcion que agrega al nuevo Objeto de Usuario la persona correspondiente
-    public async void AsignarPersonaAUsuario(int opcionPersona, int personaId, Usuario usuario)
+    public  void AsignarPersonaAUsuario(int opcionPersona, int personaId, Usuario usuario)
     {
         switch (opcionPersona)
                 {
                     case 1:
-                        var empleado = await _unitOfWork.Empleados.GetByIdAsync(personaId);
+                        var empleado = _unitOfWork.Empleados.GetById(x =>x.Id == personaId);
                         if(empleado is null) throw new Exception($"El empleado con ID {personaId} no existe");
-                        empleado.UsuarioId = usuario.Id;
                         usuario.Empleado = empleado;
                         break;
                     case 2:
-                        var paciente = await _unitOfWork.Pacientes.GetByIdAsync(personaId);
+                        var paciente = _unitOfWork.Pacientes.GetById(x =>x.Id == personaId);
                         if(paciente is null) throw new Exception($"El paciente con ID {personaId} no existe");
-                         paciente.UsuarioId = usuario.Id;
                         usuario.Paciente = paciente;
                         break;
                     case 3:
-                        var proveedor = await _unitOfWork.Proveedores.GetByIdAsync(personaId);
+                        var proveedor = _unitOfWork.Proveedores.GetById(x =>x.Id == personaId);
                         if(proveedor is null) throw new Exception($"El proveedor con ID {personaId} no existe");
-                         proveedor.UsuarioId = usuario.Id;
                         usuario.Proveedor = proveedor;
                         break;
                     default:

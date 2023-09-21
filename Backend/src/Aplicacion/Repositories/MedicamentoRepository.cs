@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Dominio.Entities;
 using Dominio.Interfaces;
@@ -23,6 +24,14 @@ public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicament
         .Include(p => p.MedicamentosComprados)
         .Include(p => p.MedicamentosVendidos)
         .ToListAsync();
+    }
+    public override IEnumerable<Medicamento> Find(Expression<Func<Medicamento, bool>> expression)
+    {
+        return  _context.Set<Medicamento>().Where(expression)
+            .Include(x =>x.MedicamentosVendidos)
+            .Include(x => x.MedicamentosComprados)
+            .Include( x =>x.Proveedor)
+            .ToList();
     }
 
     public override async Task<Medicamento> GetByIdAsync(int id)

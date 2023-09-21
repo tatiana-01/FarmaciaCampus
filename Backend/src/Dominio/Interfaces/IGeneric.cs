@@ -20,5 +20,6 @@ public interface IGeneric<T> where T : BaseEntity
     void RemoveRange(IEnumerable<T> entities);
     void Update(T entity);
     public void ConfigureUnchangedState(T entity);
+    T GetById(Expression<Func<T, bool>> expression);
 
 }

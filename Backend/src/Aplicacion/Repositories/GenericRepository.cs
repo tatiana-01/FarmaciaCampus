@@ -60,6 +60,10 @@ public class GenericRepository<T> : IGeneric<T> where T : BaseEntity
     {
         return await _context.Set<T>().FindAsync(id);
     }
+    public virtual T GetById(Expression<Func<T, bool>> expression)
+    {
+        return _context.Set<T>().FirstOrDefault(expression);
+    }
 
 
     public virtual void Remove(T entity)
