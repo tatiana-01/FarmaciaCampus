@@ -22,9 +22,9 @@ public class MappingProfiles : Profile
     CreateMap<Ciudad, CiudadDTO>().ForMember(d =>d.IdDepartamento,opt =>opt.MapFrom(d =>d.DptoId)).ReverseMap();
     CreateMap<Ciudad, CiudadPostDTO>().ForMember(d =>d.IdDepartamento,opt =>opt.MapFrom(d =>d.DptoId)).ReverseMap();
 
-    CreateMap<Departamento, DepartamentoGetAllDTO>().ForMember(d =>d.IdPais,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
-    CreateMap<Departamento, DepartamentoDTO>().ForMember(d =>d.IdPais,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
-    CreateMap<Departamento, DepartamentoPostDTO>().ForMember(d =>d.IdPais,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
+    CreateMap<Departamento, DepartamentoGetAllDTO>().ForMember(d =>d.PaisId,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
+    CreateMap<Departamento, DepartamentoDTO>().ForMember(d =>d.PaisId,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
+    CreateMap<Departamento, DepartamentoPostDTO>().ForMember(d =>d.PaisId,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
 
     CreateMap<Pais, PaisGetAllDTO>().ReverseMap();
     CreateMap<Pais, PaisDTO>().ReverseMap();
@@ -40,6 +40,26 @@ public class MappingProfiles : Profile
     CreateMap<Usuario, UsuarioXrolDto>().ReverseMap();
 
     CreateMap<UsuarioRol, UsuarioRolDto>().ReverseMap();
+
+
+    CreateMap<Compra, CompraDTO>().ReverseMap();
+    CreateMap<Compra, CompraPostDTO>().ReverseMap();
+    CreateMap<Compra, CompraPutDTO>().ReverseMap();
+
+    //CreateMap<MedicamentoCompra, MedicamentoCompraGetAllDTO>().ReverseMap();
+    CreateMap<MedicamentoCompra, MedicamentoCompraDTO>().ReverseMap();
+    CreateMap<MedicamentoCompra, MedicamentoCompraPostDTO>().ReverseMap();
+    CreateMap<MedicamentoCompra, MedicamentoCompraPutDTO>().ReverseMap();
+
+
+    CreateMap<Venta, VentaDTO>().ReverseMap();
+    CreateMap<Venta, VentaPostDTO>().ReverseMap();
+    CreateMap<Venta, VentaPutDTO>().ReverseMap();
+
+    //CreateMap<MedicamentoVenta, MedicamentoVentaGetAllDTO>().ReverseMap();
+    CreateMap<MedicamentoVenta, MedicamentoVentaDTO>().ReverseMap();
+    CreateMap<MedicamentoVenta, MedicamentoVentaPostDTO>().ReverseMap();
+  
 
     CreateMap<Empleado,EmpleadoCreationDTO>().ReverseMap();
     CreateMap<Empleado,EmpleadoDTO>().ReverseMap();
