@@ -16,16 +16,18 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ApiProyecto.Extensions;
-    public static class ApplicationServiceExtension
-    {
-         public static void ConfigureCors(this IServiceCollection services) =>
+public static class ApplicationServiceExtension
+{
+        public static void ConfigureCors(this IServiceCollection services) =>
         services.AddCors(Options => 
-        {
-            Options.AddPolicy("CorsPolicy" , builder =>
-             builder.AllowAnyOrigin()
-             .AllowAnyMethod()
-             .AllowAnyHeader());
-        });
+            {
+                Options.AddPolicy("CorsPolicy" , builder =>
+                                                    builder.AllowAnyOrigin()
+                                                    .AllowAnyMethod()
+                                                    .AllowAnyHeader()
+                );
+            }
+        );
         public static void ConfigureRateLimiting(this IServiceCollection services){
             services.AddMemoryCache();
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
@@ -76,11 +78,12 @@ namespace ApiProyecto.Extensions;
 
         //Adding Athentication - JWT
         services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-            .AddJwtBearer(o =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }
+        )
+        .AddJwtBearer(o =>
             {
                 o.RequireHttpsMetadata = false;
                 o.SaveToken = false;
@@ -95,6 +98,7 @@ namespace ApiProyecto.Extensions;
                     ValidAudience = configuration["JWT:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]))
                 };
-            });
+            }
+        );
     }
-    }
+}

@@ -55,6 +55,7 @@ public class UsuarioController : BaseApiController
         return Ok(result);
     }
 
+    //METODO POST PARA OBTENER EL REFRESTOKEN Y ACTUALIZARLO
     [HttpPost("refresh-token")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -81,7 +82,7 @@ public class UsuarioController : BaseApiController
 
     //METODO GET PARA OBTENER LOS USUARIOS REGISTRADOS
     [HttpGet]
-    [Authorize(Roles ="Administrador")]
+    [Authorize(Roles ="Empleado")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -27,7 +27,7 @@ public class UserService : IUserService
         _jwt = jwt.Value;
         _unitOfWork = unitOfWork;
         _passwordHasher = passwordHasher;
-       // _jwtGenerador = jwtGenerador;
+       //_jwtGenerador = jwtGenerador;
     }
     public async Task<string> ResgisterAsync(RegisterDto registerDto)
     {
@@ -156,7 +156,7 @@ public class UserService : IUserService
     {
         var datosUsuarioDto = new DatosUsuarioDto();
 
-        var usuario = await _unitOfWork.Usuarios.GetByUsernameAsync(refreshToken);
+        var usuario = await _unitOfWork.Usuarios.GetByRefreshTokenAsync(refreshToken);
 
         if (usuario == null)
         {
@@ -184,6 +184,7 @@ public class UserService : IUserService
         await _unitOfWork.SaveAsync();
 
         //Generando un nuevo Json Web Token 
+        datosUsuarioDto.Mensaje = "Ok";
         datosUsuarioDto.EstaAutenticado = true;
         JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuario);
         datosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
@@ -239,7 +240,8 @@ public class UserService : IUserService
             audience: _jwt.Audience,
             claims: claims,
             expires: DateTime.UtcNow.AddMinutes(_jwt.DurationInMinutes),
-            signingCredentials: signingCredentials);
+            signingCredentials: signingCredentials
+        );
         return jwtSecurityToken;
     }
 

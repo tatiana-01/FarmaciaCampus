@@ -20,8 +20,17 @@ public class UsuarioRepository : GenericRepository<Usuario>, IUsuario
     public async Task<Usuario> GetByUsernameAsync(string username)
     {
         return await _context.Usuarios
-                            .Include(u=>u.Roles)
-                            .FirstOrDefaultAsync(u=>u.Username.ToLower()==username.ToLower());
+                                    .Include(u=>u.Roles)
+                                    .Include(p => p.RefreshTokens)
+                                    .FirstOrDefaultAsync(u=>u.Username.ToLower()==username.ToLower());
+    }
+
+    public async Task<Usuario> GetByRefreshTokenAsync(string refreshToken)
+    {
+        return await _context.Usuarios
+                                    .Include(p => p.Roles)
+                                    .Include(p => p.RefreshTokens)
+                                    .FirstOrDefaultAsync(p => p.RefreshTokens.Any(p => p.Token == refreshToken));
     }
 
     public override async Task<IEnumerable<Usuario>> GetAllAsync()
