@@ -32,6 +32,14 @@ namespace Aplicacion.Repositories;
     {
         return _context.Set<T>().Where(expression);
     }
+    public virtual bool Exist(Expression<Func<T, bool>> expression)
+    {
+        return _context.Set<T>().Any(expression);
+    }
+    public async Task<int> ExecuteDeleteAsync(Expression<Func<T, bool>> expression)
+    {
+        return await _context.Set<T>().Where(expression).ExecuteDeleteAsync();
+    }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()
     {
@@ -69,4 +77,9 @@ namespace Aplicacion.Repositories;
         _context.Set<T>()
             .Update(entity);
     }
+    public void ConfigureUnchangedState(T entity)
+    {
+        _context.Entry(entity).State = EntityState.Unchanged;
+    }
+   
     }

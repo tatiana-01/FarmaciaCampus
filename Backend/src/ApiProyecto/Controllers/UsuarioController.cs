@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ApiProyecto.Dtos;
 using ApiProyecto.Services;
+using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -16,13 +17,13 @@ namespace ApiProyecto.Controllers;
     public class UsuariosController : BaseApiController
     {
        private readonly IUserService _userService;
-       private readonly IUnitOfWork _unitOfWork;
-       public UsuariosController (IUserService userService, IUnitOfWork unitOfWork){
-        _userService=userService;
-        _unitOfWork=unitOfWork;
-       }
 
-       [HttpPost("register")]
+    public UsuariosController(IUnitOfWork unitOfWork, IMapper mapper,IUserService userService) : base(unitOfWork, mapper)
+    {
+        _userService = userService;
+    }
+
+    [HttpPost("register")]
        public async Task<ActionResult> RegisterAsync(RegisterDto model){
         var result = await _userService.ResgisterAsync(model);
         return Ok(result);

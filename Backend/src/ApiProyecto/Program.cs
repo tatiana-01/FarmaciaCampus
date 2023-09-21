@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using ApiProyecto.Extensions;
 using AspNetCoreRateLimit;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +20,15 @@ builder.Services.ConfigureRateLimiting();
 builder.Services.ConfigureApiVersioning();
 builder.Services.AddJwt(builder.Configuration);
 builder.Services.AddApplicacionService();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.ConfigureCors();
 
 
 builder.Services.AddDbContext<FarmaciaContext>(optionsBuilder =>
 {
-    string connectionString = builder.Configuration.GetConnectionString("ConexMysqlCampus");
+    string connectionString = builder.Configuration.GetConnectionString("ConexMysqlPc");
     optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 var app = builder.Build();
