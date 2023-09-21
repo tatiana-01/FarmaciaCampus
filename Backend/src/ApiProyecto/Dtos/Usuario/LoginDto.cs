@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ApiProyecto.Dtos;
+namespace ApiProyecto.Dtos.Usuario;
     public class LoginDto
     {
         [Required]

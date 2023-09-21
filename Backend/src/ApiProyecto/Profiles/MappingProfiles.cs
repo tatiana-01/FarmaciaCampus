@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 using ApiProyecto.Dtos;
 using ApiProyecto.Dtos.Ciudad;
 using ApiProyecto.Dtos.Departamento;
+using ApiProyecto.Dtos.Medicamento;
 using ApiProyecto.Dtos.Pais;
+using ApiProyecto.Dtos.Rol;
+using ApiProyecto.Dtos.Usuario;
+using ApiProyecto.Dtos.UsuarioRol;
 using AutoMapper;
 using Dominio.Entities;
 
@@ -25,6 +29,17 @@ public class MappingProfiles : Profile
     CreateMap<Pais, PaisGetAllDTO>().ReverseMap();
     CreateMap<Pais, PaisDTO>().ReverseMap();
     CreateMap<Pais, PaisPostDTO>().ReverseMap();
+
+    CreateMap<Medicamento, MedicamentoDto>().ReverseMap();
+    CreateMap<Medicamento, MedicamentoXcompraXventaDto>().ReverseMap();
+
+    CreateMap<Rol, RolDto>().ReverseMap();
+    CreateMap<Rol, RolXusuarioDto>().ReverseMap();
+
+    CreateMap<Usuario, UsuarioDto>().ReverseMap();
+    CreateMap<Usuario, UsuarioXrolDto>().ReverseMap();
+
+    CreateMap<UsuarioRol, UsuarioRolDto>().ReverseMap();
 
 
     CreateMap<Compra, CompraDTO>().ReverseMap();

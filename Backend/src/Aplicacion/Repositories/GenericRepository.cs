@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Persistencia;
 
 namespace Aplicacion.Repositories;
-    public class GenericRepository<T> : IGeneric<T> where T : BaseEntity
-    {
+public class GenericRepository<T> : IGeneric<T> where T : BaseEntity
+{
          private readonly FarmaciaContext _context;
 
     public GenericRepository(FarmaciaContext context)
@@ -69,4 +69,4 @@ namespace Aplicacion.Repositories;
         _context.Set<T>()
             .Update(entity);
     }
-    }
+}
