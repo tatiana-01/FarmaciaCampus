@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ApiProyecto.Dtos.Usuario;
@@ -126,12 +127,92 @@ public class UserService : IUserService
             datosUsuarioDto.Roles = usuario.Roles
                                                 .Select(p => p.Nombre)
                                                 .ToList();
+
+            if (usuario.RefreshTokens.Any(p => p.IsActive))
+            {
+                var activeRefreshToken = usuario.RefreshTokens.Where(p => p.IsActive == true).FirstOrDefault();
+                datosUsuarioDto.RefreshToken = activeRefreshToken.Token;
+                datosUsuarioDto.RefreshTokenExpiration = activeRefreshToken.Expires;
+            }
+            else 
+            {
+                var refreshToken = CreateRefreshToken();
+                datosUsuarioDto.RefreshToken = refreshToken.Token;
+                datosUsuarioDto.RefreshTokenExpiration = refreshToken.Expires;
+                usuario.RefreshTokens.Add(refreshToken);
+                _unitOfWork.Usuarios.Update(usuario);
+                await _unitOfWork.SaveAsync();
+            }
             return datosUsuarioDto;
 
         }
         datosUsuarioDto.EstaAutenticado = false;
         datosUsuarioDto.Mensaje = $"Credenciales incorrectas para el usuario {usuario.Username}.";
         return datosUsuarioDto;
+    }
+
+    //ACTUALIZACION DEL TOKEN POR MEDIO DEL REFRESHTOKEN
+    public async Task<DatosUsuarioDto> RefreshTokenAsync(string refreshToken)
+    {
+        var datosUsuarioDto = new DatosUsuarioDto();
+
+        var usuario = await _unitOfWork.Usuarios.GetByUsernameAsync(refreshToken);
+
+        if (usuario == null)
+        {
+            datosUsuarioDto.EstaAutenticado = false;
+            datosUsuarioDto.Mensaje = $"El token no esta asignado a ningun usuario.";
+            return datosUsuarioDto;
+        }
+
+        var refreshTokenBd = usuario.RefreshTokens.Single(p => p.Token == refreshToken);
+
+        if (!refreshTokenBd.IsActive)
+        {
+            datosUsuarioDto.EstaAutenticado = false;
+            datosUsuarioDto.Mensaje = $"El token no es valido";
+            return datosUsuarioDto;
+        }
+
+        //Revocando el actual RefreshToken 
+        refreshTokenBd.Revoked = DateTime.UtcNow;
+
+        //Generando un nuevo refreshToken y guardarlo en la base de datos 
+        var newRefreshToken = CreateRefreshToken();
+        usuario.RefreshTokens.Add(newRefreshToken);
+        _unitOfWork.Usuarios.Update(usuario);
+        await _unitOfWork.SaveAsync();
+
+        //Generando un nuevo Json Web Token 
+        datosUsuarioDto.EstaAutenticado = true;
+        JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuario);
+        datosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+        datosUsuarioDto.UserName = usuario.Username;
+        datosUsuarioDto.Email = usuario.Username;
+        datosUsuarioDto.Roles = usuario.Roles
+                                            .Select(p => p.Nombre)
+                                            .ToList();
+
+        
+        datosUsuarioDto.RefreshToken = newRefreshToken.Token;
+        datosUsuarioDto.RefreshTokenExpiration = newRefreshToken.Expires;
+        return datosUsuarioDto;
+    }
+
+    //CREAMOS EL REFRESTOKEN 
+    public RefreshToken CreateRefreshToken()
+    {
+        var randomNumber = new byte[32];
+        using (var generator = RandomNumberGenerator.Create())
+        {
+            generator.GetBytes(randomNumber);
+            return new RefreshToken
+            {
+                Token = Convert.ToBase64String(randomNumber),
+                Expires = DateTime.UtcNow.AddDays(10),
+                Created = DateTime.UtcNow
+            };
+        }
     }
 
      private JwtSecurityToken CreateJwtToken(Usuario usuario)
@@ -172,6 +253,7 @@ public class UserService : IUserService
         return usuario;
     }
 
+    
     /* public async Task<LoginDto>  UserLogin(LoginDto model)
     {
         var usuario = await _unitOfWork.Usuarios.GetByUsernameAsync(model.Username);
