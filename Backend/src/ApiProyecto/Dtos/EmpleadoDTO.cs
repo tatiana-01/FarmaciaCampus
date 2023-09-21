@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using  ApiProyecto.Dtos.Usuario;
 
 namespace ApiProyecto.Dtos
 {
@@ -19,5 +17,6 @@ namespace ApiProyecto.Dtos
         public double Salario { get; set; }
         public string Cargo { get; set; }
         public DateTime FechaContratacion { get; set; }
+        public UsuarioDto Usuario {get; set;}
     }
 }

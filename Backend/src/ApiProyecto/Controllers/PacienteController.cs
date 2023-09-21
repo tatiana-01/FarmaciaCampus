@@ -53,6 +53,15 @@ namespace ApiProyecto.Controllers
             );
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult> GetPacienteById(int id)
+        {
+            var paciente = await _unitOfWork.Pacientes.GetByIdAsync(id);
+            if(paciente is null) return NotFound();
+            var pacienteMapeado = _mapper.Map<PersonaDTO>(paciente);
+            return Ok(paciente);
+        }
+
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

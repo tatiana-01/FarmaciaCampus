@@ -53,6 +53,15 @@ namespace ApiProyecto.Controllers
             );
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult> GetEmpleadoById(int id)
+        {
+            var empleado = await _unitOfWork.Empleados.GetByIdAsync(id);
+            if(empleado is null) return NotFound();
+            var empleadoMapaeado = _mapper.Map<EmpleadoDTO>(empleado);
+            return Ok(empleadoMapaeado);
+        }
+
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

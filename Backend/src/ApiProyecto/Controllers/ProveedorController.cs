@@ -54,6 +54,15 @@ namespace ApiProyecto.Controllers
             );
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult> GetProveedorById(int id)
+        {
+            var proveedor = await _unitOfWork.Proveedores.GetByIdAsync(id);
+            if(proveedor is null) return NotFound();
+            var proveedorMapeado = _mapper.Map<PersonaDTO>(proveedor);
+            return Ok(proveedorMapeado);
+        }
+
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

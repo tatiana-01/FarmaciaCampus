@@ -23,4 +23,11 @@ public class PacienteRepository : GenericRepository<Paciente>, IPaciente
             .Include(p =>p.Direccion)
             .ToListAsync();
      }
+      public override async Task<Paciente> GetByIdAsync(int id)
+    {
+        return await _context.Pacientes
+        .Include(e =>e.Usuario)
+        .Include(e =>e.Direccion)
+        .FirstOrDefaultAsync(e =>e.Id == id);   
+    }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiProyecto.Dtos.Usuario;
 
 namespace ApiProyecto.Dtos
 {
@@ -14,5 +15,6 @@ namespace ApiProyecto.Dtos
         public string Correo { get; set; }
         public string Telefono { get; set; }
         public DireccionDTO Direccion { get; set; }
+        public UsuarioDto Usuario {get; set;}
     }
 }

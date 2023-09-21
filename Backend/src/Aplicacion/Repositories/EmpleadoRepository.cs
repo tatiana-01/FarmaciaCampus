@@ -23,5 +23,12 @@ public class EmpleadoRepository : GenericRepository<Empleado>, IEmpleado
             .Include(e =>e.Direccion)
             .ToListAsync();
     }
+    public override async Task<Empleado> GetByIdAsync(int id)
+    {
+        return await _context.Empleados
+        .Include(e =>e.Usuario)
+        .Include(e =>e.Direccion)
+        .FirstOrDefaultAsync(e =>e.Id == id);   
+    }
     
 }
