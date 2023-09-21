@@ -20,7 +20,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpPost]
-        [Authorize(Roles="Administrador")]
+        //[Authorize(Roles="Administrador")]
         [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -34,7 +34,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Pager<PaisGetAllDTO>>> Get([FromQuery] Params param)
@@ -45,7 +45,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PaisGetAllDTO>> Get(int id)
@@ -55,7 +55,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles="Administrador")]
+        //[Authorize(Roles="Administrador")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PaisDTO>> Put(int id, [FromBody] PaisPostDTO paisEdit)
@@ -69,7 +69,7 @@ namespace ApiProyecto.Controllers;
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles="Administrador")]
+        //[Authorize(Roles="Administrador")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Delete(int id)
