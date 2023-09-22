@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistencia;
+using Persistencia.Data.Configuration;
 
 namespace Aplicacion.Repositories;
 public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicamento
@@ -53,4 +55,37 @@ public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicament
         return (totalRegistros,registros);
     }
     
+    public async Task<IEnumerable<Medicamento>> GetMedicamentosByProveedor(string proveedor){
+        var infoProveedor= await  _context.Proveedores.FirstOrDefaultAsync(p=>p.Nombre.ToLower().Contains(proveedor.ToLower()));
+        if(infoProveedor==null) return null;
+        var medicamentos=_context.Medicamentos.Where(p=>p.ProveedorId==infoProveedor.Id);
+        return medicamentos;
+    }
+
+    public async Task<IEnumerable<object>> GetPacientesParacetamol(){
+        var paracetamol = await _context.Medicamentos.FirstOrDefaultAsync(p=>p.Nombre.ToLower()=="paracetamol"); 
+        //var ventasMedicamento= _context.MedicamentosVendidos.Where(p=>p.MedicamentoId==2);
+        var datos= from meds in _context.MedicamentosVendidos join venta in _context.Ventas on meds.VentaId equals venta.Id join paciente in _context.Pacientes on venta.PacienteId equals paciente.Id select new{
+            Id=paciente.Id,
+            Nombre= paciente.Nombre,
+            NumIdentificacion=paciente.NumIdentificacion,
+            Correo=paciente.Correo,
+            Telefono=paciente.Telefono,
+            medicamento=meds.MedicamentoId,
+            
+        } ;
+        var Infopacientes= datos.Where(p=>p.medicamento==paracetamol.Id).Distinct().AsEnumerable();
+   
+       /*  var pacientes= from paciente in _context.Pacientes join Id in IdPaciente.AsEnumerable() on paciente.Id equals Id.paciente select new {
+            Id=paciente.Id,
+            Nombre= paciente.Nombre,
+            NumIdentificacion=paciente.NumIdentificacion,
+            Correo=paciente.Correo,
+            Telefono=paciente.Telefono,
+            //Ventas= _context.Ventas.Where(p=>p.Id==Id.venta).AsEnumerable()
+        }; */
+        //var medicamentos=_context.Medicamentos.Where(p=>p.ProveedorId==infoProveedor.Id);
+        return Infopacientes.AsEnumerable();
+    }
+      
 }
