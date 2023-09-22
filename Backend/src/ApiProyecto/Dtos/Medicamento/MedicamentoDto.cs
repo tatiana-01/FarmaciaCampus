@@ -7,7 +7,6 @@ public class MedicamentoDto
     public int ProveedorId { get; set; }
     public int Stock { get; set; }
     public DateTime FechaExpiracion { get; set; }
-    public int ProveedorId { get; set; }
 
     //public List<MedicamentoCompraDto> MedicamentosComprados { get; set; }
     //public List<MedicamentoVentaDto> MedicamentosVendidos { get; set; }
