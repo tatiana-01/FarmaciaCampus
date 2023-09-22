@@ -181,7 +181,7 @@ public class MedicamentoController:BaseApiControllerN
         return Ok(medicamentosDTO);
     }
 
-      //Obtener medicamentos que no se han vencidos.
+      //Obtener medicamentos que no se han vendidos.
     [HttpGet("novendidos")]
     //[Authorize]
     //[MapToApiVersion("1.1")]
@@ -197,21 +197,23 @@ public class MedicamentoController:BaseApiControllerN
         return Ok(medicamentosDTO);
     }
 
-   //Obtener pacientes que hayan comprado paracetamol.
-    [HttpGet("pacienteParacetamol")]
+    //menos vendido en 2023
+    [HttpGet("menosvendido2023")]
     //[Authorize]
     //[MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<object>>> GetPacientesParacetamol( )
+    public ActionResult<IEnumerable<object>> GetMenosVendido( )
     {
-        var pacientes = await _unitOfWork.Medicamentos.GetPacientesParacetamol();
-        if (pacientes.IsNullOrEmpty()) return NotFound("No se encontro paciente");
-
-        return Ok(mapper.Map<IEnumerable<object>>(pacientes));
+        var medicamentos = _unitOfWork.Medicamentos.GetMenosVendido();
+        if (medicamentos==null) return NotFound("No se encontraron medicamentos");
+        //var medicamentosDTO=mapper.Map<IEnumerable<object>>(medicamentos);
+        return Ok(medicamentos);
     }
+
+
 
 
 }

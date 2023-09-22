@@ -30,4 +30,31 @@ public class PacienteRepository : GenericRepository<Paciente>, IPaciente
         .Include(e =>e.Direccion)
         .FirstOrDefaultAsync(e =>e.Id == id);   
     }
+
+    public async Task<IEnumerable<object>> GetPacientesParacetamol(){
+        var paracetamol = await _context.Medicamentos.FirstOrDefaultAsync(p=>p.Nombre.ToLower()=="paracetamol"); 
+        //var ventasMedicamento= _context.MedicamentosVendidos.Where(p=>p.MedicamentoId==2);
+        var datos= from meds in _context.MedicamentosVendidos join venta in _context.Ventas on meds.VentaId equals venta.Id join paciente in _context.Pacientes on venta.PacienteId equals paciente.Id select new{
+            medicamento=meds.MedicamentoId,
+            Id=paciente.Id,
+            Nombre= paciente.Nombre,
+            NumIdentificacion=paciente.NumIdentificacion,
+            Correo=paciente.Correo,
+            Telefono=paciente.Telefono,
+            Direccion=_context.Direcciones.First(p=>p.Id==paciente.DireccionId),
+            Usuario=_context.Usuarios.First(p=>p.Id==paciente.UsuarioId)
+        } ;
+        var Infopacientes= datos.Distinct().AsEnumerable().Where(p=>p.medicamento==paracetamol.Id);
+   
+       /*  var pacientes= from paciente in _context.Pacientes join Id in IdPaciente.AsEnumerable() on paciente.Id equals Id.paciente select new {
+            Id=paciente.Id,
+            Nombre= paciente.Nombre,
+            NumIdentificacion=paciente.NumIdentificacion,
+            Correo=paciente.Correo,
+            Telefono=paciente.Telefono,
+            //Ventas= _context.Ventas.Where(p=>p.Id==Id.venta).AsEnumerable()
+        }; */
+        //var medicamentos=_context.Medicamentos.Where(p=>p.ProveedorId==infoProveedor.Id);
+        return Infopacientes.AsEnumerable();
+    }
 }

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.VisualBasic;
 using Persistencia;
 using Persistencia.Data.Configuration;
 
@@ -71,30 +73,42 @@ public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicament
         return medicamentos;
     }
 
-    public async Task<IEnumerable<object>> GetPacientesParacetamol(){
-        var paracetamol = await _context.Medicamentos.FirstOrDefaultAsync(p=>p.Nombre.ToLower()=="paracetamol"); 
-        //var ventasMedicamento= _context.MedicamentosVendidos.Where(p=>p.MedicamentoId==2);
-        var datos= from meds in _context.MedicamentosVendidos join venta in _context.Ventas on meds.VentaId equals venta.Id join paciente in _context.Pacientes on venta.PacienteId equals paciente.Id select new{
-            Id=paciente.Id,
-            Nombre= paciente.Nombre,
-            NumIdentificacion=paciente.NumIdentificacion,
-            Correo=paciente.Correo,
-            Telefono=paciente.Telefono,
-            medicamento=meds.MedicamentoId,
-            
-        } ;
-        var Infopacientes= datos.Where(p=>p.medicamento==paracetamol.Id).Distinct().AsEnumerable();
-   
-       /*  var pacientes= from paciente in _context.Pacientes join Id in IdPaciente.AsEnumerable() on paciente.Id equals Id.paciente select new {
-            Id=paciente.Id,
-            Nombre= paciente.Nombre,
-            NumIdentificacion=paciente.NumIdentificacion,
-            Correo=paciente.Correo,
-            Telefono=paciente.Telefono,
-            //Ventas= _context.Ventas.Where(p=>p.Id==Id.venta).AsEnumerable()
-        }; */
-        //var medicamentos=_context.Medicamentos.Where(p=>p.ProveedorId==infoProveedor.Id);
-        return Infopacientes.AsEnumerable();
+    public IEnumerable<object> GetMenosVendido(){
+        var ventas2023= _context.Ventas.Where(p=>p.FechaVenta.Year==2023);
+        List<object> medicamentos= new List<object>();  
+        if(ventas2023==null) return null;
+        var medsVentas= ventas2023.SelectMany(p=>p.MedicamentosVendidos);
+        var medsVentasGroup=medsVentas.GroupBy(x=>x.MedicamentoId);
+        var verificar=(_context.Medicamentos.Select(p=>p.Id).ToArray().Except(medsVentas.Select(p=>p.MedicamentoId).ToArray())).ToArray();
+        if(verificar.Length!=0){
+            foreach (var item in verificar)
+        {
+            var medicamento=_context.Medicamentos.FirstOrDefault(x=>x.Id==item);
+            medicamentos.Add(new{medicamentoId=medicamento.Id,Nombre=medicamento.Nombre,proveedor=_context.Proveedores.FirstOrDefault(p=>p.Id==medicamento.ProveedorId).Nombre,TotalVentas=0});
+        }
+        return medicamentos.AsEnumerable();
+        }
+        int cantidadVentas=0;
+        List<MedicamentoVenta> info= new List<MedicamentoVenta>();
+              
+        foreach (var ventas in medsVentasGroup)
+        {
+            foreach (var venta in ventas)
+            {
+                cantidadVentas+=venta.CantidadVendida;
+            }
+            info.Add(new MedicamentoVenta(){ CantidadVendida = cantidadVentas, MedicamentoId = ventas.Key });
+        }
+        var cantidadMinima=info.Select(x=>x.CantidadVendida).Min();
+        var menor=info.Where(x=>x.CantidadVendida==cantidadMinima);
+        foreach (var item in menor)
+        {
+            var medicamento=_context.Medicamentos.FirstOrDefault(x=>x.Id==item.MedicamentoId);
+            medicamentos.Add(new{medicamentoId=medicamento.Id,Nombre=medicamento.Nombre,proveedor=_context.Proveedores.FirstOrDefault(p=>p.Id==medicamento.ProveedorId).Nombre,TotalVentas=cantidadMinima});
+        }
+    
+        return medicamentos.AsEnumerable();
     }
+    
       
 }
