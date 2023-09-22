@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiProyecto.Controllers;
 [ApiVersion("1.0")] //obtener la relacion entre Usuario y rol
 [ApiVersion("1.1")] //obtener paginacion, registros y buscador de usuariosRoles
-public class UsuarioRolController : BaseApiController
+public class UsuarioRolController : BaseApiControllerN
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper mapper;
