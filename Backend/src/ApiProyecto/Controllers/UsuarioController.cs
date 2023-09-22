@@ -29,8 +29,8 @@ public class UsuarioController : BaseApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> RegisterAsync(RegisterDto model){
-    var result = await _userService.ResgisterAsync(model);
-    return Ok(result);
+        var result = await _userService.ResgisterAsync(model);
+        return Ok(result);
     }
 
     //METODO POST PARA OBTENER EL TOKEN 
@@ -40,8 +40,9 @@ public class UsuarioController : BaseApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTokenAsync(LoginDto model){
-    var result = await _userService.GetTokenAsync(model);
-    return Ok(result);
+        var result = await _userService.GetTokenAsync(model);
+        SetRefreshTokenInCookie(result.RefreshToken); //activar la cookie con el refreshToken
+        return Ok(result);
     }
 
     //METODO POST PARA AÑADIR UN ROL 
@@ -65,8 +66,10 @@ public class UsuarioController : BaseApiController
     {
         var refreshToken = Request.Cookies["refreshToken"];
         var response = await _userService.RefreshTokenAsync(refreshToken);
+        
         if (!string.IsNullOrEmpty(response.RefreshToken))
             SetRefreshTokenInCookie(response.RefreshToken);
+
         return Ok(response);
     }
 
