@@ -13,4 +13,5 @@ namespace ApiProyecto.Services;
         Task<DatosUsuarioDto> GetTokenAsync (LoginDto model);
         Task<string> AddRolAsync(AddRolDto model);
         Task<Usuario> EditarUsuarioAsync(Usuario model);
+        Task<DatosUsuarioDto> RefreshTokenAsync(string refreshToken);
     }
