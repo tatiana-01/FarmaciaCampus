@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProyecto.Controllers;
 [ApiVersion("1.0")]
-public class VentasController : BaseApiController
+public class VentasController : BaseApiControllerN
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;

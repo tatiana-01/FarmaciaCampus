@@ -10,7 +10,7 @@ using Dominio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProyecto.Controllers;
-    public class MedicamentoVentasController:BaseApiController
+    public class MedicamentoVentasController:BaseApiControllerN
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

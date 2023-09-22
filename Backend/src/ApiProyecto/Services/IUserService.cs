@@ -10,6 +10,7 @@ namespace ApiProyecto.Services;
     public interface IUserService
     {
         Task<string> ResgisterAsync(RegisterDto model);
+        Task<string> ResgisterAsync(RegisterDto registerDto, int opcionPersona, int personaId);
         Task<DatosUsuarioDto> GetTokenAsync (LoginDto model);
         Task<string> AddRolAsync(AddRolDto model);
         Task<Usuario> EditarUsuarioAsync(Usuario model);
