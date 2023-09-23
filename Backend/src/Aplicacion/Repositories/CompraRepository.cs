@@ -59,4 +59,14 @@ public class CompraRepository : GenericRepository<Compra>, ICompra
         Anterior.MedicamentosComprados=entity.MedicamentosComprados;
     } 
 
+    public object MedsVendidiosPorProveedor()
+    {
+        var Listcompras = _context.Compras.Include(c =>c.MedicamentosComprados).ToList();
+        var comprasPorProveedor = 
+            from compras in Listcompras
+            group compras by compras.ProveedorId;
+       
+        return comprasPorProveedor;
+    }
+
 }

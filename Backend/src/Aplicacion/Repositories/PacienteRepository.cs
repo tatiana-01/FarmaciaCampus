@@ -30,4 +30,25 @@ public class PacienteRepository : GenericRepository<Paciente>, IPaciente
         .Include(e =>e.Direccion)
         .FirstOrDefaultAsync(e =>e.Id == id);   
     }
+    public object ConsultaPaceniteMasGastador()
+    {
+        var listaPacientes = _context.Pacientes.ToList();
+        var listaVentas = _context.Ventas.ToList();
+        var listaVentaMedicamentos = _context.MedicamentosVendidos.ToList();
+
+        var query = 
+            (from paciente in listaPacientes
+            join venta in listaVentas on paciente.Id equals venta.PacienteId
+            join ventaMedicamento in listaVentaMedicamentos on venta.Id equals ventaMedicamento.VentaId
+            group ventaMedicamento by paciente into g 
+            let totalGastado = g.Sum(vm =>vm.Precio)
+            orderby totalGastado descending
+            select new
+            {
+                Paciente = g.Key,
+                TotalGastado = totalGastado
+            }).FirstOrDefault(); 
+
+            return query;
+    }
 }

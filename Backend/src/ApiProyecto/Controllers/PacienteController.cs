@@ -89,5 +89,16 @@ namespace ApiProyecto.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("masGastador")]
+        public ActionResult GetPacienteMasGastador()
+        {
+            var result = _unitOfWork.Pacientes.ConsultaPaceniteMasGastador();
+            if(result is null) return NotFound(new{
+                response = "No se encontraron paceintes con compras de medicamentos"
+            });
+
+            return Ok(result);
+        }
     }
 }

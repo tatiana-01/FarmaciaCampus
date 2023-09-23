@@ -22,7 +22,7 @@ public class MedicamentoController:BaseApiControllerN
 
     //METODO GET (obtener todos los registros)
     [HttpGet]
-    [Authorize]
+    //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -147,4 +147,36 @@ public class MedicamentoController:BaseApiControllerN
         return Ok(result);
     }
 
+    [HttpGet("totalMedsVendidosPorProveedor")]
+    public ActionResult GetMedsPorProveedor()
+    {
+        var result = _unitOfWork.Compras.MedsVendidiosPorProveedor();
+        return Ok(result);
+    }
+    [HttpGet("medicamentoMasCaro")]
+    public async Task<ActionResult> GetMedMasCaro()
+    {
+        var medicamentos = await _unitOfWork.Medicamentos.GetAllAsync();
+        var result = medicamentos.OrderByDescending(m =>m.Precio).Take(1);
+        return Ok(result);
+    }
+
+    [HttpGet("expiranEn2024")]
+    public ActionResult GetMedsExpiranEn2024()
+    {
+        var medicamentos = _unitOfWork.Medicamentos.Find(m =>m.FechaExpiracion.Year == new DateTime(2024,1,1).Year);
+        if(medicamentos is null )return NotFound();
+        var result = medicamentos.Select(m =>new{
+            m.Id,
+            m.Nombre,
+            m.Precio,
+            m.FechaExpiracion,
+            m.Stock,
+            m.ProveedorId
+        });
+        return Ok(result);
+    }
+    
+
 }
+

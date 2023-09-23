@@ -30,4 +30,17 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedor
         .Include(e =>e.Direccion)
         .FirstOrDefaultAsync(e =>e.Id == id);   
     }
+    public async  Task<object> ProveedoresSinVentas()
+    {
+        var proveedores =await  _context.Proveedores.ToListAsync();
+        var compras = await _context.Compras.ToListAsync();
+
+        var query = 
+        from provvedor in proveedores
+        join compra in compras
+            on provvedor.Id equals compra.ProveedorId into comprasProveedor
+            where !comprasProveedor.Any()
+            select new {provvedor.Id , provvedor.Nombre};
+        return query;
+    }
 }

@@ -89,6 +89,12 @@ namespace ApiProyecto.Controllers
 
             return NoContent();
         }
+        [HttpGet("SinVentas")]
+        public async Task<ActionResult> GetProveedoresSinVentas()
+        {
+            var result = await _unitOfWork.Proveedores.ProveedoresSinVentas();
+            return Ok(result);
+        }
        
     }
 }
