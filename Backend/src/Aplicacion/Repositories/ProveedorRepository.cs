@@ -23,11 +23,23 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedor
             .Include(p =>p.Direccion)
             .ToListAsync();
      }
-      public override async Task<Proveedor> GetByIdAsync(int id)
+
+    public override async Task<Proveedor> GetByIdAsync(int id)
     {
         return await _context.Proveedores
         .Include(e =>e.Usuario)
         .Include(e =>e.Direccion)
         .FirstOrDefaultAsync(e =>e.Id == id);   
     }
+
+    public async Task<IEnumerable<Proveedor>> GetAllProveedorMedicAsync()
+    {
+        var lstNumeroMedicProveedor = _context.Set<Proveedor>()
+        .Include(p => p.Medicamentos)
+        .ToListAsync();
+
+        return await lstNumeroMedicProveedor;
+    }
+
+    
 }

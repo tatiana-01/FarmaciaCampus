@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiProyecto.Controllers;
 [ApiVersion("1.0")] //obtner los Medicamentos
 [ApiVersion("1.1")] //obtener las comprar y ventas de medicamentos y la paginacion y buscador
-public class MedicamentoController:BaseApiControllerN
+public class MedicamentoController : BaseApiControllerN
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper mapper;
@@ -153,7 +153,7 @@ public class MedicamentoController:BaseApiControllerN
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<TotalVentaMedicDto>> GetTotalVentaMedic(string medicamento)
     {
-        if (!string.IsNullOrEmpty(medicamento))
+        if (string.IsNullOrEmpty(medicamento))
         {
             throw new UnauthorizedAccessException("ingrese un medicamento a buscar");
         }

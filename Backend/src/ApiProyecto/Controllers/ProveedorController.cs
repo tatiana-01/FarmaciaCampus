@@ -1,5 +1,6 @@
 
 using ApiProyecto.Dtos;
+using ApiProyecto.Dtos.Proveedor;
 using ApiProyecto.Dtos.Usuario;
 using ApiProyecto.Services;
 using AutoMapper;
@@ -79,6 +80,7 @@ namespace ApiProyecto.Controllers
             }
             else return NotFound();
         }
+        
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -88,6 +90,38 @@ namespace ApiProyecto.Controllers
             if (filasAfectadas == 0) return NotFound();
 
             return NoContent();
+        }
+
+        //CONSULTA PARA BUSCAR EL NUMERO DE MEDICAMENTOS POR CADA PROVEEDOR 
+        [HttpGet("NumeroMedicamentosProveedor")]
+        //[Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<ProveedorXmedicamentoDto>>> GetNumeroMedicProvee()
+        {
+            var lstMedicProvee = await _unitOfWork.Proveedores.GetAllProveedorMedicAsync();
+
+            if ((lstMedicProvee.Count() == 0) || (lstMedicProvee == null))
+            {
+                throw new UnauthorizedAccessException("No se encontro ningun Proveedor");
+            }
+
+            List<ProveedorXmedicamentoDto> numeroMedicProvee = new();
+        
+            foreach (var lstProveMedic in lstMedicProvee)
+            {
+                ProveedorXmedicamentoDto proveedorXmedicamentoDto = new()
+                {
+                    Id = lstProveMedic.Id,
+                    Nombre = lstProveMedic.Nombre,
+                    NumeroDeMedicamentos = lstProveMedic.Medicamentos.Count()
+                };
+                numeroMedicProvee.Add(proveedorXmedicamentoDto);
+            }
+            
+            return _mapper.Map<List<ProveedorXmedicamentoDto>>(numeroMedicProvee);
         }
        
     }
