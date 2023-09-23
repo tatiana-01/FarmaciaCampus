@@ -18,13 +18,13 @@ public class MappingProfiles : Profile
 {
   public MappingProfiles()
   {
-    CreateMap<Ciudad, CiudadGetAllDTO>().ForMember(x=>x.IdDepartamento,opt=>opt.MapFrom(p=>p.DptoId)).ReverseMap();
-    CreateMap<Ciudad, CiudadDTO>().ForMember(x=>x.IdDepartamento,opt=>opt.MapFrom(p=>p.DptoId)).ReverseMap();
-    CreateMap<Ciudad, CiudadPostDTO>().ForMember(x=>x.IdDepartamento,opt=>opt.MapFrom(p=>p.DptoId)).ReverseMap();
+    CreateMap<Ciudad, CiudadGetAllDTO>().ForMember(d =>d.IdDepartamento,opt =>opt.MapFrom(d =>d.DptoId)).ReverseMap();
+    CreateMap<Ciudad, CiudadDTO>().ForMember(d =>d.IdDepartamento,opt =>opt.MapFrom(d =>d.DptoId)).ReverseMap();
+    CreateMap<Ciudad, CiudadPostDTO>().ForMember(d =>d.IdDepartamento,opt =>opt.MapFrom(d =>d.DptoId)).ReverseMap();
 
-    CreateMap<Departamento, DepartamentoGetAllDTO>().ReverseMap();
-    CreateMap<Departamento, DepartamentoDTO>().ReverseMap();
-    CreateMap<Departamento, DepartamentoPostDTO>().ReverseMap();
+    CreateMap<Departamento, DepartamentoGetAllDTO>().ForMember(d =>d.PaisId,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
+    CreateMap<Departamento, DepartamentoDTO>().ForMember(d =>d.PaisId,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
+    CreateMap<Departamento, DepartamentoPostDTO>().ForMember(d =>d.PaisId,opt =>opt.MapFrom(d =>d.PaisId)).ReverseMap();
 
     CreateMap<Pais, PaisGetAllDTO>().ReverseMap();
     CreateMap<Pais, PaisDTO>().ReverseMap();
@@ -63,5 +63,17 @@ public class MappingProfiles : Profile
     CreateMap<Proveedor, ListaProveedorDto>().ReverseMap();
 
   
+
+    CreateMap<Empleado,EmpleadoCreationDTO>().ReverseMap();
+    CreateMap<Empleado,EmpleadoDTO>().ReverseMap();
+
+    CreateMap<Direccion,DireccionCreationDTO>().ReverseMap();
+    CreateMap<Direccion,DireccionDTO>().ReverseMap();
+
+    CreateMap<Paciente,PersonaCreationDTO>().ReverseMap();
+    CreateMap<Paciente,PersonaDTO>().ReverseMap();
+
+    CreateMap<Proveedor,PersonaCreationDTO>().ReverseMap();
+    CreateMap<Proveedor,PersonaDTO>().ReverseMap();
   }
 }

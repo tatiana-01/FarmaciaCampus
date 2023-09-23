@@ -8,21 +8,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProyecto.Controllers;
-[ApiVersion("1.0")] //obtener los usuarios registrados
-[ApiVersion("1.1")] //obtener los usuarios y los roles 
-public class UsuarioController : BaseApiController
+public class UsuariosController : BaseApiController
 {
     private readonly IUserService _userService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper mapper;
 
-    public UsuarioController (IUserService userService, IUnitOfWork unitOfWork, IMapper mapper){
-        _userService=userService;
-        _unitOfWork=unitOfWork;
+    public UsuariosController(IUnitOfWork unitOfWork, IMapper mapper,IUserService userService) : base(unitOfWork, mapper)
+    {
+        _userService = userService;
         this.mapper = mapper;
+        _unitOfWork = unitOfWork;
     }
 
-    //METOD POST PRA REGISTRA USUARIO
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

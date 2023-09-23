@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProyecto.Controllers;
 [ApiVersion("1.0")]
-    public class ComprasController:BaseApiController
+    public class ComprasController:BaseApiControllerN
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

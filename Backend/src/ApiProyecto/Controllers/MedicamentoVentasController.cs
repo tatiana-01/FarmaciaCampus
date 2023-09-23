@@ -11,17 +11,18 @@ using Dominio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProyecto.Controllers;
-public class MedicamentoVentasController:BaseApiController
+public class MedicamentoVentasController : BaseApiControllerN
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public MedicamentoVentasController(IUnitOfWork unitOfWork, IMapper mapper)
     {
-        this._unitOfWork = unitOfWork;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-        [HttpGet]
+
+    [HttpGet]
     //[Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

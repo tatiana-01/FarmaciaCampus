@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiProyecto.Controllers;
 [ApiVersion("1.0")] //obtner los Medicamentos
 [ApiVersion("1.1")] //obtener las comprar y ventas de medicamentos y la paginacion y buscador
-public class MedicamentoController : BaseApiController
+public class MedicamentoController:BaseApiControllerN
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper mapper;
@@ -35,8 +35,8 @@ public class MedicamentoController : BaseApiController
 
     //METODO GET (Para obtener paginacion, registro y busqueda en la entidad)
     [HttpGet("Pagina")]
-    [Authorize]
-    [MapToApiVersion("1.1")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,8 +52,8 @@ public class MedicamentoController : BaseApiController
 
     //METODO GET POR ID (Traer un solo registro de la entidad de la  Db)
     [HttpGet("{id}")]
-    [Authorize]
-    [MapToApiVersion("1.1")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -71,7 +71,7 @@ public class MedicamentoController : BaseApiController
 
     //METODO POST (para enviar registros a la entidad de la Db)
     [HttpPost]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -179,6 +179,22 @@ public class MedicamentoController : BaseApiController
         totalVentaMedicDto.PrecioVenta = PrecioVentas;
 
         return this.mapper.Map<TotalVentaMedicDto>(totalVentaMedicDto);
+    }
+
+    [HttpGet("medicamentosMenosde50Unidades")]
+    public async Task<ActionResult> GetMedicamentosMenos50Unidades()
+    {
+        var medicamentos = _unitOfWork.Medicamentos.Find(x =>x.Stock < 50);
+        if(medicamentos is null) return NotFound();
+        var result = medicamentos.Select(m =>new{
+            m.Id,
+            m.Nombre,
+            m.Precio,
+            m.FechaExpiracion,
+            m.Stock,
+            m.ProveedorId
+        });
+        return Ok(result);
     }
 
 }

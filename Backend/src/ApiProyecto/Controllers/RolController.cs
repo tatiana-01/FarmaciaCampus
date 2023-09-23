@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiProyecto.Controllers;
 [ApiVersion("1.0")] //obtner los tipos de cargos de la persona
 [ApiVersion("1.1")] //obtener las personas por el tipo de cargo y la paginacion y buscador
-public class RolController : BaseApiController
+public class RolController : BaseApiControllerN
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper mapper;
@@ -71,7 +71,7 @@ public class RolController : BaseApiController
 
     //METODO POST (para enviar registros a la entidad de la Db)
     [HttpPost]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
