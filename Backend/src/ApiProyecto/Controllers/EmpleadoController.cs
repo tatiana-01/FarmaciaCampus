@@ -12,7 +12,7 @@ namespace ApiProyecto.Controllers
     public class EmpleadoController : BaseApiController
     {
         private readonly IUserService _userService;
-        public EmpleadoController(IUnitOfWork unitOfWork, IMapper mapper , IUserService userService) : base(unitOfWork, mapper)
+        public EmpleadoController(IUnitOfWork unitOfWork, IMapper mapper, IUserService userService) : base(unitOfWork, mapper)
         {
             _userService = userService;
         }
@@ -28,10 +28,10 @@ namespace ApiProyecto.Controllers
         }
 
         [HttpPost("register/{empleadoId:int}")]
-        public async Task<ActionResult> CrearUsuarioAEmpleado(int empleadoId,RegisterDto registerDto )
+        public async Task<ActionResult> CrearUsuarioAEmpleado(int empleadoId, RegisterDto registerDto)
         {
             int opcionEmpleado = 1;
-            var result = await _userService.ResgisterAsync(registerDto,opcionEmpleado,empleadoId);
+            var result = await _userService.ResgisterAsync(registerDto, opcionEmpleado, empleadoId);
             return Ok(result);
         }
 
@@ -57,7 +57,7 @@ namespace ApiProyecto.Controllers
         public async Task<ActionResult> GetEmpleadoById(int id)
         {
             var empleado = await _unitOfWork.Empleados.GetByIdAsync(id);
-            if(empleado is null) return NotFound();
+            if (empleado is null) return NotFound();
             var empleadoMapaeado = _mapper.Map<EmpleadoDTO>(empleado);
             return Ok(empleadoMapaeado);
         }
@@ -87,6 +87,28 @@ namespace ApiProyecto.Controllers
             if (filasAfectadas == 0) return NotFound();
 
             return NoContent();
+        }
+
+        //ventas por empleado
+        [HttpGet("ventasporempleado7{empleado}")]
+        //[Authorize]
+        //[MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<object>> GetventasPorEmpleado(string empleado)
+        {
+            var ventas = _unitOfWork.Empleados.GetVentasPorEmpleado(empleado);
+            if (ventas.ventas == null) return NotFound("No se encontro empleado");
+            var info=new{
+                
+                cantidadDeVentas=ventas.cantidadVentas,
+                empleado=_mapper.Map<EmpleadoDTO>(ventas.empleado),
+                ventas=_mapper.Map<IEnumerable<VentaDTO>>(ventas.ventas)
+
+            };
+            return Ok(info);
         }
     }
 }

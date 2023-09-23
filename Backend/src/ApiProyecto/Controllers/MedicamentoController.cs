@@ -209,9 +209,25 @@ public class MedicamentoController:BaseApiControllerN
     {
         var medicamentos = _unitOfWork.Medicamentos.GetMenosVendido();
         if (medicamentos==null) return NotFound("No se encontraron medicamentos");
-        //var medicamentosDTO=mapper.Map<IEnumerable<object>>(medicamentos);
         return Ok(medicamentos);
     }
+
+     //medicamentos nunca vendidos
+    [HttpGet("nuncaVendido")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<MedicamentoDto>> GetNuncaVendido( )
+    {
+        var medicamentos = _unitOfWork.Medicamentos.GetNuncaVendido();
+        if (medicamentos.IsNullOrEmpty()) return NotFound("No se encontraron medicamentos");
+        return Ok(this.mapper.Map<IEnumerable<MedicamentoDto>>(medicamentos.AsEnumerable()));
+    }
+
+     
 
 
 

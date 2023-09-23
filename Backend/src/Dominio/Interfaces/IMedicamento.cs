@@ -7,6 +7,7 @@ public interface IMedicamento : IGeneric<Medicamento>
 
     Task<IEnumerable<Medicamento>> GetMedicamentosByProveedor(string proveedor);
     IEnumerable<object> GetMenosVendido();
+    IEnumerable<Medicamento> GetNuncaVendido();
     
         
 }

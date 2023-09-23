@@ -110,5 +110,15 @@ public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicament
         return medicamentos.AsEnumerable();
     }
     
+    public IEnumerable<Medicamento> GetNuncaVendido(){
+        List<Medicamento> medicamentos= new List<Medicamento>();
+        var nuncaVendido=(_context.Medicamentos.Select(p=>p.Id).ToArray().Except(_context.MedicamentosVendidos.Select(p=>p.MedicamentoId).ToArray())).ToArray();
+            foreach (var item in nuncaVendido)
+        {
+            var medicamento=_context.Medicamentos.FirstOrDefault(x=>x.Id==item);
+            medicamentos.Add(medicamento);
+        }
+        return medicamentos.AsEnumerable();
+    }
       
 }
