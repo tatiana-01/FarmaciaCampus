@@ -102,9 +102,13 @@ namespace ApiProyecto.Controllers
         public async Task<ActionResult<IEnumerable<object>>> GetPacientesParacetamol()
         {
             var pacientes = (await _unitOfWork.Pacientes.GetPacientesParacetamol()).AsEnumerable();
+            foreach (PersonaDTO item in pacientes)
+            {
+                item.Direccion=_mapper.Map<DireccionDTO>(item.Direccion);
+            }
             if (pacientes.IsNullOrEmpty()) return NotFound("No se encontro paciente");
 
-            return Ok(_mapper.Map<IEnumerable<object>>(pacientes));
+            return Ok(pacientes);
         }
     }
 }

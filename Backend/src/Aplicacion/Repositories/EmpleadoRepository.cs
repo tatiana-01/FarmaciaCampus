@@ -33,13 +33,9 @@ public class EmpleadoRepository : GenericRepository<Empleado>, IEmpleado
         .FirstOrDefaultAsync(e =>e.Id == id);   
     }
 
-    public (IEnumerable<Venta> ventas, int cantidadVentas, Empleado empleado) GetVentasPorEmpleado(string empleado){
-        var infoEmpleado= _context.Empleados.FirstOrDefault(p=>p.Nombre.ToLower().Contains(empleado.ToLower()));
-        if(infoEmpleado==null)return (null, 0, null);
-        var ventasEmpleado=_context.Ventas.Where(p=>p.EmpleadoId==infoEmpleado.Id).Include(p=>p.MedicamentosVendidos);
-        infoEmpleado.Direccion=_context.Direcciones.FirstOrDefault(p=>p.Id==infoEmpleado.DireccionId);
-        infoEmpleado.Usuario=_context.Usuarios.FirstOrDefault(p=>p.Id==infoEmpleado.UsuarioId);
-        return (ventasEmpleado.AsEnumerable(), ventasEmpleado.ToArray().Length, infoEmpleado);
+    public IEnumerable<Empleado> GetVentasEmpleados(){
+       var empleados= _context.Empleados.Include(p=>p.Direccion).Include(p=>p.Direccion).Include(p=>p.Ventas).ThenInclude(p=>p.MedicamentosVendidos);
+        return empleados.AsEnumerable();
     }
 
     

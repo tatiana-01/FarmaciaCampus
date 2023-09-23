@@ -89,26 +89,28 @@ namespace ApiProyecto.Controllers
             return NoContent();
         }
 
-        //ventas por empleado
-        [HttpGet("ventasporempleado7{empleado}")]
+        //ventas de cada empleado empleado
+        [HttpGet("ventasporempleado")]
         //[Authorize]
         //[MapToApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<object>> GetventasPorEmpleado(string empleado)
+        public ActionResult<IEnumerable<object>> GetventasPorEmpleado()
         {
-            var ventas = _unitOfWork.Empleados.GetVentasPorEmpleado(empleado);
-            if (ventas.ventas == null) return NotFound("No se encontro empleado");
-            var info=new{
+            List<object> EmpleadosVentas= new List<object>();
+            var ventas = _unitOfWork.Empleados.GetVentasEmpleados();
+            if (ventas == null) return NotFound();
+            foreach (var item in ventas)
+            {
+                EmpleadosVentas.Add(new{
+                    cantidadDeVentas=item.Ventas.Count,
+                    InfoEmpleado=_mapper.Map<EmpleadoGetAllDTO>(item)
+                });
                 
-                cantidadDeVentas=ventas.cantidadVentas,
-                empleado=_mapper.Map<EmpleadoDTO>(ventas.empleado),
-                ventas=_mapper.Map<IEnumerable<VentaDTO>>(ventas.ventas)
-
-            };
-            return Ok(info);
+            }
+            return Ok(EmpleadosVentas.AsEnumerable());
         }
     }
 }

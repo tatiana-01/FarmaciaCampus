@@ -8,5 +8,4 @@ namespace ApiProyecto.Dtos;
     {
         public int MedicamentoId { get; set; }
         public int CantidadVendida { get; set; }
-        public double Precio { get; set; }
     }

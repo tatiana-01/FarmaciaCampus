@@ -34,15 +34,15 @@ public class PacienteRepository : GenericRepository<Paciente>, IPaciente
     public async Task<IEnumerable<object>> GetPacientesParacetamol(){
         var paracetamol = await _context.Medicamentos.FirstOrDefaultAsync(p=>p.Nombre.ToLower()=="paracetamol"); 
         //var ventasMedicamento= _context.MedicamentosVendidos.Where(p=>p.MedicamentoId==2);
-        var datos= from meds in _context.MedicamentosVendidos join venta in _context.Ventas on meds.VentaId equals venta.Id join paciente in _context.Pacientes on venta.PacienteId equals paciente.Id select new{
+        var datos= from meds in _context.MedicamentosVendidos join venta in _context.Ventas on meds.VentaId equals venta.Id join paciente in _context.Pacientes.Include(p=>p.Direccion).Include(p=>p.Usuario) on venta.PacienteId equals paciente.Id select new{
             medicamento=meds.MedicamentoId,
             Id=paciente.Id,
             Nombre= paciente.Nombre,
             NumIdentificacion=paciente.NumIdentificacion,
             Correo=paciente.Correo,
             Telefono=paciente.Telefono,
-            Direccion=_context.Direcciones.First(p=>p.Id==paciente.DireccionId),
-            Usuario=_context.Usuarios.First(p=>p.Id==paciente.UsuarioId)
+            Direccion=paciente.Direccion,
+            Usuario=paciente.Usuario
         } ;
         var Infopacientes= datos.Distinct().AsEnumerable().Where(p=>p.medicamento==paracetamol.Id);
    
