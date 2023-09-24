@@ -7,6 +7,7 @@ using ApiProyecto.Dtos.Ciudad;
 using ApiProyecto.Dtos.Departamento;
 using ApiProyecto.Dtos.Medicamento;
 using ApiProyecto.Dtos.Pais;
+using ApiProyecto.Dtos.Proveedor;
 using ApiProyecto.Dtos.Rol;
 using ApiProyecto.Dtos.Usuario;
 using ApiProyecto.Dtos.UsuarioRol;
@@ -61,6 +62,7 @@ public class MappingProfiles : Profile
     CreateMap<MedicamentoVenta, MedicamentoVentaPostDTO>().ReverseMap();
 
     CreateMap<Proveedor, ListaProveedorDto>().ReverseMap();
+    CreateMap<Proveedor, ProveedorMedicEnStockMenorDto>().ReverseMap();
 
   
 

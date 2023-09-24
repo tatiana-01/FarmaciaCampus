@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProyecto.Controllers;
-public class UsuariosController : BaseApiController
+public class UsuariosController : BaseApiControllerN
 {
     private readonly IUserService _userService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper mapper;
 
-    public UsuariosController(IUnitOfWork unitOfWork, IMapper mapper,IUserService userService) : base(unitOfWork, mapper)
+    public UsuariosController(IUnitOfWork unitOfWork, IMapper mapper,IUserService userService)
     {
         _userService = userService;
         this.mapper = mapper;

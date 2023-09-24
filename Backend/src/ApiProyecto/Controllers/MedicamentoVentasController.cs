@@ -44,7 +44,7 @@ public class MedicamentoVentasController : BaseApiControllerN
     }
 
     //CONSULTA PARA DETERMINAR TOTAL DE DINERO RECAUDADO POR TODAS LAS VENTAS DE MEDICAMENTOS
-    [HttpGet("TotalDeVentas")]
+    [HttpGet("TotalDeVentasRecaudado")]
     //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -68,6 +68,36 @@ public class MedicamentoVentasController : BaseApiControllerN
         totalVentaMedicamentoDto.PrecioTotalDeVentas = totalVentas;
 
         return _mapper.Map<TotalVentaMedicamentoDto>(totalVentaMedicamentoDto);
+    }
+
+    //CONSULTA PARA DETERMINAR EL TOTAL DE MEDICAMENTOS VENDIDOS POR MES EN UN DETERMINADO AÑO
+    [HttpGet("TotalDeMedicamentosVendidosEn/{fecha}")]
+    //[Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<TotalMedicamentosVendidosDTO>> GetTotalDeMedicVendidos(DateTime fecha)
+    {
+        var lstTotalDeMedicamentos = await _unitOfWork.MedicamentosVendidos.GetAllTotalMedicamentosVendidosAsync(fecha);
+
+        if ((lstTotalDeMedicamentos.Count() == 0) || (lstTotalDeMedicamentos == null))
+        {
+            throw new UnauthorizedAccessException("No se encontro ninguna medicamento vendido en esa fecha");
+        }
+
+        TotalMedicamentosVendidosDTO totalMedicamentosVendidosDTO = new();
+        var TotalMedic = 0;
+        foreach (var lstVentas in lstTotalDeMedicamentos)
+        {
+            foreach (var totalMedicamentos in lstVentas.MedicamentosVendidos)
+            {
+                TotalMedic += totalMedicamentos.CantidadVendida;   
+            }  
+        }
+        totalMedicamentosVendidosDTO.TotalDeMedicamentosVendidos = TotalMedic;
+
+        return _mapper.Map<TotalMedicamentosVendidosDTO>(totalMedicamentosVendidosDTO);
     }
 
 }

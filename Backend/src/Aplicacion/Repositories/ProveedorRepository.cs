@@ -16,14 +16,15 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedor
     {
         _context = context;
     }
-     public override async Task<IEnumerable<Proveedor>> GetAllAsync()
-     {
+    public override async Task<IEnumerable<Proveedor>> GetAllAsync()
+    {
         return await _context.Proveedores
             .Include(p =>p.Usuario)
             .Include(p =>p.Direccion)
             .ToListAsync();
-     }
-      public override async Task<Proveedor> GetByIdAsync(int id)
+    }
+
+    public override async Task<Proveedor> GetByIdAsync(int id)
     {
         return await _context.Proveedores
         .Include(e =>e.Usuario)
@@ -62,5 +63,24 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedor
         }
     
         return proveedores.AsEnumerable();
+    }
+
+    public async Task<IEnumerable<Proveedor>> GetAllProveedorMedicAsync()
+    {
+        var lstNumeroMedicProveedor = _context.Set<Proveedor>()
+        .Include(p => p.Medicamentos)
+        .ToListAsync();
+
+        return await lstNumeroMedicProveedor;
+    }
+
+    public async Task<IEnumerable<Proveedor>> GetAllProveedoreMedicMenosStockAsync(int stock)
+    {
+        var lstProveedoresMenosStock = _context.Set<Proveedor>()
+        .Include(p => p.Medicamentos)
+        .Where(p => p.Medicamentos.Any(p => p.Stock <= stock))
+        .ToListAsync();
+        
+        return await lstProveedoresMenosStock;
     }
 }
