@@ -89,7 +89,7 @@ namespace ApiProyecto.Controllers
             return NoContent();
         }
 
-        //ventas de cada empleado empleado
+        //ventas de cada empleado 2023
         [HttpGet("ventasporempleado")]
         //[Authorize]
         //[MapToApiVersion("1.1")]
@@ -104,13 +104,40 @@ namespace ApiProyecto.Controllers
             if (ventas == null) return NotFound();
             foreach (var item in ventas)
             {
+                item.Ventas=item.Ventas.Where(p => p.FechaVenta.Year == 2023).ToList();
                 EmpleadosVentas.Add(new{
-                    cantidadDeVentas=item.Ventas.Count,
+                    cantidadDeVentas = item.Ventas.Count,
                     InfoEmpleado=_mapper.Map<EmpleadoGetAllDTO>(item)
                 });
-                
             }
             return Ok(EmpleadosVentas.AsEnumerable());
         }
+
+
+        //Empleados con menos de 5 ventas 2023
+        [HttpGet("empleadosmenosde5ventas")]
+        //[Authorize]
+        //[MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<object>> GetEmpleadosVentas5()
+        {
+            List<object> EmpleadosVentas= new List<object>();
+            var ventas = _unitOfWork.Empleados.GetEmpleadosMenosDe5Ventas();
+            if (ventas == null) return NotFound();
+            foreach (var item in ventas)
+            {
+                item.Ventas=item.Ventas.Where(p => p.FechaVenta.Year == 2023).ToList();
+                EmpleadosVentas.Add(new{
+                    cantidadDeVentas = item.Ventas.Count,
+                    InfoEmpleado=_mapper.Map<EmpleadoGetAllDTO>(item)
+                });
+            }
+            return Ok(EmpleadosVentas.AsEnumerable());
+        }
+
+        
     }
 }

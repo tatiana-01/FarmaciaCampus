@@ -12,7 +12,8 @@ namespace ApiProyecto.Controllers
     public class ProveedorController : BaseApiController
     {
         private readonly IUserService _userService;
-        public ProveedorController(IUnitOfWork unitOfWork, IMapper mapper,IUserService userService) : base(unitOfWork, mapper){
+        public ProveedorController(IUnitOfWork unitOfWork, IMapper mapper, IUserService userService) : base(unitOfWork, mapper)
+        {
             _userService = userService;
         }
 
@@ -28,11 +29,11 @@ namespace ApiProyecto.Controllers
         }
 
         [HttpPost("register/{proveedorId:int}")]
-        public async Task<ActionResult> CrearUsuarioAPaciente(int proveedorId,RegisterDto registerDto )
+        public async Task<ActionResult> CrearUsuarioAPaciente(int proveedorId, RegisterDto registerDto)
         {
             //Numero entero equivalente a la categoria de Proveedor nescesario para crear un usuario
             int opcionProveedor = 3;
-            var result = await _userService.ResgisterAsync(registerDto,opcionProveedor,proveedorId);
+            var result = await _userService.ResgisterAsync(registerDto, opcionProveedor, proveedorId);
             return Ok(result);
         }
 
@@ -58,7 +59,7 @@ namespace ApiProyecto.Controllers
         public async Task<ActionResult> GetProveedorById(int id)
         {
             var proveedor = await _unitOfWork.Proveedores.GetByIdAsync(id);
-            if(proveedor is null) return NotFound();
+            if (proveedor is null) return NotFound();
             var proveedorMapeado = _mapper.Map<PersonaDTO>(proveedor);
             return Ok(proveedorMapeado);
         }
@@ -69,7 +70,7 @@ namespace ApiProyecto.Controllers
         public async Task<ActionResult> EditProveedor(int id, PersonaDTO dtoPersona)
         {
             bool existeProveedor = _unitOfWork.Proveedores.Exist(e => e.Id == id);
-            if(existeProveedor)
+            if (existeProveedor)
             {
                 var proveedor = _mapper.Map<Proveedor>(dtoPersona);
                 proveedor.Id = id;
@@ -89,6 +90,21 @@ namespace ApiProyecto.Controllers
 
             return NoContent();
         }
-       
+
+        //proveedor mas medicamentos en 2023
+        [HttpGet("masMedicamentos2023")]
+        //[Authorize]
+        //[MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<object>> GetProveedorMasMedicamentos2023()
+        {
+            var proveedores = _unitOfWork.Proveedores.GetProveedorMenosCompras();
+            //if (proveedores.IsNullOrEmpty()) return NotFound("No se encontraron proveedores");
+            return Ok(proveedores);
+        }
+
     }
 }

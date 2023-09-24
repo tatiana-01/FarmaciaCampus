@@ -38,6 +38,9 @@ public class EmpleadoRepository : GenericRepository<Empleado>, IEmpleado
         return empleados.AsEnumerable();
     }
 
-    
+    public IEnumerable<Empleado> GetEmpleadosMenosDe5Ventas(){
+        var ventasEmpleados = GetVentasEmpleados().Where(p => p.Ventas.AsEnumerable().Where(p => p.FechaVenta.Year == 2023).ToArray().Length < 5);
+        return ventasEmpleados.AsEnumerable();
+    }
     
 }

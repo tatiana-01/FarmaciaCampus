@@ -89,21 +89,22 @@ public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicament
         return medicamentos.AsEnumerable();
         }
         int cantidadVentas=0;
-        List<MedicamentoVenta> info= new List<MedicamentoVenta>();
+        List<(int CantidadVendida, int medicamento)> info= new List<(int,int)>();
               
         foreach (var ventas in medsVentasGroup)
         {
+            cantidadVentas=0;
             foreach (var venta in ventas)
             {
                 cantidadVentas+=venta.CantidadVendida;
             }
-            info.Add(new MedicamentoVenta(){ CantidadVendida = cantidadVentas, MedicamentoId = ventas.Key });
+            info.Add((cantidadVentas,ventas.Key));
         }
         var cantidadMinima=info.Select(x=>x.CantidadVendida).Min();
         var menor=info.Where(x=>x.CantidadVendida==cantidadMinima);
         foreach (var item in menor)
         {
-            var medicamento=_context.Medicamentos.FirstOrDefault(x=>x.Id==item.MedicamentoId);
+            var medicamento=_context.Medicamentos.FirstOrDefault(x=>x.Id==item.medicamento);
             medicamentos.Add(new{medicamentoId=medicamento.Id,Nombre=medicamento.Nombre,proveedor=_context.Proveedores.FirstOrDefault(p=>p.Id==medicamento.ProveedorId).Nombre,TotalVentas=cantidadMinima});
         }
     

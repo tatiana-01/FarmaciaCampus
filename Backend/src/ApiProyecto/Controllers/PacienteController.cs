@@ -102,10 +102,23 @@ namespace ApiProyecto.Controllers
         public async Task<ActionResult<IEnumerable<object>>> GetPacientesParacetamol()
         {
             var pacientes = (await _unitOfWork.Pacientes.GetPacientesParacetamol()).AsEnumerable();
-            foreach (PersonaDTO item in pacientes)
-            {
-                item.Direccion=_mapper.Map<DireccionDTO>(item.Direccion);
-            }
+            if (pacientes.IsNullOrEmpty()) return NotFound("No se encontro paciente");
+
+            return Ok(pacientes);
+        }
+
+        //Obtener gastos de pacientes en 2023.
+        [HttpGet("gastosPacientes2023")]
+        //[Authorize]
+        //[MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<List<object>> GetGastosPacientes2023()
+        {
+            var pacientes =  _unitOfWork.Pacientes.GetGastosPacientes();
+
             if (pacientes.IsNullOrEmpty()) return NotFound("No se encontro paciente");
 
             return Ok(pacientes);
