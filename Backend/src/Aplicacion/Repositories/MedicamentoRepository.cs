@@ -121,5 +121,25 @@ public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicament
         }
         return medicamentos.AsEnumerable();
     }
-      
+  
+    public async Task<IEnumerable<Proveedor>> GetAllProveedorContacto()
+    {
+        var lstProveedorConct = _context.Set<Proveedor>()
+        .Include(p => p.Medicamentos)
+        .Where(p => !((p.Medicamentos == null) || (p.Medicamentos.Count() == 0)))
+        .ToListAsync();
+
+        return await lstProveedorConct; 
+    }
+
+    public async Task<Medicamento> GetByNombreMedicamento(string medicamento)
+    {
+        var lstMedicamentoVenta = _context.Set<Medicamento>()
+        .Include(p => p.MedicamentosVendidos)
+        .Where(p => p.Nombre.ToLower() == medicamento.ToLower())
+        .FirstOrDefaultAsync();
+
+        return await lstMedicamentoVenta;
+    }
+
 }

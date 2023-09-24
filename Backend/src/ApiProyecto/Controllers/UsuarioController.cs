@@ -2,17 +2,16 @@ using ApiProyecto.Dtos.Usuario;
 using ApiProyecto.Helpers;
 using ApiProyecto.Services;
 using AutoMapper;
-using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProyecto.Controllers;
-    public class UsuariosController : BaseApiController
-    {
-       private readonly IUserService _userService;
-       private readonly IUnitOfWork _unitOfWork;
+public class UsuariosController : BaseApiController
+{
+    private readonly IUserService _userService;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper mapper;
 
     public UsuariosController(IUnitOfWork unitOfWork, IMapper mapper,IUserService userService) : base(unitOfWork, mapper)
@@ -23,10 +22,14 @@ namespace ApiProyecto.Controllers;
     }
 
     [HttpPost("register")]
-       public async Task<ActionResult> RegisterAsync(RegisterDto model){
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> RegisterAsync(RegisterDto model){
         var result = await _userService.ResgisterAsync(model);
         return Ok(result);
-       }
+    }
 
     //METODO POST PARA OBTENER EL TOKEN 
     [HttpPost("token")]
@@ -35,8 +38,9 @@ namespace ApiProyecto.Controllers;
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTokenAsync(LoginDto model){
-    var result = await _userService.GetTokenAsync(model);
-    return Ok(result);
+        var result = await _userService.GetTokenAsync(model);
+        SetRefreshTokenInCookie(result.RefreshToken); //activar la cookie con el refreshToken
+        return Ok(result);
     }
 
     //METODO POST PARA AÑADIR UN ROL 
@@ -60,8 +64,10 @@ namespace ApiProyecto.Controllers;
     {
         var refreshToken = Request.Cookies["refreshToken"];
         var response = await _userService.RefreshTokenAsync(refreshToken);
+        
         if (!string.IsNullOrEmpty(response.RefreshToken))
             SetRefreshTokenInCookie(response.RefreshToken);
+
         return Ok(response);
     }
 

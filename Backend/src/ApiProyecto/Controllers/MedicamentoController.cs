@@ -133,6 +133,56 @@ public class MedicamentoController:BaseApiControllerN
         return NoContent();
     }
 
+    //CONSULTA PARA GENERAR LA LISTA DE PROVEEDORES CON SU TELEFONO Y MEDICAMENTOS
+    [HttpGet("LstProveedores")]
+    //[Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<List<ListaProveedorDto>>> GetListaProveedor()
+    {
+        var lstProveedores = await _unitOfWork.Medicamentos.GetAllProveedorContacto();
+        return this.mapper.Map<List<ListaProveedorDto>>(lstProveedores);
+    }
+
+    //CONSULTA PARA OBTENER EL TOTAL DE LAS VENTAS DE UN MEDICAMENTO
+    [HttpGet("TotalVentasMeidc/{medicamento}")]
+    //[Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<TotalVentaMedicDto>> GetTotalVentaMedic(string medicamento)
+    {
+        if (!string.IsNullOrEmpty(medicamento))
+        {
+            throw new UnauthorizedAccessException("ingrese un medicamento a buscar");
+        }
+
+        TotalVentaMedicDto totalVentaMedicDto = new TotalVentaMedicDto();
+        var lstVentaMedicamento = await _unitOfWork.Medicamentos.GetByNombreMedicamento(medicamento);
+
+        if (lstVentaMedicamento == null)
+        {
+            throw new UnauthorizedAccessException("No se encontro el medicamento, revise el nombre");
+        }
+
+        var PrecioVentas = 0.0;
+        var TotalVendidos = 0;
+        foreach (var item in lstVentaMedicamento.MedicamentosVendidos)
+        {
+            PrecioVentas += item.Precio;
+            TotalVendidos += item.CantidadVendida;
+        }
+        totalVentaMedicDto.Id = lstVentaMedicamento.Id;
+        totalVentaMedicDto.Nombre = lstVentaMedicamento.Nombre;
+        totalVentaMedicDto.TotalVendidos = TotalVendidos;
+        totalVentaMedicDto.PrecioVenta = PrecioVentas;
+
+        return this.mapper.Map<TotalVentaMedicDto>(totalVentaMedicDto);
+    }
+
     [HttpGet("medicamentosMenosde50Unidades")]
     public async Task<ActionResult> GetMedicamentosMenos50Unidades()
     {

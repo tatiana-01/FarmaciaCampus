@@ -32,6 +32,7 @@ public class MappingProfiles : Profile
 
     CreateMap<Medicamento, MedicamentoDto>().ReverseMap();
     CreateMap<Medicamento, MedicamentoXcompraXventaDto>().ReverseMap();
+    CreateMap<Medicamento, NombreMedicamentoDto>().ReverseMap();
 
     CreateMap<Rol, RolDto>().ReverseMap();
     CreateMap<Rol, RolXusuarioDto>().ReverseMap();
@@ -40,7 +41,6 @@ public class MappingProfiles : Profile
     CreateMap<Usuario, UsuarioXrolDto>().ReverseMap();
 
     CreateMap<UsuarioRol, UsuarioRolDto>().ReverseMap();
-
 
     CreateMap<Compra, CompraDTO>().ReverseMap();
     CreateMap<Compra, CompraPostDTO>().ReverseMap();
@@ -59,6 +59,9 @@ public class MappingProfiles : Profile
     //CreateMap<MedicamentoVenta, MedicamentoVentaGetAllDTO>().ReverseMap();
     CreateMap<MedicamentoVenta, MedicamentoVentaDTO>().ReverseMap();
     CreateMap<MedicamentoVenta, MedicamentoVentaPostDTO>().ReverseMap();
+
+    CreateMap<Proveedor, ListaProveedorDto>().ReverseMap();
+
   
 
     CreateMap<Empleado,EmpleadoCreationDTO>().ReverseMap();

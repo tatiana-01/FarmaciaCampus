@@ -9,5 +9,7 @@ public interface IMedicamento : IGeneric<Medicamento>
     IEnumerable<object> GetMenosVendido();
     IEnumerable<Medicamento> GetNuncaVendido();
     
+    Task<IEnumerable<Proveedor>> GetAllProveedorContacto();
+    Task<Medicamento> GetByNombreMedicamento(string medicamento);
         
 }
