@@ -45,5 +45,32 @@ public class VentaRepository : GenericRepository<Venta>, IVenta
         _context.Set<Venta>().Remove(entity);
     }
 
+    public async Task<IEnumerable<Venta>> GetAllMedicamentoPorFechaAsync(DateTime fecha)
+    {
+        return await _context.Set<Venta>()
+        .Include(p => p.MedicamentosVendidos)
+        .Where(p => ((p.FechaVenta.Year == fecha.Date.Year) && (p.FechaVenta.Month == fecha.Date.Month)))
+        .ToListAsync();
+    }
 
+    public async Task<IEnumerable<Empleado>> GetAllEmpleadoMasVentasAsync(int ventas)
+    {
+        var lstEmpleadosMasVentas = _context.Set<Empleado>()
+        .Include(p => p.Ventas)
+        .Where(p => p.Ventas.Count() >= ventas)
+        .ToListAsync();
+
+        return await lstEmpleadosMasVentas;
+    }
+
+    public async Task<IEnumerable<Empleado>> GetAllEmpleadoSinVentasAsync(DateTime year)
+    {
+        var lstEmpleadosSinVentas = _context.Set<Empleado>()
+        .Include(p => p.Ventas)
+        .Where(p => p.Ventas.Count() != 0)
+        .Where(p => !p.Ventas.Any(p => (p.FechaVenta.Year == year.Date.Year)))
+        .ToListAsync();
+
+        return await lstEmpleadosSinVentas;
+    }
 }

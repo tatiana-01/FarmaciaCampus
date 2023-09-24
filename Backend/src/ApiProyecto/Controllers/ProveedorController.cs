@@ -123,6 +123,31 @@ namespace ApiProyecto.Controllers
             
             return _mapper.Map<List<ProveedorXmedicamentoDto>>(numeroMedicProvee);
         }
+
+        //CONSULTA PARA DETERMINA EL MUNERO DE PROVEEDORES DE MEDICAMENTOS CON UN STOCK MENOR VARIABLE
+        [HttpGet("ProveedoresDeMedicaStockMenorA/{stock}")]
+        //[Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<ProveedorMedicEnStockMenorDto>>> GetProvvedorMenorStock(int stock)
+        {
+            if (int.IsNegative(stock)) 
+            {
+                throw new UnauthorizedAccessException("El stock ingresado es negativo o no existe.");
+            }
+
+            var lstProveeSinStock = await _unitOfWork.Proveedores.GetAllProveedoreMedicMenosStockAsync(stock);
+
+            if ((lstProveeSinStock.Count() == 0) || (lstProveeSinStock == null))
+            {
+                throw new UnauthorizedAccessException("No se encontro ningun Proveedor con ese Stock");
+            }
+
+            return _mapper.Map<List<ProveedorMedicEnStockMenorDto>>(lstProveeSinStock);
+        }
+
        
     }
 }
