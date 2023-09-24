@@ -66,6 +66,7 @@ public class MappingProfiles : Profile
 
     CreateMap<Empleado,EmpleadoCreationDTO>().ReverseMap();
     CreateMap<Empleado,EmpleadoDTO>().ReverseMap();
+    CreateMap<Empleado,EmpleadoGetAllDTO>().ReverseMap();
 
     CreateMap<Direccion,DireccionCreationDTO>().ReverseMap();
     CreateMap<Direccion,DireccionDTO>().ReverseMap();

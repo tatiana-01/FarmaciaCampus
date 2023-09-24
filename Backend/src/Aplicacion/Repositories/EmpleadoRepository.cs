@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using MySqlConnector;
 using Persistencia;
 
 namespace Aplicacion.Repositories;
@@ -29,6 +31,16 @@ public class EmpleadoRepository : GenericRepository<Empleado>, IEmpleado
         .Include(e =>e.Usuario)
         .Include(e =>e.Direccion)
         .FirstOrDefaultAsync(e =>e.Id == id);   
+    }
+
+    public IEnumerable<Empleado> GetVentasEmpleados(){
+       var empleados= _context.Empleados.Include(p=>p.Direccion).Include(p=>p.Direccion).Include(p=>p.Ventas).ThenInclude(p=>p.MedicamentosVendidos);
+        return empleados.AsEnumerable();
+    }
+
+    public IEnumerable<Empleado> GetEmpleadosMenosDe5Ventas(){
+        var ventasEmpleados = GetVentasEmpleados().Where(p => p.Ventas.AsEnumerable().Where(p => p.FechaVenta.Year == 2023).ToArray().Length < 5);
+        return ventasEmpleados.AsEnumerable();
     }
     
 }

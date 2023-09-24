@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dominio.Entities;
-    public class UsuarioRol:BaseEntity
+    public class UsuarioRol
     {
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
