@@ -12,7 +12,7 @@ namespace ApiProyecto.Controllers
     public class EmpleadoController : BaseApiController
     {
         private readonly IUserService _userService;
-        public EmpleadoController(IUnitOfWork unitOfWork, IMapper mapper , IUserService userService) : base(unitOfWork, mapper)
+        public EmpleadoController(IUnitOfWork unitOfWork, IMapper mapper, IUserService userService) : base(unitOfWork, mapper)
         {
             _userService = userService;
         }
@@ -28,10 +28,10 @@ namespace ApiProyecto.Controllers
         }
 
         [HttpPost("register/{empleadoId:int}")]
-        public async Task<ActionResult> CrearUsuarioAEmpleado(int empleadoId,RegisterDto registerDto )
+        public async Task<ActionResult> CrearUsuarioAEmpleado(int empleadoId, RegisterDto registerDto)
         {
             int opcionEmpleado = 1;
-            var result = await _userService.ResgisterAsync(registerDto,opcionEmpleado,empleadoId);
+            var result = await _userService.ResgisterAsync(registerDto, opcionEmpleado, empleadoId);
             return Ok(result);
         }
 
@@ -57,7 +57,7 @@ namespace ApiProyecto.Controllers
         public async Task<ActionResult> GetEmpleadoById(int id)
         {
             var empleado = await _unitOfWork.Empleados.GetByIdAsync(id);
-            if(empleado is null) return NotFound();
+            if (empleado is null) return NotFound();
             var empleadoMapaeado = _mapper.Map<EmpleadoDTO>(empleado);
             return Ok(empleadoMapaeado);
         }
@@ -88,5 +88,56 @@ namespace ApiProyecto.Controllers
 
             return NoContent();
         }
+
+        //ventas de cada empleado 2023
+        [HttpGet("ventasporempleado")]
+        //[Authorize]
+        //[MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<object>> GetventasPorEmpleado()
+        {
+            List<object> EmpleadosVentas= new List<object>();
+            var ventas = _unitOfWork.Empleados.GetVentasEmpleados();
+            if (ventas == null) return NotFound();
+            foreach (var item in ventas)
+            {
+                item.Ventas=item.Ventas.Where(p => p.FechaVenta.Year == 2023).ToList();
+                EmpleadosVentas.Add(new{
+                    cantidadDeVentas = item.Ventas.Count,
+                    InfoEmpleado=_mapper.Map<EmpleadoGetAllDTO>(item)
+                });
+            }
+            return Ok(EmpleadosVentas.AsEnumerable());
+        }
+
+
+        //Empleados con menos de 5 ventas 2023
+        [HttpGet("empleadosmenosde5ventas")]
+        //[Authorize]
+        //[MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<object>> GetEmpleadosVentas5()
+        {
+            List<object> EmpleadosVentas= new List<object>();
+            var ventas = _unitOfWork.Empleados.GetEmpleadosMenosDe5Ventas();
+            if (ventas == null) return NotFound();
+            foreach (var item in ventas)
+            {
+                item.Ventas=item.Ventas.Where(p => p.FechaVenta.Year == 2023).ToList();
+                EmpleadosVentas.Add(new{
+                    cantidadDeVentas = item.Ventas.Count,
+                    InfoEmpleado=_mapper.Map<EmpleadoGetAllDTO>(item)
+                });
+            }
+            return Ok(EmpleadosVentas.AsEnumerable());
+        }
+
+        
     }
 }

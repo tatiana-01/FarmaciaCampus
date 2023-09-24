@@ -22,7 +22,7 @@ public class UsuarioRolController : BaseApiControllerN
 
     //METODO GET (Para obtener paginacion, registro y busqueda en la entidad)
     [HttpGet("Pagina")]
-    [Authorize]
+    //[Authorize]
     [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -39,7 +39,7 @@ public class UsuarioRolController : BaseApiControllerN
 
     //METODO GET POR ID (Traer un solo registro de la entidad de la  Db)
     [HttpGet("{idUsuario}/{idRol}")]
-    [Authorize]
+    //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -57,7 +57,7 @@ public class UsuarioRolController : BaseApiControllerN
 
     //METODO POST (para enviar registros a la entidad de la Db)
     [HttpPost]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,7 +77,7 @@ public class UsuarioRolController : BaseApiControllerN
 
     //METODO PUT (editar un registro de la entidad de la Db)
     [HttpPut("{idUsuario}/{idRol}")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -99,7 +99,7 @@ public class UsuarioRolController : BaseApiControllerN
 
     //METODO DELETE (Eliminar un registro de la entidad de la Db)
     [HttpDelete("{idUsuario}/{idRol}")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

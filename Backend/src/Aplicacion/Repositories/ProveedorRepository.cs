@@ -32,6 +32,39 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedor
         .FirstOrDefaultAsync(e =>e.Id == id);   
     }
 
+
+    public IEnumerable<object> GetProveedorMenosCompras(){
+        var compras2023= _context.Compras.Include(p=>p.MedicamentosComprados).Where(p=>p.FechaCompra.Year==2023);
+        List<object> proveedores= new List<object>();  
+        //if(compras2023==null) return 0;
+        var ComprasGroup=compras2023.GroupBy(x=>x.ProveedorId);
+        int cantidadCompras=0;
+        List<(int CantidadComprada, int Proveedor)> info = new List<(int, int)>();
+              
+        foreach (var compras in ComprasGroup)
+        {
+            cantidadCompras=0;
+            foreach (var compra in compras)
+            {
+                foreach (var item in compra.MedicamentosComprados)
+                {
+                    cantidadCompras+=item.CantidadComprada;
+                }
+            }
+           info.Add((cantidadCompras,compras.Key));
+        }
+       int cantidadMaxima=info.Max(x=>x.CantidadComprada);
+ 
+        var maximo=info.Where(x => x.CantidadComprada==cantidadMaxima);
+        foreach (var item in maximo)
+        {
+            var proveedor=_context.Proveedores.Include(p=>p.Direccion).FirstOrDefault(x=>x.Id==item.Proveedor);
+            proveedores.Add(new{proveedorId=proveedor.Id,Nombre=proveedor.Nombre,TotalMedicamentosSuministrados=cantidadMaxima});
+        }
+    
+        return proveedores.AsEnumerable();
+    }
+
     public async Task<IEnumerable<Proveedor>> GetAllProveedorMedicAsync()
     {
         var lstNumeroMedicProveedor = _context.Set<Proveedor>()

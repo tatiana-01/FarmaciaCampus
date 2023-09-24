@@ -1,3 +1,4 @@
+using ApiProyecto.Dtos;
 using ApiProyecto.Dtos.Medicamento;
 using ApiProyecto.Helpers;
 using AutoMapper;
@@ -5,6 +6,7 @@ using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiProyecto.Controllers;
 [ApiVersion("1.0")] //obtner los Medicamentos
@@ -196,5 +198,88 @@ public class MedicamentoController : BaseApiControllerN
         });
         return Ok(result);
     }
+
+    //Obtener medicamentos por proveedor
+    [HttpGet("proveedor/{proveedor}")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<MedicamentoDto>>> GetMedsByProveedor( string proveedor)
+    {
+        var medicamentos = await _unitOfWork.Medicamentos.GetMedicamentosByProveedor(proveedor);
+        if (medicamentos==null) return NotFound("No se encontro el proveedor");
+        var medicamentosDTO=mapper.Map<IEnumerable<MedicamentoDto>>(medicamentos);
+        return Ok(medicamentosDTO);
+    }
+
+    //Obtener medicamentos vencen antes del 1 de enero de 2024.
+    [HttpGet("vencenantesde2024")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<MedicamentoDto>> GetMedsexpiresBefore2024( )
+    {
+        var medicamentos = _unitOfWork.Medicamentos.Find(p=>p.FechaExpiracion.CompareTo(new DateTime(2024,01,01))<0);
+        if (medicamentos.IsNullOrEmpty()) return NotFound("No se encontraron medicamentos con fecha de expiracion anterior a 1 de Enero de 2024");
+        var medicamentosDTO=mapper.Map<IEnumerable<MedicamentoDto>>(medicamentos);
+        return Ok(medicamentosDTO);
+    }
+
+      //Obtener medicamentos que no se han vendidos.
+    [HttpGet("novendidos")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<MedicamentoDto>> GetMedsNoVendidos( )
+    {
+        var medicamentos = _unitOfWork.Medicamentos.Find(p=>p.Stock>0);
+        if (medicamentos.IsNullOrEmpty()) return NotFound("Todos los medicamentos se han vendido");
+        var medicamentosDTO=mapper.Map<IEnumerable<MedicamentoDto>>(medicamentos);
+        return Ok(medicamentosDTO);
+    }
+
+    //menos vendido en 2023
+    [HttpGet("menosvendido2023")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<object>> GetMenosVendido( )
+    {
+        var medicamentos = _unitOfWork.Medicamentos.GetMenosVendido();
+        if (medicamentos==null) return NotFound("No se encontraron medicamentos");
+        return Ok(medicamentos);
+    }
+
+     //medicamentos nunca vendidos
+    [HttpGet("nuncaVendido")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<MedicamentoDto>> GetNuncaVendido( )
+    {
+        var medicamentos = _unitOfWork.Medicamentos.GetNuncaVendido();
+        if (medicamentos.IsNullOrEmpty()) return NotFound("No se encontraron medicamentos");
+        return Ok(this.mapper.Map<IEnumerable<MedicamentoDto>>(medicamentos.AsEnumerable()));
+    }
+
+     
+
+
+
 
 }

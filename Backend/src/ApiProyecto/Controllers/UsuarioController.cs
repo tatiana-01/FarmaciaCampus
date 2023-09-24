@@ -83,7 +83,7 @@ public class UsuariosController : BaseApiControllerN
 
     //METODO GET PARA OBTENER LOS USUARIOS REGISTRADOS
     [HttpGet]
-    [Authorize(Roles ="Empleado")]
+    //[Authorize(Roles ="Empleado")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

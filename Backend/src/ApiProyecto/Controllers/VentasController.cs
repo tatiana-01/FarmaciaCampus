@@ -28,7 +28,8 @@ public class VentasController : BaseApiControllerN
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<VentaDTO>> Post(VentaPostDTO VentaDTO)
     {
-        foreach (var item in VentaDTO.MedicamentosVendidos)
+        var venta = _mapper.Map<Venta>(VentaDTO);
+        foreach (var item in venta.MedicamentosVendidos)
         {
             var medicamento = _unitOfWork.Medicamentos.GetByIdAsync(item.MedicamentoId);
             if (medicamento.Result.Stock < item.CantidadVendida) return BadRequest(
@@ -38,8 +39,8 @@ public class VentasController : BaseApiControllerN
                 }
             );
             medicamento.Result.Stock -= item.CantidadVendida;
+            item.Precio=medicamento.Result.Precio*item.CantidadVendida;
         }
-        var venta = _mapper.Map<Venta>(VentaDTO);
         _unitOfWork.Ventas.Add(venta);
         if (venta == null) return BadRequest();
         await _unitOfWork.SaveAsync();
