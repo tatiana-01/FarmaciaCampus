@@ -91,6 +91,22 @@ namespace ApiProyecto.Controllers
             return NoContent();
         }
 
+         //Obtener pacientes que hayan comprado medicamento en 2023
+        [HttpGet("pacienteNoMedicamento2023")]
+        //[Authorize]
+        //[MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<PersonaDTO>>> GetPacientesNoMedicamento2023()
+        {
+            var pacientes = await _unitOfWork.Pacientes.GetPacienteNingunaCompra2023();
+            if (pacientes.IsNullOrEmpty()) return NotFound("No se encontro paciente");
+
+            return Ok(_mapper.Map<IEnumerable<PersonaDTO>>(pacientes));
+        }
+
         //Obtener pacientes que hayan comprado paracetamol.
         [HttpGet("pacienteParacetamol")]
         //[Authorize]
@@ -117,11 +133,20 @@ namespace ApiProyecto.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<object>> GetGastosPacientes2023()
         {
+            List<object> resultado= new List<object>();
             var pacientes =  _unitOfWork.Pacientes.GetGastosPacientes();
+            foreach (var item in pacientes)
+            {
+                var paciente=_unitOfWork.Pacientes.GetByIdAsync(item.paciente).Result;
+                resultado.Add(new{
+                    infoPaciente=_mapper.Map<PersonaDTO>(paciente),
+                    TotalGastado=item.CantidadGastado
+                });
 
+            }
             if (pacientes.IsNullOrEmpty()) return NotFound("No se encontro paciente");
 
-            return Ok(pacientes);
+            return Ok(resultado);
         }
     }
 }

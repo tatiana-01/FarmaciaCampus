@@ -142,4 +142,27 @@ public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicament
         return await lstMedicamentoVenta;
     }
 
+    public (List<(int CantidadVendida, int medicamento)> lstInfo,int total) GetMedicamentosPrimerTrimestre2023()
+    {
+        int cantidadVentaMed=0;
+        int cantidadTotal=0;
+        List<(int CantidadVendida, int medicamento)> info= new ();
+        var lstMedicamentoVentaPorMedicamentoId = _context.MedicamentosVendidos
+        .Include(p=>p.Venta)
+        .Where(p=>p.Venta.FechaVenta.CompareTo(new DateTime(2023,04,01))<0)
+        .GroupBy(p=>p.MedicamentoId);
+
+        foreach (var medicamentoVenta in lstMedicamentoVentaPorMedicamentoId)
+        {
+            cantidadVentaMed=0;
+            foreach (var venta in medicamentoVenta)
+            {
+                cantidadVentaMed+=venta.CantidadVendida;
+            }
+            cantidadTotal+=cantidadVentaMed;
+            info.Add((cantidadVentaMed,medicamentoVenta.Key));
+        }
+
+        return (info,cantidadTotal);
+    }
 }

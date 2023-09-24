@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Persistencia;
 public class FarmaciaContext : DbContext
 {
+    public FarmaciaContext()
+    {
+    }
+
     public FarmaciaContext(DbContextOptions<FarmaciaContext> options) : base(options)
     {
 

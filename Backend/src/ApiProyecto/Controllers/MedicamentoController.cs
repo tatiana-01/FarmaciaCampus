@@ -277,6 +277,35 @@ public class MedicamentoController:BaseApiControllerN
         return Ok(this.mapper.Map<IEnumerable<MedicamentoDto>>(medicamentos.AsEnumerable()));
     }
 
+    //total medicamento vendidos en el primer trimestre del 2023
+    [HttpGet("medicamentosTrimestre2023")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<object>> GetMedicamentosTrimestre2023( )
+    {
+        var medicamentos = _unitOfWork.Medicamentos.GetMedicamentosPrimerTrimestre2023();
+        List<object> medicamentosVentas=new();
+        if (medicamentos.lstInfo.IsNullOrEmpty()) return NotFound("No se encontraron medicamentos");
+        foreach (var item in medicamentos.lstInfo)
+        {
+            var med=_unitOfWork.Medicamentos.GetByIdAsync(item.medicamento).Result;
+            medicamentosVentas.Add(new{
+                infoMedicamento=mapper.Map<MedicamentoDto>(med),
+                cantidadVendidad=item.CantidadVendida
+            });
+        }
+        medicamentosVentas.Add(new{
+            TotalMedicamentosVendidos=medicamentos.total
+        });
+        return Ok(medicamentosVentas);
+    }
+
+    
+
      
 
 
