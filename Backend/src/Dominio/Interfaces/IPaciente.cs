@@ -4,7 +4,7 @@ namespace Dominio.Interfaces;
 public interface IPaciente : IGeneric<Paciente>
 {
     //nuevos metodos
-    Task<IEnumerable<dynamic>> GetPacientesParacetamol();
-    IEnumerable<Paciente> GetPacienteNingunaCompra2023();
-    List<object> GetGastosPacientes();
+    Task<IEnumerable<object>> GetPacientesParacetamol();
+    Task<IEnumerable<Paciente>> GetPacienteNingunaCompra2023();
+    List<(double CantidadGastado, int paciente)> GetGastosPacientes();
 }
