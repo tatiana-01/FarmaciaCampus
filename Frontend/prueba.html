@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./Inicio/js/bootstrap.js"></script>
     <link rel="stylesheet" href="./Inicio/css/bootstrap.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="./app.js" type="module"></script>
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container mt-5" id="ventaFrm">
+    <div class="container mt-5 mb-5" id="ventaFrm">
         <div class="card">
 
             <div class="card-header ">
@@ -50,34 +51,34 @@
                             <div class="productos">
                                 <div id="productos0" class="productoFrm">
                                     <div class="row " id="div0">
-                                        <div class="col-3">
+                                        <div class="col-md-3">
                                             <label for="nombreProducto" class="form-label">Nombre del producto</label>
                                             <select class="custom-select" id="selectProducto">
                                                 <option value="0" selected>Seleccione una opcion</option>;
                                             </select>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-md-2">
                                             <label for="valor" class="form-label">Valor</label>
                                             <input type="number" class="form-control" id="valor0" readonly>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-md-2">
                                             <label for="cantidad" class="form-label">Cantidad</label>
                                             <input type="number" class="form-control" id="cantidad0" readonly>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-md-2">
                                             <label for="total" class="form-label">Total</label>
                                             <input type="number" class="form-control" id="total0" readonly>
                                         </div>
-                                        <div class="col-1  botones text-center">
+                                        <div class="col-md-1 botones text-center">
                                             <button class="btn btn-success boton-mas" id="mas0"
                                                 data-producto="0">+</button>
                                         </div>
-                                        <div class="col-1 botones">
+                                        <div class="col-md-1 botones">
                                             <button class="btn btn-warning boton-menos" id="menos0"
                                                 data-producto="0">-</button>
                                         </div>
-                                        <div class="col-1 botones">
-                                            <img src="./img/1017530.png" class="eliminar" id="eliminar0"
+                                        <div class="col-md-1 botones">
+                                            <img src="./Inicio/images/1017530.png" class="eliminar" id="eliminar0"
                                                 data-producto="0" alt="" srcset="">
                                         </div>
                                     </div>
@@ -98,6 +99,8 @@
 
         </div>
     </div>
+
+    <frm-paciente></frm-paciente>
 
 </body>
 

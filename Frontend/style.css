@@ -580,7 +580,57 @@ main .btn-send:hover {
 /* MAIN */
 /* CONTENT */
 
+.botones{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
 
+.card-productos{
+    height: 25rem;
+    overflow-y: scroll;
+}
+
+.eliminar{
+    width:2.5rem;
+}
+
+.eliminar:hover{
+    cursor: pointer;
+}
+
+.productoFrm{
+    border: 2px dashed #65636b;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 25px;
+}
+
+.row{
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner{
+    border: 1px solid #bdbcc0;
+    border-radius: 10px 10px 0 0;
+}
+
+.products-table{
+    border: 1px solid #bdbcc0;
+    border-radius: 0 0 10px 10px;
+}
+
+#nroFactura{
+    padding: 6px;
+    border-radius: 22px;
+    background-color: #bdbcc0;
+}
 
 
 
