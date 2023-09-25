@@ -189,6 +189,11 @@ img {
     border: none !important;
 }
 
+.lista{
+    display: flex;
+    justify-content: flex-end ;
+}
+
 .badge {
     font-weight: 500;
 }
@@ -226,7 +231,7 @@ button {
 }
 
 .logo {
-    width: 42%;
+    width: 20%;
     float: left;
 }
 
@@ -251,10 +256,19 @@ button {
     color: #15e4d0;
 }
 
+
+
 .banner_section {
     width: 100%;
     float: left;
     padding-bottom: 105px;
+     background-image: url(../images/banner-bg.png);
+}
+
+.loginImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .images_1 {
@@ -607,7 +621,7 @@ button {
 }
 
 .daily_text {
-    width: 40%;
+    width: 60%;
     margin: 0 auto;
     text-align: center;
     font-weight: bold;
@@ -976,4 +990,9 @@ input.Enter_text::placeholder {
 
 .margin_90 {
     margin: 90px 0px;
+}
+
+.menuFooter{
+    font-size: 16px;
+    color: #d6d6d6;
 }
