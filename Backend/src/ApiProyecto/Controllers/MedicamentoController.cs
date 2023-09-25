@@ -24,7 +24,7 @@ public class MedicamentoController : BaseApiControllerN
 
     //METODO GET (obtener todos los registros)
     [HttpGet]
-    [Authorize]
+    //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -199,7 +199,54 @@ public class MedicamentoController : BaseApiControllerN
         return Ok(result);
     }
 
-    //Obtener medicamentos por proveedor
+    [HttpGet("totalMedsVendidosPorProveedor")]
+    public ActionResult GetMedsPorProveedor()
+    {
+        var result = _unitOfWork.Compras.MedsVendidiosPorProveedor();
+        return Ok(result);
+    }
+    [HttpGet("medicamentoMasCaro")]
+    public async Task<ActionResult> GetMedMasCaro()
+    {
+        var medicamentos = await _unitOfWork.Medicamentos.GetAllAsync();
+        var result = medicamentos.OrderByDescending(m =>m.Precio).Take(1);
+        return Ok(result);
+    }
+
+    [HttpGet("expiranEn2024")]
+    public ActionResult GetMedsExpiranEn2024()
+    {
+        var medicamentos = _unitOfWork.Medicamentos.Find(m =>m.FechaExpiracion.Year == new DateTime(2024,1,1).Year);
+        if(medicamentos is null )return NotFound();
+        var result = medicamentos.Select(m =>new{
+            m.Id,
+            m.Nombre,
+            m.Precio,
+            m.FechaExpiracion,
+            m.Stock,
+            m.ProveedorId
+        });
+        return Ok(result);
+    }
+
+    [HttpGet("vendidosPorMesEn2023")]
+     public ActionResult MedicamentosVendidosPorMesEn2023()
+     {
+        var result = _unitOfWork.MedicamentosVendidos.MedicamentosVenndidosPorMesEn2023();
+        if(result is null) return NotFound();
+        return Ok(result);
+     }
+
+     [HttpGet("NoSeVendieronEn2023")]
+     public ActionResult MedicamentosNoVendidos2023()
+     {
+        var result = _unitOfWork.MedicamentosVendidos.MedicamentosNoVendidos2023();
+        if(result is null) return NotFound();
+
+        return Ok(result);
+     }
+
+         //Obtener medicamentos por proveedor
     [HttpGet("proveedor/{proveedor}")]
     //[Authorize]
     //[MapToApiVersion("1.1")]
@@ -277,14 +324,29 @@ public class MedicamentoController : BaseApiControllerN
         return Ok(this.mapper.Map<IEnumerable<MedicamentoDto>>(medicamentos.AsEnumerable()));
     }
 
-    //total medicamento vendidos en el primer trimestre del 2023
-    [HttpGet("medicamentosTrimestre2023")]
+    //CONSULTA PAA DETERMINAR LOS MEDICAMENTOS CON UN PRECIO MAYOA A Y UN STOCK MENOR A 
+    [HttpGet("MedicMayorPrecioMenorStock/{mayorPrecio}/{menorStock}")]
     //[Authorize]
-    //[MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<List<MedicamentoDto>>> GetMedicamentoPrecioStock(Double mayorPrecio, int menorStock)
+    {
+        var lstMedicamentos = await _unitOfWork.Medicamentos.GetAllMedicamentosMayorPrecioMenorStock(mayorPrecio, menorStock);
+
+        if (lstMedicamentos == null)
+        {
+            throw new UnauthorizedAccessException("No se encontro ningun medicamento con esas expecificaciones");
+        }
+
+        return this.mapper.Map<List<MedicamentoDto>>(lstMedicamentos);
+    }
+
+    //total medicamento vendidos en el primer trimestre del 2023
+    [HttpGet("medicamentosTrimestre2023")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
     public ActionResult<IEnumerable<object>> GetMedicamentosTrimestre2023( )
     {
         var medicamentos = _unitOfWork.Medicamentos.GetMedicamentosPrimerTrimestre2023();
@@ -303,12 +365,6 @@ public class MedicamentoController : BaseApiControllerN
         });
         return Ok(medicamentosVentas);
     }
-
-    
-
-     
+}    
 
 
-
-
-}

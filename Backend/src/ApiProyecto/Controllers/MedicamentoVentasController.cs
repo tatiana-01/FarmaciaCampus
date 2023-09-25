@@ -9,6 +9,7 @@ using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiProyecto.Controllers;
 public class MedicamentoVentasController : BaseApiControllerN
@@ -43,7 +44,18 @@ public class MedicamentoVentasController : BaseApiControllerN
         return _mapper.Map<MedicamentoVentaDTO>(medicamentoVenta);
     }
 
-    //CONSULTA PARA DETERMINAR TOTAL DE DINERO RECAUDADO POR TODAS LAS VENTAS DE MEDICAMENTOS
+        [HttpGet("vendidosDespues-1-Enero-2023")]
+        public ActionResult GetMedVendidosDespuesDe()
+        {
+            var medicamentos = _unitOfWork.Ventas.Find(v =>v.FechaVenta > new DateTime(2023,1,1));
+            if(medicamentos is null) return NotFound();
+            var result = medicamentos.Select(v =>new{
+                IdVenta =v.Id,
+                v.FechaVenta,
+                MedicamentosRecetados = v.MedicamentosVendidos.Select(m =>new{MedicamentoId= m.Id,Nombre = m.Medicamento.Nombre,m.Precio,m.CantidadVendida}).ToList()
+            });
+            return Ok(result);
+        }    //CONSULTA PARA DETERMINAR TOTAL DE DINERO RECAUDADO POR TODAS LAS VENTAS DE MEDICAMENTOS
     [HttpGet("TotalDeVentasRecaudado")]
     //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -100,4 +112,22 @@ public class MedicamentoVentasController : BaseApiControllerN
         return _mapper.Map<TotalMedicamentosVendidosDTO>(totalMedicamentosVendidosDTO);
     }
 
+    //CONSULTA PARA DETERMINAR EL PROMEDIO DE MEDICAMENTOS VENDIDOS POR VENTA 
+    [HttpGet("PromedioMedicamentosPorVenta")]
+    //[Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<object> GetMedicamentoPrecioStock()
+    {
+        var promedioVenta = _unitOfWork.MedicamentosVendidos.GetCalcularPromedioPorVentas();
+
+        if (promedioVenta.IsNullOrEmpty())
+        {
+            throw new UnauthorizedAccessException("No se encontro ningun venta para hacer el promedio");
+        }
+        
+        return Ok(promedioVenta);
+    }
 }

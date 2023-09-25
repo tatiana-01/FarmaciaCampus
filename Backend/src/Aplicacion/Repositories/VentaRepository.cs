@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Dominio.Entities;
 using Dominio.Interfaces;
@@ -44,6 +45,17 @@ public class VentaRepository : GenericRepository<Venta>, IVenta
         }
         _context.Set<Venta>().Remove(entity);
     }
+     public override async Task<IEnumerable<Venta>> GetAllAsync()
+     {
+        return await _context.Ventas
+            .Include(v => v.MedicamentosVendidos).ToListAsync();
+     }
+     public override IEnumerable<Venta> Find(Expression<Func<Venta, bool>> expression)
+     {
+        return  _context.Ventas.Where(expression)
+            .Include(v =>v.MedicamentosVendidos)
+                .ThenInclude(m =>m.Medicamento);
+     }
 
     public async Task<IEnumerable<Venta>> GetAllMedicamentoPorFechaAsync(DateTime fecha)
     {
