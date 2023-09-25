@@ -25,7 +25,7 @@ class FrmDepartamento extends HTMLElement {
                                 </div>
                                 <div class="form-group mb-3 col-6">
                                     <label for="selectPais" class="form-label">Pais</label>
-                                    <select class="custom-select" id="selectPais">
+                                    <select class="form-select" id="selectPais">
                                         <option value="0" selected>Seleccione una opcion</option>;
                                     </select>
                                 </div>

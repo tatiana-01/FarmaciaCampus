@@ -159,7 +159,7 @@ class FormularioEmpleado extends HTMLElement{
             </div>
 
         </form>
-    </div>>`
+    </div>`
     }
 }
 window.customElements.define("form-empleado",FormularioEmpleado);

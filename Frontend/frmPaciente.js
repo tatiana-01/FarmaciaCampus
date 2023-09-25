@@ -43,7 +43,7 @@ class FrmPaciente extends HTMLElement {
                                 </div>
                                 <div class="form-group mb-3 col-md-4">
                                     <label for="selectCiudad" class="form-label">Ciudad</label>
-                                    <select class="custom-select" id="selectCiudad">
+                                    <select class="form-select" id="selectCiudad">
                                         <option value="0" selected>Seleccione una opcion</option>;
                                     </select>
                                 </div>
@@ -52,16 +52,16 @@ class FrmPaciente extends HTMLElement {
                                 <div class="form-group mb-3 col-md-5">
                                     <label for="direccion" class="form-label">Dirección</label>
                                     <div class="row">
-                                    <div class="col-3 pr-1">
+                                    <div class="col-3 pe-0" >
                                     <input type="text" aria-label="First name" class="form-control" name="direccion" placeholder="Tipo via">
                                     </div>
-                                    <div class="col-3 pl-1 pr-1">
+                                    <div class="col-3 pe-0">
                                     <input type="number" aria-label="First name" class="form-control" name="direccion" placeholder="numero">
                                     </div>
-                                    <div class="col-3 pl-1 pr-1">
+                                    <div class="col-3 ">
                                     <input type="text" aria-label="First name" class="form-control" name="direccion" placeholder="letra">
                                     </div>
-                                    <div class="col-3 pl-1 pr-1">
+                                    <div class="col-3 ps-0">
                                     <input type="text" aria-label="First name" class="form-control" name="direccion" placeholder="sufijo cardinal">
                                     </div>
                                     </div>
