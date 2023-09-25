@@ -41,7 +41,7 @@ namespace ApiProyecto.Extensions;
                     {
                         Endpoint = "*",
                         Period = "10s",
-                        Limit = 2
+                        Limit = 100
 
                     }
                 };

@@ -12,7 +12,7 @@ namespace ApiProyecto.Controllers
     public class EmpleadoController : BaseApiController
     {
         private readonly IUserService _userService;
-        public EmpleadoController(IUnitOfWork unitOfWork, IMapper mapper , IUserService userService) : base(unitOfWork, mapper)
+        public EmpleadoController(IUnitOfWork unitOfWork, IMapper mapper, IUserService userService) : base(unitOfWork, mapper)
         {
             _userService = userService;
         }
@@ -28,10 +28,10 @@ namespace ApiProyecto.Controllers
         }
 
         [HttpPost("register/{empleadoId:int}")]
-        public async Task<ActionResult> CrearUsuarioAEmpleado(int empleadoId,RegisterDto registerDto )
+        public async Task<ActionResult> CrearUsuarioAEmpleado(int empleadoId, RegisterDto registerDto)
         {
             int opcionEmpleado = 1;
-            var result = await _userService.ResgisterAsync(registerDto,opcionEmpleado,empleadoId);
+            var result = await _userService.ResgisterAsync(registerDto, opcionEmpleado, empleadoId);
             return Ok(result);
         }
 
@@ -57,7 +57,7 @@ namespace ApiProyecto.Controllers
         public async Task<ActionResult> GetEmpleadoById(int id)
         {
             var empleado = await _unitOfWork.Empleados.GetByIdAsync(id);
-            if(empleado is null) return NotFound();
+            if (empleado is null) return NotFound();
             var empleadoMapaeado = _mapper.Map<EmpleadoDTO>(empleado);
             return Ok(empleadoMapaeado);
         }
@@ -87,6 +87,15 @@ namespace ApiProyecto.Controllers
             if (filasAfectadas == 0) return NotFound();
 
             return NoContent();
+        }
+
+        [HttpGet("NoVendieronEn2023")]
+        public ActionResult EmpleadosNoVendieronEn2023()
+        {
+            var result = _unitOfWork.Empleados.EmpleadosNoVendieronEn2023();
+            if(result is null) return NotFound();
+
+            return Ok(result);
         }
     }
 }

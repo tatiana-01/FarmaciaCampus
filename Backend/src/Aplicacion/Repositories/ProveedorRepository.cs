@@ -43,4 +43,16 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedor
             select new {provvedor.Id , provvedor.Nombre};
         return query;
     }
+
+    public IQueryable ProveedoresQueVendieronEn2023()
+    {
+        var Anio2023 = new DateTime(2023,1,1).Year;
+        var query =
+            from proveedor in _context.Proveedores
+            join compra in _context.Compras on proveedor.Id equals compra.ProveedorId
+            where compra.FechaCompra.Year == Anio2023
+            select proveedor;
+
+        return query;
+    }
 }

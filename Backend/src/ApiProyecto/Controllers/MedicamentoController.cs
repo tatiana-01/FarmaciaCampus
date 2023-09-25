@@ -176,7 +176,24 @@ public class MedicamentoController:BaseApiControllerN
         });
         return Ok(result);
     }
-    
 
+    [HttpGet("vendidosPorMesEn2023")]
+     public ActionResult MedicamentosVendidosPorMesEn2023()
+     {
+        var result = _unitOfWork.MedicamentosVendidos.MedicamentosVenndidosPorMesEn2023();
+        if(result is null) return NotFound();
+        return Ok(result);
+     }
+
+     [HttpGet("NoSeVendieronEn2023")]
+     public ActionResult MedicamentosNoVendidos2023()
+     {
+        var result = _unitOfWork.MedicamentosVendidos.MedicamentosNoVendidos2023();
+        if(result is null) return NotFound();
+
+        return Ok(result);
+
+     }
+    
 }
 

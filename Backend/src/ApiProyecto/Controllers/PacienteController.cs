@@ -100,5 +100,13 @@ namespace ApiProyecto.Controllers
 
             return Ok(result);
         }
+       
+       [HttpGet("CompraronParacetamolEn2023")] 
+       public ActionResult PacientesQueCompraronParacetamolEn2023()
+       {
+        var result = _unitOfWork.Pacientes.PacientesQueCompraronParacetamolEn2023();
+        if(result is null) return NotFound();
+        return Ok(result);
+       }
     }
 }

@@ -95,6 +95,23 @@ namespace ApiProyecto.Controllers
             var result = await _unitOfWork.Proveedores.ProveedoresSinVentas();
             return Ok(result);
         }
+        [HttpGet("VendieronMedicamentosEn2023")]
+
+        public ActionResult ProveedoresQueVendieronEn2023()
+        {
+            var result = _unitOfWork.Proveedores.ProveedoresQueVendieronEn2023();
+            if(result is null ) return NotFound();
+
+            var query = result as IEnumerable<Proveedor>;
+            return Ok(new {
+                Total = query.Count(),
+                Result = query.Select(q =>new{ 
+                    q.Id,
+                    q.Nombre
+                })
+            });
+         
+        }
        
     }
 }

@@ -20,10 +20,11 @@ builder.Services.ConfigureRateLimiting();
 builder.Services.ConfigureApiVersioning();
 builder.Services.AddJwt(builder.Configuration);
 builder.Services.AddApplicacionService();
+builder.Services.ConfigureCors();
 builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
-builder.Services.ConfigureCors();
+
 
 
 builder.Services.AddDbContext<FarmaciaContext>(optionsBuilder =>
