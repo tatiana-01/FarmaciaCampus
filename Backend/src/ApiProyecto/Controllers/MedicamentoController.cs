@@ -244,6 +244,7 @@ public class MedicamentoController : BaseApiControllerN
         if(result is null) return NotFound();
 
         return Ok(result);
+     }
 
          //Obtener medicamentos por proveedor
     [HttpGet("proveedor/{proveedor}")]
@@ -364,15 +365,6 @@ public class MedicamentoController : BaseApiControllerN
         });
         return Ok(medicamentosVentas);
     }
-
-    
-
-     
-
-
-
-
 }    
 
-}
 
