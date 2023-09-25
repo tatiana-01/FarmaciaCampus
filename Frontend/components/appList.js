@@ -47,11 +47,16 @@ class List extends HTMLElement {
 
     }
     getAllData(url) {
-        fetch(url)
+       getAllEmployees(url)
             .then(response => response.json())
             .then(json =>{
                 this.mostrarTablaEmpleados(json.result)
-            });
+           });
+        // // fetch(url)
+        //      .then(response => response.json())
+        //      .then(json =>{
+        //          this.mostrarTablaEmpleados(json.result)
+        //     });
     }
     mostrarTablaEmpleados(data) {
         let mainSection = this.shadowRoot.querySelector("tbody");
