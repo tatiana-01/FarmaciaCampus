@@ -11,5 +11,7 @@ public interface IMedicamento : IGeneric<Medicamento>
     Task<IEnumerable<Proveedor>> GetAllProveedorContacto();
     Task<Medicamento> GetByNombreMedicamento(string medicamento);
     Task<IEnumerable<Medicamento>> GetAllMedicamentosMayorPrecioMenorStock(Double mayorPrecio, int menorStock);
+    (List<(int CantidadVendida, int medicamento)> lstInfo,int total) GetMedicamentosPrimerTrimestre2023();
+
         
 }
