@@ -31,8 +31,46 @@ public class PacienteRepository : GenericRepository<Paciente>, IPaciente
         .Include(e =>e.Direccion)
         .FirstOrDefaultAsync(e =>e.Id == id);   
     }
+     public object ConsultaPaceniteMasGastador()
+    {
+        var listaPacientes = _context.Pacientes.ToList();
+        var listaVentas = _context.Ventas.ToList();
+        var listaVentaMedicamentos = _context.MedicamentosVendidos.ToList();
 
-    public async Task<IEnumerable<object>> GetPacientesParacetamol(){
+        var query = 
+            (from paciente in listaPacientes
+            join venta in listaVentas on paciente.Id equals venta.PacienteId
+            join ventaMedicamento in listaVentaMedicamentos on venta.Id equals ventaMedicamento.VentaId
+            group ventaMedicamento by paciente into g 
+            let totalGastado = g.Sum(vm =>vm.Precio)
+            orderby totalGastado descending
+            select new
+            {
+                Paciente = g.Key,
+                TotalGastado = totalGastado
+            }).FirstOrDefault(); 
+
+            return query;
+    }
+    public object PacientesQueCompraronParacetamolEn2023()
+    {
+        var listaPacientes = _context.Pacientes;
+        var listaMedicamentos = _context.Medicamentos;
+        var listaVentas = _context.Ventas;
+        var listaVentaMedicamentos = _context.MedicamentosVendidos;
+        var anio2023 = new DateTime(2023,1,1).Year;
+        
+        var query = 
+            from paciente in listaPacientes
+            join venta in listaVentas on paciente.Id equals venta.PacienteId
+            join ventaMedicamento in listaVentaMedicamentos on venta.Id equals ventaMedicamento.VentaId
+            join medicamento in listaMedicamentos on ventaMedicamento.MedicamentoId equals medicamento.Id
+            where medicamento.Nombre.ToLower() == "paracetamol" && venta.FechaVenta.Year ==  anio2023
+            select paciente;
+
+        return query;
+    }
+     public async Task<IEnumerable<object>> GetPacientesParacetamol(){
         var paracetamol = await _context.Medicamentos.FirstOrDefaultAsync(p=>p.Nombre.ToLower()=="paracetamol"); 
         var datos= from meds in _context.MedicamentosVendidos join venta in _context.Ventas on meds.VentaId equals venta.Id join paciente in _context.Pacientes.Include(p=>p.Usuario).Include(p=>p.Direccion).ThenInclude(p=>p.Ciudad) on venta.PacienteId equals paciente.Id select new{
             medicamento=meds.MedicamentoId,
@@ -102,10 +140,6 @@ public class PacienteRepository : GenericRepository<Paciente>, IPaciente
         }
         return info;
     }
-
-    
-
-    
 }
 
   

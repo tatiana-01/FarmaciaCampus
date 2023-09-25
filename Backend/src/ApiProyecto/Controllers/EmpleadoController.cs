@@ -89,6 +89,15 @@ namespace ApiProyecto.Controllers
             return NoContent();
         }
 
+        [HttpGet("NoVendieronEn2023")]
+        public ActionResult EmpleadosNoVendieronEn2023()
+        {
+            var result = _unitOfWork.Empleados.EmpleadosNoVendieronEn2023();
+            if(result is null) return NotFound();
+
+            return Ok(result);
+        }
+
         //ventas de cada empleado 2023
         [HttpGet("ventasporempleado")]
         //[Authorize]

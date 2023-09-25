@@ -5,5 +5,6 @@ public interface IMedicamentoVenta : IGeneric<MedicamentoVenta>
 {
     //nuevos metodos
     Task<IEnumerable<Venta>> GetAllTotalMedicamentosVendidosAsync(DateTime fecha);
-    IEnumerable<object> GetCalcularPromedioPorVentas();
+   object MedicamentosVenndidosPorMesEn2023();
+       object MedicamentosNoVendidos2023();IEnumerable<object> GetCalcularPromedioPorVentas();
 }

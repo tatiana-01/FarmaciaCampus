@@ -148,5 +148,24 @@ namespace ApiProyecto.Controllers
 
             return Ok(resultado);
         }
+
+        [HttpGet("masGastador")]
+        public ActionResult GetPacienteMasGastador()
+        {
+            var result = _unitOfWork.Pacientes.ConsultaPaceniteMasGastador();
+            if(result is null) return NotFound(new{
+                response = "No se encontraron paceintes con compras de medicamentos"
+            });
+
+            return Ok(result);
+        }
+       
+       [HttpGet("CompraronParacetamolEn2023")] 
+       public ActionResult PacientesQueCompraronParacetamolEn2023()
+       {
+        var result = _unitOfWork.Pacientes.PacientesQueCompraronParacetamolEn2023();
+        if(result is null) return NotFound();
+        return Ok(result);
+       }
     }
 }

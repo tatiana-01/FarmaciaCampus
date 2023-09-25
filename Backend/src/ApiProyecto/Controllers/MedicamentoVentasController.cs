@@ -44,7 +44,18 @@ public class MedicamentoVentasController : BaseApiControllerN
         return _mapper.Map<MedicamentoVentaDTO>(medicamentoVenta);
     }
 
-    //CONSULTA PARA DETERMINAR TOTAL DE DINERO RECAUDADO POR TODAS LAS VENTAS DE MEDICAMENTOS
+        [HttpGet("vendidosDespues-1-Enero-2023")]
+        public ActionResult GetMedVendidosDespuesDe()
+        {
+            var medicamentos = _unitOfWork.Ventas.Find(v =>v.FechaVenta > new DateTime(2023,1,1));
+            if(medicamentos is null) return NotFound();
+            var result = medicamentos.Select(v =>new{
+                IdVenta =v.Id,
+                v.FechaVenta,
+                MedicamentosRecetados = v.MedicamentosVendidos.Select(m =>new{MedicamentoId= m.Id,Nombre = m.Medicamento.Nombre,m.Precio,m.CantidadVendida}).ToList()
+            });
+            return Ok(result);
+        }    //CONSULTA PARA DETERMINAR TOTAL DE DINERO RECAUDADO POR TODAS LAS VENTAS DE MEDICAMENTOS
     [HttpGet("TotalDeVentasRecaudado")]
     //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]

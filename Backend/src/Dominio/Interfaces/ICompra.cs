@@ -5,4 +5,5 @@ public interface ICompra : IGeneric<Compra>
 {
     //nuevos metodos
         void Update(Compra entity, Compra Anterior);
+        object MedsVendidiosPorProveedor();
 }
