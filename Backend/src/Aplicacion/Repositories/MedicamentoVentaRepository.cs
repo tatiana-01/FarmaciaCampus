@@ -27,4 +27,22 @@ public class MedicamentoVentaRepository : GenericRepository<MedicamentoVenta>, I
         return await lstTotalMedicVendidos;
     }
 
+    public IEnumerable<object> GetCalcularPromedioPorVentas()
+    {
+        List<object> promedio = new();
+        var totalVenta = _context.Set<Venta>().Count();
+        var lstMedicaVendidos = _context.Set<MedicamentoVenta>();
+
+        var totalCantidad = 0;
+        foreach (var medicVendidos in lstMedicaVendidos)
+        {
+            totalCantidad += medicVendidos.CantidadVendida;
+        }
+        promedio.Add(new {
+
+            PromedioMedicPorVentaEs = totalCantidad/totalVenta
+        });
+
+        return promedio;
+    }
 }

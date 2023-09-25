@@ -9,6 +9,7 @@ using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiProyecto.Controllers;
 public class MedicamentoVentasController : BaseApiControllerN
@@ -100,4 +101,22 @@ public class MedicamentoVentasController : BaseApiControllerN
         return _mapper.Map<TotalMedicamentosVendidosDTO>(totalMedicamentosVendidosDTO);
     }
 
+    //CONSULTA PARA DETERMINAR EL PROMEDIO DE MEDICAMENTOS VENDIDOS POR VENTA 
+    [HttpGet("PromedioMedicamentosPorVenta")]
+    //[Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<object> GetMedicamentoPrecioStock()
+    {
+        var promedioVenta = _unitOfWork.MedicamentosVendidos.GetCalcularPromedioPorVentas();
+
+        if (promedioVenta.IsNullOrEmpty())
+        {
+            throw new UnauthorizedAccessException("No se encontro ningun venta para hacer el promedio");
+        }
+        
+        return Ok(promedioVenta);
+    }
 }

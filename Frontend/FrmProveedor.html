@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Inicio/css/bootstrap.min.css">
+    <script src="Inicio/js/jquery-3.6.4.slim.js" defer></script>
+    <script src="Inicio/js/bootstrap.min.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>FORMULARIO DE PROVEEDORES</h1>
+    <!--Forumulario-->
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Registrar Proveedor</h2>
+            </div>
+            <div class="card-body text-center">
+                <form id="fromDatosProveedor">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="Nombre" class="form-label">Dijite su Nombre:</label>
+                                    <input type="text" class="form-control" id="Nombre" name="Nombre"/>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="NumIdentificacion" class="form-label">Dijite su Numero de Identificación:</label>
+                                    <input type="number" class="form-control" id="NumIdentificacion" name="NumIdentificacion" min="0"/>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="FechaNacimiento" class="form-label">Dijite su Fecha de Nacimiento:</label>
+                                    <input type="date" class="form-control" id="FechaNacimiento"
+                                    name="FechaNacimiento"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="Correo" class="form-label">Dijite su Correo:</label>
+                                    <input type="email" class="form-control" id="Corre" name="Corre"/>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="Telefono" class="form-label">Dijite su numero de Telefono:</label>
+                                    <input type="text" class="form-control" id="Telefono" name="Telefono"/>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="UsuarioId" class="form-label">Ingrese su Id de su Usuario:</label>
+                                    <input type="number" class="form-control" id="UsuarioId"
+                                    name="UsuarioId" min="0"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="DireccionId" class="form-label">Ingrese el Id de su Dirección:</label>
+                                    <input type="number" class="form-control" id="DireccionId" name="DireccionId" min="0"/>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="id_recluta" class="form-label">Seleccione el Id de su Recluta:</label>
+                                    <select class="form-select form-select-lg mb-3" id="id_recluta " name="id_recluta">
+                                        <option selected>Id Recluta</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container text-center">
+                        <button type="submit" class="btn btn-primary botonn" id="nuevoRecluta" data-habilitardesabilitar='[["#guardarRecluta"], ["#nuevoRecluta"]]'>NUEVO PROVEEDOR</button>
+                        <button disabled type="submit" class="btn btn-success botonn" id="guardarRecluta"
+                        data-habilitardesabilitar='[["#nuevoRecluta"], ["#guardarRecluta"]]'>GUARDAR PROVEEDOR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

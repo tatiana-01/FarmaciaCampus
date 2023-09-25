@@ -142,4 +142,14 @@ public class MedicamentoRepository : GenericRepository<Medicamento>, IMedicament
         return await lstMedicamentoVenta;
     }
 
+    public async Task<IEnumerable<Medicamento>> GetAllMedicamentosMayorPrecioMenorStock(double mayorPrecio, int menorStock)
+    {
+        var lstMedicamentos = _context.Medicamentos
+        .Where(p => p.Precio > mayorPrecio)
+        .Where(p => p.Stock < menorStock)
+        .ToListAsync();
+
+        return await lstMedicamentos;
+        
+    }
 }

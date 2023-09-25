@@ -277,6 +277,25 @@ public class MedicamentoController : BaseApiControllerN
         return Ok(this.mapper.Map<IEnumerable<MedicamentoDto>>(medicamentos.AsEnumerable()));
     }
 
+    //CONSULTA PAA DETERMINAR LOS MEDICAMENTOS CON UN PRECIO MAYOA A Y UN STOCK MENOR A 
+    [HttpGet("MedicMayorPrecioMenorStock/{mayorPrecio}/{menorStock}")]
+    //[Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<List<MedicamentoDto>>> GetMedicamentoPrecioStock(Double mayorPrecio, int menorStock)
+    {
+        var lstMedicamentos = await _unitOfWork.Medicamentos.GetAllMedicamentosMayorPrecioMenorStock(mayorPrecio, menorStock);
+
+        if (lstMedicamentos == null)
+        {
+            throw new UnauthorizedAccessException("No se encontro ningun medicamento con esas expecificaciones");
+        }
+
+        return this.mapper.Map<List<MedicamentoDto>>(lstMedicamentos);
+    }
+
      
 
 
