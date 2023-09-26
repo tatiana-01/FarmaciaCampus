@@ -15,17 +15,20 @@
 
 <body>
     <form-empleado></form-empleado>
-    <div class="container">
-      <header class="headPricipal row">
-      </header>
-      <section class=" mainContent row">
-        <div class="col sm-12">
-
-        </div>
-
-      </section>
-    </div>
-    
+    <form action="../controllers/registrarEmpleado.js" method="POST" id="form-registroEmpleado">
+      <div class="row bg-light p-1">
+          <div class="mb-2 col-sm-6 col-md-6">
+              <select class="form-select" aria-label="Default select example" id="tipo-sangre" name="tipo_id">
+                  <option selected>Tipo de Documento</option>
+                  <option value="CE">Cedula de extranjeria</option>
+                  <option value="CC">Cedula de ciudadania</option>
+              </select>
+          </div>
+          <div class="mb-2 col-sm-6 col-md-6 ">
+              <input type="text" placeholder="Numero de Documento" name="NumIdentificacion " class="form-control"
+                  required>
+          </div>
+      </div>
 
 </body>
 

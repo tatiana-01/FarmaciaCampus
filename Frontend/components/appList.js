@@ -74,7 +74,16 @@ class List extends HTMLElement {
             `
         });
         mainSection.innerHTML = template;
+        
+        let btnsEliminar = this.shadowRoot.querySelectorAll(".delete");
+        btnsEliminar.forEach(btn =>{
+            btn.addEventListener("click",(e)=>{
+                let id = e.target.dataset.id;
+                employeeOptions.delete(id);
+            })
+        })
 
     }
+
 }
 window.customElements.define("app-list", List);
