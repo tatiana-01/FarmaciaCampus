@@ -632,6 +632,10 @@ main .btn-send:hover {
     background-color: #bdbcc0;
 }
 
+.enviar{
+	background-color: var(--blue);
+	color: white;
+}
 
 
 

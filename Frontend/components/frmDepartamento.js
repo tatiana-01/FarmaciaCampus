@@ -17,13 +17,12 @@ class FrmDepartamento extends HTMLElement {
                 <h5 class="card-title">Ingrese los datos del departamento</h5>
                 <div class="container mb-3">
                     <form id="formDepartamento">
-                        <div class="form-group">
                             <div class="row">
-                                <div class="form-group mb-3 col-6">
+                                <div class=" mb-3 col-6">
                                     <label for="NombreDepartamento" class="form-label">Nombre Departamento</label>
                                     <input type="text" aria-label="First name" class="form-control" name="NombreDepartamento">
                                 </div>
-                                <div class="form-group mb-3 col-6">
+                                <div class=" mb-3 col-6">
                                     <label for="selectPais" class="form-label">Pais</label>
                                     <select class="form-select" id="selectPais">
                                         <option value="0" selected>Seleccione una opcion</option>;
@@ -32,10 +31,9 @@ class FrmDepartamento extends HTMLElement {
     
                             </div>
                            
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-info">Enviar</button>
+                            <div class="botonEnviarDepartamento">
+                                <button type="submit" class="btn enviar">Enviar</button>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>

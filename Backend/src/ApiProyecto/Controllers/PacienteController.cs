@@ -24,7 +24,7 @@ namespace ApiProyecto.Controllers
             var nuevosPacientes = _mapper.Map<Paciente[]>(dtosPersonas);
             _unitOfWork.Pacientes.AddRange(nuevosPacientes);
             await _unitOfWork.SaveAsync();
-            return Ok();
+            return Ok(_mapper.Map<PersonaDTO[]>(nuevosPacientes));
         }
 
         [HttpPost("register/{pacienteId:int}")]

@@ -1,4 +1,4 @@
-class FrmPaciente extends HTMLElement {
+class FrmVenta extends HTMLElement {
     constructor() {
         super();
         this.render();
@@ -28,7 +28,7 @@ class FrmPaciente extends HTMLElement {
                     <div class="row g-3">
                         <div class="col-sm-12 col-md-6 ">
                             <label for="empleado" class="form-label">Empleado</label>
-                            <select class="custom-select" id="selectEmpleado">
+                            <select class="form-select" id="selectEmpleado">
                                 <option value="0" selected>Seleccione una opcion</option>;
                             </select>
                         </div>
@@ -83,9 +83,9 @@ class FrmPaciente extends HTMLElement {
                 </div>
 
                 <div class="botones mb-2 mt-5">
-                    <button class="btn btn-success " id="guardar" type="submit">Guardar</button>
-                    <button class="btn btn-info" id="añadir">Agregar Producto</button>
-                    <button class="btn btn-warning" type="reset">Nueva Factura</button>
+                    <button class="btn enviar " id="guardar" type="submit">Guardar</button>
+                    <button class="btn btn-success" id="añadir">Agregar Producto</button>
+                    <button class="btn btn-warning  text-white" type="reset">Nueva Factura</button>
                 </div>
 
 
@@ -96,4 +96,4 @@ class FrmPaciente extends HTMLElement {
     }
 
 };
-customElements.define('frm-paciente', FrmPaciente);
+customElements.define('frm-venta', FrmVenta);
