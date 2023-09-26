@@ -170,14 +170,14 @@ class FrmPaciente extends HTMLElement {
         let formDireccionPaciente=document.querySelector('#formDireccionPaciente');
         let boton=document.querySelector('#savePaciente');
         boton.addEventListener('click',(e)=>{
-            
+            let token='eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0YXRpYW5hIiwianRpIjoiYzkxY2JjZTMtNjU0Zi00YTkzLWFjNDgtNzVjYjg1ZDRiYmRkIiwiZW1haWwiOiJ0YXRpYW5hQGdtYWlsLmNvbSIsInVpZCI6IjEiLCJyb2xlcyI6WyJHZXJlbnRlIiwiUGVyc29uYSJdLCJleHAiOjE2OTU3MzkxNzcsImlzcyI6IkFwaUZhcm1hY2lhIiwiYXVkIjoiQXBpRmFybWFjaWEifQ.TsjWtu4vmMwGtC42vaIVcGA_4iJSJ0FvvDXerLVcI6g';
             let data=[];
             let dataPersonal=Object.fromEntries(new FormData(formPersonal));
             let dataDireccion=Object.fromEntries(new FormData(formDireccionPaciente));
             dataDireccion.ciudadId=document.querySelector("#selectCiudad").value;
             dataPersonal.Direccion=dataDireccion;
             data.push(dataPersonal);
-            postDataPaciente(data);
+            postDataPaciente(data,token);
             console.log();
             e.preventDefault();
         })

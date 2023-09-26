@@ -4,6 +4,7 @@ class ListarPaciente extends HTMLElement {
         super();
         this.render();
         this.getApiPaciente();
+        
        // this.redireccionarPagina();
          /* this.postDataPaciente();
         this.eventoSelects(); */
@@ -22,8 +23,6 @@ class ListarPaciente extends HTMLElement {
                         <th scope="col">Cedula</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Correo</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Direccion</th>
                         <th scope="col"></th>
                         </tr>
                     </thead>
@@ -55,28 +54,37 @@ class ListarPaciente extends HTMLElement {
                 <td scope="row">${numIdentificacion}</td>
                 <td>${nombre}</td>
                 <td>${correo}</td>
-                <td>${telefono}</td>
-                <td>${tipoVia} ${numeroVia} ${letraVia} ${sufijoCardinal}</td>
                 <td>
                     <button data-id="${id}" class="btn btn-danger delete">Eliminar</button>
-                    <button data-id="${id}" id="masInfo" class="btn btn-success masInfo">+</button>
+                    <button data-id="${id}" id="masInfo" class="btn btn-success masInfo">Mas Info</button>
                 </td>
             </tr>
             `
         });
         mainSection.innerHTML = template;
         this.redireccionarPagina();
+        this.eliminarPaciente();
     }
 
     redireccionarPagina(){
           let mas=document.querySelectorAll('.masInfo')
             mas.forEach(btn=>{
                 btn.addEventListener('click',(e)=>{
-                    window.location=`MasInfoPaciente.html?${e.target.dataset.id}`
+                    window.location=`MasInfoPaciente.html?id=${e.target.dataset.id}`
                 })
             })
     
        
+    }
+
+    eliminarPaciente(){
+        let botonEliminar=document.querySelectorAll('.delete');
+        botonEliminar.forEach(btn=>{
+            btn.addEventListener('click',(e)=>{
+                console.log(e.target.dataset.id);
+                deleteDataPaciente(e.target.dataset.id).then((response)=>console.log(response))
+            })
+        })
     }
 /*
     eventoSelects=()=>{

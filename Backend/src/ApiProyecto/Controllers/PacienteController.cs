@@ -5,6 +5,7 @@ using ApiProyecto.Services;
 using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,7 +18,7 @@ namespace ApiProyecto.Controllers
         {
             _userService = userService;
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> PostPacientes(PersonaCreationDTO[] dtosPersonas)
         {
@@ -26,7 +27,7 @@ namespace ApiProyecto.Controllers
             await _unitOfWork.SaveAsync();
             return Ok(_mapper.Map<PersonaDTO[]>(nuevosPacientes));
         }
-
+        [Authorize]
         [HttpPost("register/{pacienteId:int}")]
         public async Task<ActionResult> CrearUsuarioAPaciente(int pacienteId, RegisterDto registerDto)
         {
