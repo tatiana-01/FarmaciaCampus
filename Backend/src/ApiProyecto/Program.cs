@@ -29,7 +29,7 @@ builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 
 builder.Services.AddDbContext<FarmaciaContext>(optionsBuilder =>
 {
-    string connectionString = builder.Configuration.GetConnectionString("ConexMysqlPc");
+    string connectionString = builder.Configuration.GetConnectionString("ConexMysqlCampus");
     optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     optionsBuilder.EnableSensitiveDataLogging();
 });
