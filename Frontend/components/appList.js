@@ -73,7 +73,7 @@ class List extends HTMLElement {
                 <td>${tipoVia} ${numeroVia} ${letraVia} ${sufijoCardinal}</td>
                 <td>
                     <button data-id="${id}" class="btn btn-danger delete">Eliminar</button>
-                    <button id="masInfo" class="btn btn-success">+</button>
+                    <button class="btn btn-success">+</button>
                 </td>
             </tr>
             `
