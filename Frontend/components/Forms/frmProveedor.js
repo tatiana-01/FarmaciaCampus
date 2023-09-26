@@ -140,6 +140,8 @@ class FrmProveedor extends HTMLElement {
         `;
     }
 
+    
+
 
 }
 customElements.define('frm-reg-proveedor', FrmProveedor);

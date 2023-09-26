@@ -20,7 +20,7 @@ const activarDesactivarBoton = () => {
     });
 }
 
-/*//--------llenamos el selector de Id de los TEAM para los CAMPERS--------
+//--------llenamos el selector de Id de los TEAM para los CAMPERS--------
 //----listar datos del team-------------
 const listarIdTeamSelect = () => {
     getTeam()
@@ -42,4 +42,4 @@ function cargarIdTeam1(datosTeam) {
         });
     });
 }
-//------------------------------------------------------------------------*/
+//------------------------------------------------------------------------
