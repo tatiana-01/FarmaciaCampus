@@ -3,8 +3,9 @@ class ListarPaciente extends HTMLElement {
     constructor() {
         super();
         this.render();
-        /* this.getApiPais();
-        this.postDataPaciente();
+        this.getApiPaciente();
+       // this.redireccionarPagina();
+         /* this.postDataPaciente();
         this.eventoSelects(); */
     }
 
@@ -39,11 +40,12 @@ class ListarPaciente extends HTMLElement {
 
      getApiPaciente(){
         getDataPaciente()
-        .then((response) => {this.mostrarTablaPacientes(response.registers)});
+        .then((response) => {this.mostrarTablaPacientes(response.result)});
     }
 
     mostrarTablaPacientes(data) {
-        let mainSection = this.shadowRoot.querySelector("tbody");
+        console.log(data);
+        let mainSection = document.querySelector("tbody");
         let template =""
         data.forEach(element => {
             const {numIdentificacion,nombre,correo,telefono,id} = element;
@@ -57,13 +59,24 @@ class ListarPaciente extends HTMLElement {
                 <td>${tipoVia} ${numeroVia} ${letraVia} ${sufijoCardinal}</td>
                 <td>
                     <button data-id="${id}" class="btn btn-danger delete">Eliminar</button>
-                    <button id="masInfo" class="btn btn-success">+</button>
+                    <button data-id="${id}" id="masInfo" class="btn btn-success masInfo">+</button>
                 </td>
             </tr>
             `
         });
         mainSection.innerHTML = template;
+        this.redireccionarPagina();
+    }
 
+    redireccionarPagina(){
+          let mas=document.querySelectorAll('.masInfo')
+            mas.forEach(btn=>{
+                btn.addEventListener('click',(e)=>{
+                    window.location=`MasInfoPaciente.html?${e.target.dataset.id}`
+                })
+            })
+    
+       
     }
 /*
     eventoSelects=()=>{
