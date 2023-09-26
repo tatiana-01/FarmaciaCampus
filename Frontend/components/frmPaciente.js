@@ -170,6 +170,7 @@ class FrmPaciente extends HTMLElement {
         let formDireccionPaciente=document.querySelector('#formDireccionPaciente');
         let boton=document.querySelector('#savePaciente');
         boton.addEventListener('click',(e)=>{
+            
             let data=[];
             let dataPersonal=Object.fromEntries(new FormData(formPersonal));
             let dataDireccion=Object.fromEntries(new FormData(formDireccionPaciente));
@@ -177,6 +178,7 @@ class FrmPaciente extends HTMLElement {
             dataPersonal.Direccion=dataDireccion;
             data.push(dataPersonal);
             postDataPaciente(data);
+            console.log();
             e.preventDefault();
         })
     }
