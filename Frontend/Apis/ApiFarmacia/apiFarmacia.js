@@ -27,11 +27,20 @@ const deleteEmployee = async (id)=>{
         method:"DELETE"
     })
 }
+const getById = async (url,id)=>{
+    configObjet.method = "GET";
+    let newUrl = `${url}/${id}`;
+    console.log(newUrl);
+    var result =  fetch(newUrl,configObjet)
+    return result;
+
+}
 export const employeeOptions = {
     "get": getAllEmployees,
     "post": registerEmployee,
     "put": editEmployee,
-    "delete":deleteEmployee
+    "delete":deleteEmployee,
+    "getById":getById
 }
     
     
