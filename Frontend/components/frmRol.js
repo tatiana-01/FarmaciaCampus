@@ -15,15 +15,13 @@ class FrmRol extends HTMLElement {
                 <h5 class="card-title">Ingrese los datos del rol</h5>
                 <div class="container mb-3">
                     <form id="formRol">
-                        <div class="form-group">
-                            <div class="form-group mb-3 w-50">
-                                <label class="form-group ">Nombre Rol</label>
-                                <input type="text" aria-label="First name" class="form-control" name="name_city">
+                            <div class="mb-3 w-50">
+                                <label for="nameRol" class="form-label">Nombre del rol</label>
+                                <input type="text" class="form-control" id="nameRol" name="nameRol">
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-info">Enviar</button>
+                            <div class="botonEnviar">
+                                <button type="submit" class="btn enviar">Enviar</button>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>

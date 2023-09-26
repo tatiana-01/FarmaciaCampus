@@ -1,3 +1,4 @@
-import './frmDepartamento.js';
-import './frmRol.js';
-import './frmPaciente.js';
+import './components/frmDepartamento';
+import './components/frmRol.js';
+import './components/frmPaciente.js';
+import './components/frmVenta.js';
