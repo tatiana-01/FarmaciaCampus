@@ -178,8 +178,7 @@ class FrmPaciente extends HTMLElement {
             dataPersonal.Direccion=dataDireccion;
             data.push(dataPersonal);
             postDataPaciente(data,token);
-            console.log();
-            e.preventDefault();
+            location.reload();
         })
     }
 

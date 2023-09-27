@@ -1,4 +1,4 @@
-import { getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getPacienteById, getCiudadById, getDataPais, getPaisById, getDepartamentoById } from '../Apis/apiPaciente.js';
+import { getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getPacienteById, getCiudadById, getDataPais, getPaisById, getDepartamentoById, registerPaciente } from '../Apis/apiPaciente.js';
 
 let params = new URL(document.location).searchParams;
 let id = parseInt(params.get("id"));
@@ -15,7 +15,8 @@ function llenarCampos(data) {
     campos[5].innerHTML = data.fechaNacimiento.substring(0, 10)
     campos[7].innerHTML = data.correo
     campos[9].innerHTML = data.telefono
-    campos[11].innerHTML = data.direccion.tipoVia + ' ' + data.direccion.numeroVia + ' ' + data.direccion.sufijoCardinal
+    campos[10].id = data.direccion.id
+    campos[11].innerHTML = data.direccion.tipoVia + ' ' + data.direccion.numeroVia + ' ' + data.direccion.letraVia + ' ' + data.direccion.sufijoCardinal
     campos[13].innerHTML = data.direccion.barrio
     campos[15].innerHTML = data.direccion.codigoPostal
     let ciudad = getCiudadById(data.direccion.ciudadId).then((response) => {
@@ -35,8 +36,10 @@ function llenarCampos(data) {
 
 function eliminarPaciente() {
     let botonEliminar = document.querySelector('.delete');
-
     botonEliminar.addEventListener('click', (e) => {
+        document.querySelector('.accion').classList.remove('d-none')
+        document.querySelector('.accionEditar').classList.add('d-none')
+        document.querySelector('.accionAsignar').classList.add('d-none')
         let eliminarConfirmacion = document.querySelector('.accion')
         eliminarConfirmacion.setAttribute("data-idDelete", e.target.dataset.id)
         confirmarEliminar();
@@ -49,7 +52,6 @@ function confirmarEliminar() {
     let eliminarConfirmacion = document.querySelector('.accion')
     let infoPaciente = document.querySelector('.infoModal')
     document.querySelector('#labelModal').innerHTML = "Confirmar Eliminación"
-    eliminarConfirmacion.innerHTML = "Eliminar"
     console.log(eliminarConfirmacion);
     getPacienteById(eliminarConfirmacion.dataset.iddelete).then((response) => {
         infoPaciente.innerHTML = `Desea eliminar al paciente ${response.nombre} con numero de identificación ${response.numIdentificacion}`
@@ -63,10 +65,16 @@ editarModal();
 function editarModal() {
     let btnEditar = document.querySelector('#btnEditarPaciente')
     btnEditar.addEventListener('click', (e) => {
-        let confirmacion = document.querySelector('.accion')
+        document.querySelector('.accionEditar').classList.remove('d-none')
+        document.querySelector('.accion').classList.add('d-none')
+        document.querySelector('.accionAsignar').classList.add('d-none')
+        let confirmacion = document.querySelector('.accionEditar')
         let infoPaciente = document.querySelector('.infoModal')
         document.querySelector('#labelModal').innerHTML = "Editar Paciente"
-        confirmacion.innerHTML = "Enviar Edición"
+        confirmacion.classList.remove("btn-danger")
+        confirmacion.classList.remove("btn-success")
+        confirmacion.classList.add("btn-warning")
+        console.log(confirmacion.classList);
         infoPaciente.innerHTML =/*html*/`
         <form id="formPaciente">
                         
@@ -165,7 +173,7 @@ function fillModalEdit(data) {
     let myFrmDatosDireccion = document.querySelector('#formDireccionPaciente');
     console.log(myFrmDatosPersonales);
     console.log(data);
-    const { id, nombre, numIdentificacion, telefono, correo, ciudadId, fechaNacimiento, direccion} = data;
+    const { id, nombre, numIdentificacion, telefono, correo, ciudadId, fechaNacimiento, direccion } = data;
     console.log(new Date(Date.parse(fechaNacimiento)));
     let frm = new FormData(myFrmDatosPersonales);
     frm.set("numIdentificacion", numIdentificacion);
@@ -176,10 +184,10 @@ function fillModalEdit(data) {
     for (let pair of frm.entries()) {
         myFrmDatosPersonales.elements[pair[0]].value = pair[1];
     }
-    let dept=0;
+    let dept = 0;
     let ciudad = getCiudadById(data.direccion.ciudadId).then((response) => {
         getDepartamentoById(response.idDepartamento).then((response) => {
-            dept=response.id;
+            dept = response.id;
             document.querySelector('#selectPais').value = response.paisId
             getPaisById(response.paisId).then((response) => {
                 selectLlenado(response.departamentos, '#selectDepartamento');
@@ -199,12 +207,87 @@ function fillModalEdit(data) {
     frmDireccion.set("sufijoCardinal", direccion.sufijoCardinal);
     for (let pair of frmDireccion.entries()) {
         myFrmDatosDireccion.elements[pair[0]].value = pair[1];
-    } 
+    }
+
+    document.querySelector('.accionEditar').addEventListener('click', (e) => {
+        let campos = document.querySelectorAll('p');
+        let dataPersonal = Object.fromEntries(new FormData(myFrmDatosPersonales));
+        let dataDireccion = Object.fromEntries(new FormData(myFrmDatosDireccion));
+        dataDireccion.ciudadId = document.querySelector("#selectCiudad").value;
+        dataDireccion.id = campos[10].id
+        dataPersonal.Direccion = dataDireccion;
+        putDataPaciente(dataPersonal, id).then((response) => console.log(response))
+        location.reload()
+    })
+}
+
+asignarUsuario();
+
+function asignarUsuario() {
+    let btnUsuario = document.querySelector('#btnUsuarioPaciente')
+  
+    btnUsuario.addEventListener('click', (e) => {
+        document.querySelector('.accionEditar').classList.add('d-none')
+        document.querySelector('.accion').classList.add('d-none')
+        document.querySelector('.accionAsignar').classList.remove('d-none')
+        let confirmacion = document.querySelector('.accionAsignar')
+        let infoPaciente = document.querySelector('.infoModal')
+        document.querySelector('#labelModal').innerHTML = "Asignar Usuario"
+        confirmacion.innerHTML = "Asignar"
+        confirmacion.classList.remove("btn-danger")
+        confirmacion.classList.remove("btn-warning")
+        confirmacion.classList.add("btn-success")
+        console.log(confirmacion.classList);
+        infoPaciente.innerHTML =/*html*/`
+        <form id="formUsuario">
+        <label for="numIdentificacion" class="form-label">Coreo</label>
+        <input type="text" aria-label="First name" class="form-control" name="email">
+        <label for="numIdentificacion" class="form-label">Usuario</label>
+        <input type="text" aria-label="First name" class="form-control" name="username">
+        <label for="numIdentificacion" class="form-label">Contraseña</label>
+        <input type="text" aria-label="First name" class="form-control" name="password">
+        </form>                             
+        `
+
+        document.querySelector('.accionAsignar').addEventListener('click', (e) => {
+            let dataUsuario = Object.fromEntries(new FormData(document.querySelector('#formUsuario')));
+            console.log(id);
+            registerPaciente(dataUsuario, id).then((response) => {
+                console.log(response);
+            })
+            location.reload()
+        })
+  
+        /* getDataPais().then((response) => { selectPais(response.registers) });
+        getPacienteById(id).then((response) => fillModalEdit(response));
+        eventoSelects(); */
+    })
+
 }
 
 
+/* function accionBD(){
+    let btnAccion=document.querySelector('.accion')
+    btnAccion.addEventListener('click',(e)=>{
+        if(e.innerHTML=="Eliminar"){
+            accionEliminar();
+        }else{
+            accionEditar();
+        }
+    })
+}
 
+function accionEliminar(){
+    deleteDataPaciente(id).then((response)=>{
+        console.log(response);
+    })
+}
 
+function accionEliminar(){
+    deleteDataPaciente(id).then((response)=>{
+        console.log(response);
+    })
+} */
 
 
 function eventoSelects() {

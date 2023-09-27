@@ -86,7 +86,7 @@
                 <div class="mt-3">
                     <button class="btn btn-warning mx-auto" id='btnEditarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Editar</button>
                     <button class="btn btn-danger mx-auto delete" id='btnEliminarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Eliminar Paciente</button>
-                    <button class="btn btn-success mx-auto" id='btnEliminarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Asignar Usuario</button>
+                    <button class="btn btn-success mx-auto" id='btnUsuarioPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Asignar Usuario</button>
                 </div>
                 <div class="modal fade" id="modalGeneric" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg ">
@@ -100,7 +100,9 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-danger accion">Eliminar</button>
+                            <button type="button" class="btn btn-danger accion d-none">Eliminar</button>
+                            <button type="button" class="btn btn-success accionAsignar d-none">Asignar</button>
+                            <button type="button" class="btn btn-warning accionEditar d-none">Enviar Edición</button>
                         </div>
                         </div>
                     </div>

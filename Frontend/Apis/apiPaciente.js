@@ -59,6 +59,14 @@ const postDataPaciente = async(data,token)=>{
     console.log(res);
 }
 
+const registerPaciente = async(data,id)=>{
+    config.method = "POST";
+    config.body=JSON.stringify(data);
+    //config.headers.append('Authorization',`Bearer ${token}`)
+    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/register/${id}`,config)).json();
+    console.log(res);
+}
+
 const putDataPaciente = async(data,id)=>{
     config.method = "PUT";
     config.body=JSON.stringify(data);
@@ -81,5 +89,5 @@ const getPacienteById= async(id)=>{
 
 
 export {
-    opc, getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getPacienteById, getDataCiudad, getDataPais, getPaisById, getDepartamentoById, getCiudadById
+    opc, getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getPacienteById, getDataCiudad, getDataPais, getPaisById, getDepartamentoById, getCiudadById, registerPaciente
 }

@@ -74,7 +74,7 @@ namespace ApiProyecto.Controllers
             {
                 var paciente = _mapper.Map<Paciente>(dtoPersona);
                 paciente.Id = id;
-                _unitOfWork.Direcciones.ConfigureUnchangedState(paciente.Direccion);
+                //_unitOfWork.Direcciones.ConfigureUnchangedState(paciente.Direccion);
                 _unitOfWork.Pacientes.Update(paciente);
                 await _unitOfWork.SaveAsync();
                 return Ok(paciente);
