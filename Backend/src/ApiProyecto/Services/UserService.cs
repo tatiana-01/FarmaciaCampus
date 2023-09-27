@@ -276,6 +276,7 @@ public class UserService : IUserService
                                     .First();
             try
             {
+
                 usuario.Roles.Add(rolPredeterminado);
                 AsignarPersonaAUsuario(opcionPersona,personaId,usuario);
                 _unitOfWork.Usuarios.Add(usuario);
