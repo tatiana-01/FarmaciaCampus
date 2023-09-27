@@ -10,7 +10,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="../style.css">
-    <script src="../controllers/MasPaciente.js" defer></script>
+    <script src="../controllers/MasPaciente.js" type="module" defer></script>
     <script src="../app.js" type="module" defer></script>
     <title>Document</title>
 </head>
@@ -29,7 +29,7 @@
                 <div class="row">
                     <h3>Informacion Básica</h3>
                         <hr>
-                    <div class="col-12 col-md-6 ">
+                    <div class="col-12 col-md-6">
                         <div class="card bg-secondary-subtle" id="infoPersonas" >
                             <!-- <img src="../../images/" class="card-img-top" > -->
                              <div class="card-body">                            
@@ -69,11 +69,43 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card bg-secondary-subtle mt-2" id="usuarioPaciente" >
+                            <!-- <img src="../../images/" class="card-img-top" > -->
+                            <div class="card-body">
+                            <h5 class="card-title" >Datos de Usuario</h5>
+                            <hr>
+                                <div class="card-text contenido" id="infoUsuario">                                  
+                                    
+                                    <p class="fw-bold m-0">Username:</p>
+                                    <p id='direccion'>Usuario</p>                                         
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="mt-3">
-                    <button class="btn btn-warning mx-auto" id='btnEditarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#editarInfoBasica">Editar</button>
-                    <button class="btn btn-danger mx-auto" id='btnEliminarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#eliminarPaciente">Eliminar Paciente</button>
+                    <button class="btn btn-warning mx-auto" id='btnEditarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Editar</button>
+                    <button class="btn btn-danger mx-auto delete" id='btnEliminarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Eliminar Paciente</button>
+                    <button class="btn btn-success mx-auto" id='btnUsuarioPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Asignar Usuario</button>
+                </div>
+                <div class="modal fade" id="modalGeneric" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg ">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="labelModal">Confirmar eliminación</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body infoModal">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger accion d-none">Eliminar</button>
+                            <button type="button" class="btn btn-success accionAsignar d-none">Asignar</button>
+                            <button type="button" class="btn btn-warning accionEditar d-none">Enviar Edición</button>
+                        </div>
+                        </div>
+                    </div>
                 </div>
         </main>
     </section>

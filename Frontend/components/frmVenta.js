@@ -2,10 +2,15 @@ class FrmVenta extends HTMLElement {
     constructor() {
         super();
         this.render();
+        this.agregarProducto();
     }
 
     render() {
         this.innerHTML =/*html*/`
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <a href="registrarVentas.html" class="btn btn-outline-primary">Registrar Ventas</a>
+                <a href="mostrarVentas.html" class="btn btn-outline-primary">Mostrar Ventas</a>
+            </div>
         <div class="container mt-5 mb-5" id="ventaFrm">
         <div class="card">
 
@@ -43,40 +48,6 @@ class FrmVenta extends HTMLElement {
                     <div class="card card-p">
                         <div class="card-body card-productos">
                             <div class="productos">
-                                <div id="productos0" class="productoFrm">
-                                    <div class="row " id="div0">
-                                        <div class="col-md-3">
-                                            <label for="nombreProducto" class="form-label">Nombre del producto</label>
-                                            <select class="form-select" id="selectProducto">
-                                                <option value="0" selected>Seleccione una opcion</option>;
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label for="valor" class="form-label">Valor</label>
-                                            <input type="number" class="form-control" id="valor0" readonly>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label for="cantidad" class="form-label">Cantidad</label>
-                                            <input type="number" class="form-control" id="cantidad0" readonly>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label for="total" class="form-label">Total</label>
-                                            <input type="number" class="form-control" id="total0" readonly>
-                                        </div>
-                                        <div class="col-md-1 botones text-center">
-                                            <button class="btn btn-success boton-mas" id="mas0"
-                                                data-producto="0">+</button>
-                                        </div>
-                                        <div class="col-md-1 botones">
-                                            <button class="btn btn-warning boton-menos" id="menos0"
-                                                data-producto="0">-</button>
-                                        </div>
-                                        <div class="col-md-1 botones">
-                                            <img src="./Inicio/images/1017530.png" class="eliminar" id="eliminar0"
-                                                data-producto="0" alt="" srcset="">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +56,6 @@ class FrmVenta extends HTMLElement {
                 <div class="botones mb-2 mt-5">
                     <button class="btn enviar " id="guardar" type="submit">Guardar</button>
                     <button class="btn btn-success" id="añadir">Agregar Producto</button>
-                    <button class="btn btn-warning  text-white" type="reset">Nueva Factura</button>
                 </div>
 
 
@@ -93,6 +63,115 @@ class FrmVenta extends HTMLElement {
 
         </div>
     </div> `
+    }
+
+    agregarProducto(){
+        let boton= document.querySelector('#añadir');
+        console.log(boton);
+        let div=document.querySelector('.productos');
+        let contador=0;
+        boton.addEventListener("click",(e)=>{
+            contador++;
+            let html=/*html*/`
+            <div class="row" id="div${contador}">
+            <div class="col-3">
+                <label for="nombreProducto" class="form-label">Numero de producto:</label>
+                <select class="form-select" id="nombreProducto${contador}" name="Producto${contador}[]">
+                        <option value="0" selected>Seleccione una opcion</option>;
+                    </select>
+            </div>
+            <div class="col-2">
+                <label for="valor" class="form-label">Valor de producto:</label>
+                <input type="number" class="form-control" id="valor${contador}" name="Producto${contador}[]" readonly>
+            </div>
+            <div class="col-2">
+                <label for="cantidad" class="form-label">Cantidad de producto:</label>
+                <input type="number" class="form-control" id="cantidad${contador}" name="Producto${contador}[]" data-producto="${contador}" readonly>
+            </div>
+            <div class="col-2">
+                <label for="total" class="form-label">Total de producto:</label>
+                <input type="number" class="form-control" id="total${contador}" name="Producto${contador}[]" data-producto="${contador}" readonly>
+            </div>
+            <div class="col-1  botones">
+                <button class="btn btn-success boton-mas" id="mas${contador}" data-producto="${contador}">+</button>
+            </div>
+            <div class="col-1 botones">
+                <button class="btn btn-warning boton-menos" id="menos${contador}" data-producto="${contador}">-</button>
+            </div>
+            <div class="col-1 botones">
+                <img src="../Inicio/images/1017530.png" class="eliminar" id="eliminar${contador}" data-producto="${contador}" alt="" srcset="">
+            </div>
+        </div>
+
+            `;
+            let divElement=document.createElement("div");
+            divElement.innerHTML=html;
+            divElement.className='productoFrm';
+            div.appendChild(divElement);
+            divElement.setAttribute('id',`productos${contador}`);
+            this.aumento();
+            this.decremento();
+            this.eliminar();
+        })
+    }
+
+    aumento(){
+        let botonMas=document.querySelectorAll('.boton-mas');
+        botonMas.forEach(element => {
+            element.addEventListener("click",(e)=>{
+                let cantidad=document.querySelector(`#cantidad${element.dataset.producto}`);
+                let valor=document.querySelector(`#valor${element.dataset.producto}`);
+                let total=document.querySelector(`#total${element.dataset.producto}`);
+                cantidad.value++;
+                total.value=valor.value*cantidad.value;
+                e.preventDefault();
+                e.stopImmediatePropagation();
+    
+            })
+        });
+    }
+
+    decremento(){
+        let botonMenos=document.querySelectorAll('.boton-menos');
+        botonMenos.forEach(element => {
+            element.addEventListener("click",(e)=>{
+                let cantidad=document.querySelector(`#cantidad${element.dataset.producto}`);
+                let valor=document.querySelector(`#valor${element.dataset.producto}`);
+                let total=document.querySelector(`#total${element.dataset.producto}`);
+                cantidad.value--;
+                total.value=valor.value*cantidad.value;
+                if(cantidad.value<=0){
+                    let div=document.querySelector(`#productos${element.dataset.producto}`);
+                    let divPadre=document.querySelector('.productos');
+                    try{
+                        divPadre.removeChild(div);
+                    }catch{} 
+                }else{
+                    e.preventDefault();
+                    e.stopImmediatePropagation();        
+                }
+                e.preventDefault();
+                e.stopImmediatePropagation();
+    
+            })
+        });
+    }
+
+    eliminar(){
+        let div=document.querySelectorAll('.eliminar');
+        div.forEach((element)=>{
+            element.addEventListener('click',(e)=>{
+                let div=document.querySelector(`#productos${element.dataset.producto}`);
+                let divPadre=document.querySelector('.productos');
+                try{
+                    divPadre.removeChild(div);
+                }catch{} 
+            })
+        })
+    }
+
+    agregarVentaBD(){
+        
     }
 
 };
