@@ -18,7 +18,7 @@ namespace ApiProyecto.Controllers
         {
             _userService = userService;
         }
-        [Authorize]
+       // [Authorize]
         [HttpPost]
         public async Task<ActionResult> PostPacientes(PersonaCreationDTO[] dtosPersonas)
         {
@@ -27,7 +27,7 @@ namespace ApiProyecto.Controllers
             await _unitOfWork.SaveAsync();
             return Ok(_mapper.Map<PersonaDTO[]>(nuevosPacientes));
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost("register/{pacienteId:int}")]
         public async Task<ActionResult> CrearUsuarioAPaciente(int pacienteId, RegisterDto registerDto)
         {

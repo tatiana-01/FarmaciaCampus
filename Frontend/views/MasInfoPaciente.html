@@ -84,9 +84,26 @@
                     </div>
                 </div>
                 <div class="mt-3">
-                    <button class="btn btn-warning mx-auto" id='btnEditarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#editarInfoBasica">Editar</button>
-                    <button class="btn btn-danger mx-auto" id='btnEliminarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#eliminarPaciente">Eliminar Paciente</button>
-                    <button class="btn btn-success mx-auto" id='btnEliminarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#eliminarPaciente">Asignar Usuario</button>
+                    <button class="btn btn-warning mx-auto" id='btnEditarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Editar</button>
+                    <button class="btn btn-danger mx-auto delete" id='btnEliminarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Eliminar Paciente</button>
+                    <button class="btn btn-success mx-auto" id='btnEliminarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Asignar Usuario</button>
+                </div>
+                <div class="modal fade" id="modalGeneric" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg ">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="labelModal">Confirmar eliminación</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body infoModal">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger accion">Eliminar</button>
+                        </div>
+                        </div>
+                    </div>
                 </div>
         </main>
     </section>

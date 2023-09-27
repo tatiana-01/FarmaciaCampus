@@ -1,4 +1,4 @@
-import {getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getDataCiudad, getDataPais,  getPaisById, getDepartamentoById} from '../Apis/apiPaciente.js';
+import {getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getDataCiudad, getDataPais,  getPaisById, getDepartamentoById, getPacienteById} from '../Apis/apiPaciente.js';
 class ListarPaciente extends HTMLElement {
     constructor() {
         super();
@@ -34,7 +34,25 @@ class ListarPaciente extends HTMLElement {
               </div>
       
             </section>
-          </div>`
+          </div>
+          <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body infoEliminar">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger eliminarDefinitivo">Eliminar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+          `
     }
 
      getApiPaciente(){
@@ -55,7 +73,7 @@ class ListarPaciente extends HTMLElement {
                 <td>${nombre}</td>
                 <td>${correo}</td>
                 <td>
-                    <button data-id="${id}" class="btn btn-danger delete">Eliminar</button>
+                    <button data-id="${id}" class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#eliminarModal">Eliminar</button>
                     <button data-id="${id}" id="masInfo" class="btn btn-success masInfo">Mas Info</button>
                 </td>
             </tr>
@@ -81,8 +99,24 @@ class ListarPaciente extends HTMLElement {
         let botonEliminar=document.querySelectorAll('.delete');
         botonEliminar.forEach(btn=>{
             btn.addEventListener('click',(e)=>{
+                let eliminarConfirmacion=document.querySelector('.eliminarDefinitivo')
+                eliminarConfirmacion.setAttribute("data-idDelete",e.target.dataset.id)
+                this.confirmarEliminar();
                 console.log(e.target.dataset.id);
-                deleteDataPaciente(e.target.dataset.id).then((response)=>console.log(response))
+                
+            })
+        })
+    }
+
+    confirmarEliminar(){
+        let eliminarConfirmacion=document.querySelector('.eliminarDefinitivo')
+        let infoPaciente=document.querySelector('.infoEliminar')
+        console.log(eliminarConfirmacion);
+        getPacienteById(eliminarConfirmacion.dataset.iddelete).then((response)=>{
+            infoPaciente.innerHTML=`Desea eliminar al paciente ${response.nombre} con numero de identificación ${response.numIdentificacion}`
+            eliminarConfirmacion.addEventListener('click',(e)=>{
+                deleteDataPaciente(e.target.dataset.iddelete).then((response)=>console.log(response))
+                location.reload();
             })
         })
     }
