@@ -22,7 +22,7 @@ public class RolController : BaseApiControllerN
 
     //METODO GET (obtener todos los registros)
     [HttpGet]
-    [Authorize]
+    //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -35,8 +35,8 @@ public class RolController : BaseApiControllerN
 
     //METODO GET (Para obtener paginacion, registro y busqueda en la entidad)
     [HttpGet("Pagina")]
-    [Authorize]
-    [MapToApiVersion("1.1")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,8 +52,8 @@ public class RolController : BaseApiControllerN
 
     //METODO GET POR ID (Traer un solo registro de la entidad de la  Db)
     [HttpGet("{id}")]
-    [Authorize]
-    [MapToApiVersion("1.1")]
+    //[Authorize]
+    //[MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -71,7 +71,7 @@ public class RolController : BaseApiControllerN
 
     //METODO POST (para enviar registros a la entidad de la Db)
     [HttpPost]
-    //[Authorize(Roles = "Administrador")]
+    ////[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -91,7 +91,7 @@ public class RolController : BaseApiControllerN
 
     //METODO PUT (editar un registro de la entidad de la Db)
     [HttpPut("{id}")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -112,7 +112,7 @@ public class RolController : BaseApiControllerN
 
     //METODO DELETE (Eliminar un registro de la entidad de la Db)
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -10,5 +10,7 @@ namespace ApiProyecto.Dtos;
         public DateTime FechaVenta { get; set; }
         public int PacienteId { get; set; }
         public int EmpleadoId { get; set; }
+        public EmpleadoDTO Empleado {get; set;}
+        public PersonaDTO Paciente {get; set;}
         public List<MedicamentoVentaDTO> MedicamentosVendidos { get; set; }=new List<MedicamentoVentaDTO>();
     }

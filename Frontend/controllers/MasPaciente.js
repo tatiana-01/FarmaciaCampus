@@ -254,8 +254,9 @@ function asignarUsuario() {
             console.log(id);
             registerPaciente(dataUsuario, id).then((response) => {
                 console.log(response);
+                location.reload();
             })
-            location.reload()
+            
         })
   
         /* getDataPais().then((response) => { selectPais(response.registers) });
