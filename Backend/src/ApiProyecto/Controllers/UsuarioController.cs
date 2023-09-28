@@ -83,7 +83,7 @@ public class UsuariosController : BaseApiControllerN
 
     //METODO GET PARA OBTENER LOS USUARIOS REGISTRADOS
     [HttpGet]
-    //[Authorize(Roles ="Empleado")]
+    ////[Authorize(Roles ="Empleado")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -96,7 +96,7 @@ public class UsuariosController : BaseApiControllerN
 
     //METODO GET (OBTENER LOS USUARIOS CON SU ROL)
     [HttpGet("UsuarioXrol")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -110,7 +110,7 @@ public class UsuariosController : BaseApiControllerN
 
     //METODO GET POR ID (TRAER UN UNICO REGISTRO CON SUS ROLES)
     [HttpGet("{id}")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -127,9 +127,25 @@ public class UsuariosController : BaseApiControllerN
         return this.mapper.Map<UsuarioXrolDto>(usuarioXrol);
     }
 
+    [HttpGet("username/{username}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<UsuarioXrolDto> GetByUsername(string username)
+    {
+        var usuarioXrol =  _unitOfWork.Usuarios.Find(p=>p.Username==username);
+
+        if (usuarioXrol == null) {
+            return NotFound();
+        }
+
+        return this.mapper.Map<UsuarioXrolDto>(usuarioXrol);
+    }
+
     //METODO GET (Para obtener paginacion, registro y busqueda en la entidad)
     [HttpGet("Pagina")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -163,7 +179,7 @@ public class UsuariosController : BaseApiControllerN
 
     //METODO DELETE (ELIMINAR USUARIO REGISTRADO)
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

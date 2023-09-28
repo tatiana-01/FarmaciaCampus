@@ -55,7 +55,20 @@ const getEmpleadoById= async(id)=>{
     return res;
 }
 
+const getUserByUsername= async(id)=>{
+    config.method = "GET";
+    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Usuarios/username/${id}`,config)).json();
+    return res;
+}
+
+const getProveedorById= async(id)=>{
+    config.method = "GET";
+    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Proveedor/${id}`,config)).json();
+    return res;
+}
+
+
 
 export {
-    opc, getDataProducto, postDataProducto, putDataProducto, deleteDataProducto, getProductoById, getDataEmpleado, getEmpleadoById
+    opc, getDataProducto, postDataProducto, putDataProducto, deleteDataProducto, getProductoById, getDataEmpleado, getEmpleadoById, getProveedorById, getUserByUsername
 }

@@ -13,5 +13,6 @@ import'./components/listarPaciente.js';
 import'./components/listarVentas.js';
 import'./components/listarRol.js';
 import'./components/listarDepartamento.js';
+import'./components/medicamentos.js';
 
 

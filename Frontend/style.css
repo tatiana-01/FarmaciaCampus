@@ -5,6 +5,10 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+
+}
+.noLine{
+	text-decoration: none;
 }
 
 :root {
@@ -653,8 +657,9 @@ main .btn-send:hover {
 }
 
 .logoFactura{
-	width: 30%;
-	height: 30%;
+	width: 40%;
+	height: 40%;
+	margin-bottom: 1rem;
 }
 
 .todo{

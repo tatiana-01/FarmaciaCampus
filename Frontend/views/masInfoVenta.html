@@ -11,13 +11,18 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style.css">
+   
     <script src="../app.js" type="module" defer></script>
     <script src="../Controllers/MasVenta.js" type="module" defer></script>
     <title>Document</title>
 </head>
 
 <body>
-    <side-bar></side-bar>
+    <section id="sidebar">
+        <side-bar></side-bar>
+    </section>
+
+   
     <section id="content">
         <nav-bar></nav-bar>
         <main>
@@ -31,22 +36,37 @@
                     <hr>
                     <img src="../Inicio/images/logo.png" class="logoFactura" srcset="">
                     <h5 class="noFactura fw-bold">Factura No</h5>
-                    <p class="fw-bold">Fecha:</p>
-                    <p class="fecha "></p>
-                    <p class="fw-bold">Paciente:</p>
-                    <p class="paciente "></p>
-                    <p class="fw-bold">Empleado:</p>
-                    <p class="empleado"></p>
+                    <div class="row container-fluid mt-4">
+                        <div class="col-lg-6 ">
+                            <p class="fw-bold d-flex justify-content-center">Fecha:</p>
+                            <p class="fecha d-flex justify-content-center"></p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="fw-bold d-flex justify-content-center">Empleado:</p>
+                            <p class="empleado d-flex justify-content-center"></p>
+                        </div>
+                    </div>
+                    <div class="row container-fluid">
+                        <div class="col-lg-6">
+                            <p class="fw-bold d-flex justify-content-center">Paciente:</p>
+                            <p class="paciente d-flex justify-content-center "></p>                           
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="fw-bold d-flex justify-content-center">Identificación:</p>
+                            <p class="identificacion d-flex justify-content-center"></p>
+                        </div>
+                    </div>
+                    
                     <hr>
-                    <div class="container medsFactura">
+                    <div class="container medsFactura ">
                         <div class="row">
-                            <div class="col-xl-4 fw-bold">
+                            <div class="col-xl-4 fw-bold d-flex justify-content-center">
                                 Producto
                             </div>
-                            <div class="col-xl-4 fw-bold">
+                            <div class="col-xl-4 fw-bold d-flex justify-content-center">
                                 cantidad
                             </div>
-                            <div class="col-xl-4 fw-bold">
+                            <div class="col-xl-4 fw-bold d-flex justify-content-center">
                                 Precio
                             </div>
                         </div>
@@ -69,7 +89,7 @@
             </div>
         </main>
     </section>
-
+    <script src="../main.js" defer ></script>
 
 </body>
 
