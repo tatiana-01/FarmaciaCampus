@@ -35,7 +35,14 @@ class SideBar extends HTMLElement {
 					<li><a id="comprasLink" href="#">Compras</a></li>
 				</ul>
 			</li>
-			<li><a href="#"><i class='bx bxs-chart icon' ></i> Charts</a></li>
+			<li>
+				<a href="#"><i class='bx bxs-inbox icon' ></i> Ubicación <i class='bx bx-chevron-right icon-right' ></i></a>
+				<ul class="side-dropdown">
+					<li><a  href="#">Pais</a></li>
+					<li><a  href="departamento.html">Departamento</a></li>
+					<li><a  href="#">Ciudad</a></li>
+				</ul>
+			</li>
 			<li><a href="#"><i class='bx bxs-widget icon' ></i> Widgets</a></li>
 			<li class="divider" data-text="table and forms">Table and forms</li>
 			<li><a href="#"><i class='bx bx-table icon' ></i> Tables</a></li>
@@ -90,6 +97,66 @@ class SideBar extends HTMLElement {
                 this.classList.toggle('active');
                 item.classList.toggle('show');
             })
+        })
+
+        const toggleSidebar = document.querySelector('nav .toggle-sidebar');
+        const allSideDivider = this.shadowRoot.querySelectorAll('#sidebar .divider');
+        if (sidebar.classList.contains('hide')) {
+            allSideDivider.forEach(item => {
+                item.textContent = '-'
+            })
+            allDropdown.forEach(item => {
+                const a = item.parentElement.querySelector('a:first-child');
+                a.classList.remove('active');
+                item.classList.remove('show');
+            })
+        } else {
+            allSideDivider.forEach(item => {
+                item.textContent = item.dataset.text;
+            })
+        }
+        toggleSidebar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+            toggleSidebar.classList.toggle('ya')
+            if (sidebar.classList.contains('hide')) {
+                allSideDivider.forEach(item => {
+                    item.textContent = '-'
+                })
+
+                allDropdown.forEach(item => {
+                    const a = item.parentElement.querySelector('a:first-child');
+                    a.classList.remove('active');
+                    item.classList.remove('show');
+                })
+            } else {
+                allSideDivider.forEach(item => {
+                    item.textContent = item.dataset.text;
+                })
+            }
+        })
+        sidebar.addEventListener('mouseleave', function () {
+            if (this.classList.contains('hide')) {
+                allDropdown.forEach(item => {
+                    const a = item.parentElement.querySelector('a:first-child');
+                    a.classList.remove('active');
+                    item.classList.remove('show');
+                })
+                allSideDivider.forEach(item => {
+                    item.textContent = '-'
+                })
+            }
+        })
+        sidebar.addEventListener('mouseenter', function () {
+            if (this.classList.contains('hide')) {
+                allDropdown.forEach(item => {
+                    const a = item.parentElement.querySelector('a:first-child');
+                    a.classList.remove('active');
+                    item.classList.remove('show');
+                })
+                allSideDivider.forEach(item => {
+                    item.textContent = item.dataset.text;
+                })
+            }
         })
     }
 

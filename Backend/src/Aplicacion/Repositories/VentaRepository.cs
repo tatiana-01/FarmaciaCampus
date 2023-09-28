@@ -24,6 +24,8 @@ public class VentaRepository : GenericRepository<Venta>, IVenta
         var totalRegistros=await _context.Set<Venta>().CountAsync();
         var registros = await _context.Set<Venta>()
             .Include(p=>p.MedicamentosVendidos)
+            .Include(p=>p.Paciente)
+            .Include(p=>p.Empleado)
             .Skip((pageIndex-1)*pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -32,7 +34,7 @@ public class VentaRepository : GenericRepository<Venta>, IVenta
 
     public override async Task<Venta> GetByIdAsync(int id)
     {
-        return await _context.Set<Venta>().Include(p=>p.MedicamentosVendidos).FirstOrDefaultAsync(p=>p.Id==id);
+        return await _context.Set<Venta>().Include(p=>p.Paciente).Include(p=>p.Empleado).Include(p=>p.MedicamentosVendidos).FirstOrDefaultAsync(p=>p.Id==id);
     }
 
     public override void Remove(Venta entity)
