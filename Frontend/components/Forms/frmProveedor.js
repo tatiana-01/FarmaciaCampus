@@ -167,6 +167,7 @@ class FrmProveedor extends HTMLElement {
             console.log(data)
             postProveedor(data); //METODO POST 
             alert("El Proveedor fue registrado exitosamente")
+            location.reload();
 
             e.preventDefault();
         });

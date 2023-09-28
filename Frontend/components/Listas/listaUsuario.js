@@ -63,7 +63,7 @@ class ListaUsuario extends HTMLElement {
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Roles asociados a su Usuario</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">++ Roles asociados a los Usuario ++</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -151,7 +151,7 @@ class ListaUsuario extends HTMLElement {
         
         this.obtenerDatoEditar();
         this.eliminarUsuariorRegistrado();
-        //this.obtenerMasInformacionProveedor();
+        this.obtenerDatoUsuarioEditar();
     }
 
     //funcion para buscar el datos del proveedor a editar
@@ -232,6 +232,23 @@ class ListaUsuario extends HTMLElement {
         });
     }
 
+    //funcion para buscar el datos por Id de Usuario
+    obtenerDatoUsuarioEditar = () => {
+        document.querySelectorAll('.infoRolUsuario').forEach((botonInfo) => {
+            botonInfo.addEventListener('click', (e) => {
+                let codigoId = e.target.id;
+
+                getByIdUsuario(codigoId)
+                    .then((data) => {
+                        console.log(data);
+                        let roles = data.roles;
+                        this.mostraMasInformacionUsuarios(roles)
+                    })
+            });
+        });
+    }
+
+    //metodo para llenar el modal de mas infirmacion
     mostraMasInformacionUsuarios = (datosroles) => {
         const cuerpoTablaRol = document.querySelector('#cuerpoTablaRol');
         if (datosroles != null) {

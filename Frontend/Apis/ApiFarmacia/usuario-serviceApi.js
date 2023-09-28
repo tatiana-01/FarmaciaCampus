@@ -31,55 +31,6 @@ async function getUsuario() {
     }
 }
 
-//metodo (GET) para pais
-const getDataPais = async()=>{
-    config.method = "GET";
-    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Pais",config)).json();
-    return res;
-}
-
-//metodo (GET por ID) para pais
-const getPaisById= async(id)=>{
-    config.method = "GET";
-    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Pais/${id}`,config)).json();
-    return res;
-}
-
-//metodo (GET) para departamento
-const getDataDepartamento = async()=>{
-    config.method = "GET";
-    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Departamento",config)).json();
-    return res;
-}
-
-//metodo (GET por ID) para departamento 
-const getDepartamentoById= async(id)=>{
-    config.method = "GET";
-    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Departamento/${id}`,config)).json();
-    return res;
-}
-
-//metodo (GET) para ciudad
-const getDataCiudad = async()=>{
-    config.method = "GET";
-    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Ciudad",config)).json();
-    return res;
-}
-
-//metodo (GET por ID) para departamento 
-const getCiudadById= async(id)=>{
-    config.method = "GET";
-    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Ciudad/${id}`,config)).json();
-    return res;
-}
-
-//metodo (POST) para proveedor
-async function postUsuario(data) {
-    config.method = "POST";
-    config.body = JSON.stringify(data);
-    let res = await ( await fetch("http://localhost:5000/api/Farmacia/Usuarios",config)).json();
-    console.log(res);
-}
 
 //metodo (GET) para implementar el (BUSCAR)
 async function getByIdUsuario(id) {
@@ -102,13 +53,5 @@ async function deleteUsuario(id) {
     config.method = "DELETE";
     //config.body = JSON.stringify(datos);
     let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Usuarios/${id}`,config)).json();
-    console.log(res);
-}
-
-//metodo (POST) para proveedor
-async function postRegUsuarioProvee(data, id) {
-    config.method = "POST";
-    config.body = JSON.stringify(data);
-    let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Proveedor/register/${id}`,config)).json();
     console.log(res);
 }
