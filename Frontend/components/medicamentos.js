@@ -59,13 +59,5 @@ class Medicamentos extends HTMLElement {
         document.querySelector('body').appendChild(script);
     }
 
-    saludo(){
-        let params = new URL(document.location).searchParams;
-        let username = parseInt(params.get("username"));
-        getUserByUsername(username).then((response)=>{
-            if(response.r)
-        })
-    }
-
 };
 customElements.define('medicamentos-inicio', Medicamentos);
