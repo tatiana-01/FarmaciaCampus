@@ -5,6 +5,10 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+
+}
+.noLine{
+	text-decoration: none;
 }
 
 :root {
@@ -205,6 +209,8 @@ li {
 	left: 260px;
 	transition: all .3s ease;
 }
+
+
 #sidebar.hide + #content {
 	width: calc(100% - 60px);
 	left: 60px;
@@ -648,4 +654,86 @@ main .btn-send:hover {
 	nav .divider {
 		display: none;
 	}
+}
+
+.logoFactura{
+	width: 40%;
+	height: 40%;
+	margin-bottom: 1rem;
+}
+
+.todo{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 90%;
+	border-top-style: dashed;
+	border-bottom-style: dashed;
+  border-width: 4px;
+  
+
+}
+
+.fondo{
+	background-color: #4bc5b944;
+	width: 40%;
+	border-radius: 10px;
+	margin-top: 2rem;
+}
+
+.medsFactura{
+
+	border-top-style: dotted;
+  border-width: 4px;
+  padding: 1rem;
+}
+
+.totalMeds{
+	padding: 1rem; 
+}
+
+.all{
+	margin: 1rem;
+}
+
+.logoFactura{
+	width: 40%;
+	height: 40%;
+	margin-bottom: 1rem;
+}
+
+.todo{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 90%;
+	border-top-style: dashed;
+	border-bottom-style: dashed;
+  border-width: 4px;
+  
+
+}
+
+.fondo{
+	background-color: #4bc5b944;
+	width: 40%;
+	border-radius: 10px;
+	margin-top: 2rem;
+}
+
+.medsFactura{
+
+	border-top-style: dotted;
+  border-width: 4px;
+  padding: 1rem;
+}
+
+.totalMeds{
+	padding: 1rem; 
+}
+
+.all{
+	margin: 1rem;
 }

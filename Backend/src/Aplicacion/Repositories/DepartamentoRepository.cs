@@ -25,6 +25,7 @@ public class DepartamentoRepository : GenericRepository<Departamento>, IDepartam
             var totalRegistros = await query.CountAsync();
             var registros = await query
                 .Include(p => p.Ciudades)
+                .Include(p=>p.Pais)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
@@ -35,6 +36,7 @@ public class DepartamentoRepository : GenericRepository<Departamento>, IDepartam
         {
             return await _context.Departamentos
                 .Include(p => p.Ciudades)
+                .Include(p=>p.Pais)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 }
