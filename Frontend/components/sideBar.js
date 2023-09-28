@@ -33,6 +33,7 @@ class SideBar extends HTMLElement {
 					<li><a id="proveedoreLink" href="#">Proveedores</a></li>
 					<li><a id="ventaLink" href="#">Ventas</a></li>
 					<li><a id="comprasLink" href="#">Compras</a></li>
+                    <li><a id="usuariosLink">Usuarios</a></li>
 				</ul>
 			</li>
 			<li><a href="#"><i class='bx bxs-chart icon' ></i> Charts</a></li>
@@ -59,6 +60,7 @@ class SideBar extends HTMLElement {
         this.proveedoreLink = this.shadowRoot.getElementById("proveedoreLink");
         this.ventaLink = this.shadowRoot.getElementById("ventaLink");
         this.comprasLink = this.shadowRoot.getElementById("comprasLink");
+        this.usuariosLink = this.shadowRoot.getElementById("usuariosLink");
 
         this.brandLink.addEventListener("click", () => this.navigateTo("../index.html"));
         this.empleadoLink.addEventListener("click", () => this.navigateTo("empleado.html"));
@@ -66,6 +68,7 @@ class SideBar extends HTMLElement {
         this.proveedoreLink.addEventListener("click", () => this.navigateTo("proveedor.html"));
         this.ventaLink.addEventListener("click", () => this.navigateTo("ventas.html"));
         this.comprasLink.addEventListener("click", () => this.navigateTo("compras.html"));
+        this.usuariosLink.addEventListener("click", () => this.navigateTo("usuarios.html"));
     }
     navigateTo(page) {
         window.location = page;

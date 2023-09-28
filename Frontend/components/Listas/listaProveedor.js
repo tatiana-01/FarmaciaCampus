@@ -14,13 +14,14 @@ class ListaProveedor extends HTMLElement {
         this.innerHTML = /* html */ `
             <div>
                 <h2 class="text-center mt-3">Lista de los Proveedores</h2>
-                <table class="table table-dark table-striped">
+                <table class="table table-success table-striped">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Telefono</th>
+                            <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -298,22 +299,53 @@ class ListaProveedor extends HTMLElement {
                 <td>${proveedor.correo}</td>
                 <td>${proveedor.telefono}</td>
                 <td>
+                    <button type="button" class="btn btn-info infoProveedor" data-bs-toggle="modal" data-bs-target="#informacionProveedor1" id="${proveedor.id}">MÁS INFO+</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning regUsuarioProveedor" id="${proveedor.id}">REG SU USUARIO</button>
+                </td>
+                <td>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning editarProveedor" data-bs-toggle="modal" data-bs-target="#formularioProveedor1" id="${proveedor.id}">EDITAR</button>
+                    <button type="button" class="btn btn-success editarProveedor" data-bs-toggle="modal" data-bs-target="#formularioProveedor1" id="${proveedor.id}">EDITAR</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info eliminarProveedor" id="${proveedor.id}">ELIMINAR</button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning infoProveedor" data-bs-toggle="modal" data-bs-target="#informacionProveedor1" id="${proveedor.id}">MÁS INFO+</button>
+                    <button type="button" class="btn btn-danger eliminarProveedor" id="${proveedor.id}">ELIMINAR</button>
                 </td>
             `;
             cuerpoTablaProveedor.appendChild(crearFilas);
         });
 
+        this.regUsuarioProvvedor();
         this.eliminarProveedorr();
         this.obtenerDatoEditar();
         this.obtenerMasInformacionProveedor();
+    }
+
+    //funcio para el registro del usuario y redireccioar a otra pagina
+    regUsuarioProvvedor = () => {
+        document.querySelectorAll('.regUsuarioProveedor').forEach((itemUsuario) => {
+            itemUsuario.addEventListener('click', (e) => {
+                let idCod = e.target.id;
+                getByIdProveedor(idCod)
+                    .then((data) => {
+                        let usuario = data.usuario;
+                        console.log(usuario);
+                        //funcionpara llenar el modal
+                        this.verificarUsuario(usuario, idCod);
+                    })
+                
+            });
+        });
+    }
+
+    //funcion para verificar si el ususrio esta o no registrado
+    verificarUsuario = (datos, idCod) => {
+        if (datos == null) {
+            window.location = `registrarSuUsuarioProve.html?idCod=${idCod}`;
+        } else {
+
+            alert("Usted ya posee un Usuario y Contraseña a su nombre");
+        }
     }
 
     //funcion para buscar el datos del proveedor a editar

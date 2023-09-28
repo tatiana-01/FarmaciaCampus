@@ -110,7 +110,7 @@ public class UsuariosController : BaseApiControllerN
 
     //METODO GET POR ID (TRAER UN UNICO REGISTRO CON SUS ROLES)
     [HttpGet("{id}")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -149,7 +149,7 @@ public class UsuariosController : BaseApiControllerN
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<UsuarioDto>> PutEditar(int id, [FromBody] UsuarioDto usuarioDto)
+    public async Task<ActionResult<UsuarioDto>> Put(int id, [FromBody] UsuarioDto usuarioDto)
     {
         if (usuarioDto == null) {
             return NotFound();
@@ -163,7 +163,7 @@ public class UsuariosController : BaseApiControllerN
 
     //METODO DELETE (ELIMINAR USUARIO REGISTRADO)
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Administrador")]
+    //[Authorize(Roles = "Administrador")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

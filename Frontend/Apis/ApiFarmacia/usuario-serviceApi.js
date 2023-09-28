@@ -1,8 +1,4 @@
-export { getProveedor, getDataPais, getDepartamentoById, getPaisById, postProveedor, getByIdProveedor, getDataCiudad, putProveedor, deleteProveedor, getCiudadById, postRegUsuarioProvee };
-
-//----variable golbales----
-//const URL_API = 'http://localhost:5000/api/Farmacia/Proveedor'; //url del servidor json server
-//-------------------------
+export { getUsuario, getByIdUsuario, putUsuario, deleteUsuario };
 
 let config = {
     headers:new Headers({
@@ -11,9 +7,9 @@ let config = {
 };
 
 //estraemos los datos de la API, metodo (GET) para el TEAM
-async function getProveedor() {
+async function getUsuario() {
     try {
-        const response = await fetch("http://localhost:5000/api/Farmacia/Proveedor") //indicamos el endpoint que es /team (GET)
+        const response = await fetch("http://localhost:5000/api/Farmacia/Usuarios") //indicamos el endpoint que es /team (GET)
         console.log(response);
 
         if (response.status === 200) {
@@ -78,34 +74,34 @@ const getCiudadById= async(id)=>{
 }
 
 //metodo (POST) para proveedor
-async function postProveedor(data) {
+async function postUsuario(data) {
     config.method = "POST";
     config.body = JSON.stringify(data);
-    let res = await ( await fetch("http://localhost:5000/api/Farmacia/Proveedor",config)).json();
+    let res = await ( await fetch("http://localhost:5000/api/Farmacia/Usuarios",config)).json();
     console.log(res);
 }
 
 //metodo (GET) para implementar el (BUSCAR)
-async function getByIdProveedor(id) {
+async function getByIdUsuario(id) {
     config.method = "GET";
-    let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Proveedor/${id}`,config)).json();
+    let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Usuarios/${id}`,config)).json();
     console.log(id);
     return res;
 }
 
 //metodo (PUT) para editar la base de datos  API
-async function putProveedor (data, id) {
+async function putUsuario (data, id) {
     config.method = "PUT";
     config.body = JSON.stringify(data);
-    let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Proveedor/${id}`,config)).json();
+    let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Usuarios/${id}`,config)).json();
     console.log(res);
 }
 
 //metodo (DELETE) para eliminar un registro de la base de datos API
-async function deleteProveedor(id) {
+async function deleteUsuario(id) {
     config.method = "DELETE";
     //config.body = JSON.stringify(datos);
-    let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Proveedor/${id}`,config)).json();
+    let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Usuarios/${id}`,config)).json();
     console.log(res);
 }
 
@@ -116,4 +112,3 @@ async function postRegUsuarioProvee(data, id) {
     let res = await ( await fetch(`http://localhost:5000/api/Farmacia/Proveedor/register/${id}`,config)).json();
     console.log(res);
 }
-
