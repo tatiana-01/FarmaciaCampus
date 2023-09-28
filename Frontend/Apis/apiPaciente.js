@@ -55,15 +55,19 @@ const postDataPaciente = async(data,token)=>{
     config.method = "POST";
     config.body=JSON.stringify(data);
     config.headers.append('Authorization',`Bearer ${token}`)
-    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Paciente",config)).json();
-    console.log(res);
+    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Paciente",config));
+    if(res.status!=200){
+        return "error";
+    }else{
+        return res.json()
+    }
 }
 
 const registerPaciente = async(data,id)=>{
     config.method = "POST";
     config.body=JSON.stringify(data);
     //config.headers.append('Authorization',`Bearer ${token}`)
-    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/register/${id}`,config)).json();
+    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/register/${id}`,config));
     console.log(res);
 }
 
@@ -85,6 +89,7 @@ const getPacienteById= async(id)=>{
     let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/${id}`,config)).json();
     return res;
 }
+
 
 
 

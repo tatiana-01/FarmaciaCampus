@@ -1,3 +1,4 @@
+import './components/registro/frmPacienteRegistro.js';
 import { getUserByUsername,getEmpleadoById,getProveedorById } from '../Apis/apiProductoo.js';
 import { getPacienteById } from '../Apis/apiPaciente.js';
 import { getToken} from '../Apis/ApiFarmacia/apiLogin.js';
@@ -10,13 +11,19 @@ btnLogin.addEventListener('click',(e)=>{
        
             if(response.estaAutenticado){
                 let confirmInicio=window.confirm("Inicio de sesion exitoso")
-                response.roles.foreach((rol)=>{
+                for (let index = 0; index < response.roles.length; index++) {
+                    let rol = response.roles[index];
                     if(rol=='Administrador' || rol=='Empleado' || rol=='Proveedor'){
-                        if(confirmInicio) window.location=`../index.html?username=${response.username}`
+                        if(confirmInicio) {
+                            window.location=`../index.html?username=${response.userName}`
+                        }
+                        break
                     }else{
-                        if(confirmInicio) window.location=`../indexPaciente.html?username=${response.username}`
+                        if(confirmInicio) window.location=`../indexPaciente.html?username=${response.userName}`
+                        break
                     }
-                })
+                }
+            
                 
             }else {
                 let confirm=window.confirm("Datos Invalidos")
