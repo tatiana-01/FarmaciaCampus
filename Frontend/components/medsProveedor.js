@@ -20,7 +20,7 @@ class MedsProveedor extends HTMLElement {
         </select>
             <header class="headPricipal row">
             </header>
-            <section class=" mainContent row">
+            <section class=" mainContent row mt-4">
               <div class="col sm-12">
                 <table class="table">
                     <thead>
