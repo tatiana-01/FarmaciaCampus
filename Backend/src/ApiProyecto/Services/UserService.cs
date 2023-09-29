@@ -249,6 +249,9 @@ public class UserService : IUserService
     public async Task<Usuario> EditarUsuarioAsync(Usuario model)
     {
         Usuario usuario = new Usuario();
+        usuario.Id = model.Id;
+        usuario.Username = model.Username;
+        usuario.Email = model.Email;
         usuario.Password = _passwordHasher.HashPassword(usuario, model.Password);
         _unitOfWork.Usuarios.Update(usuario);
         await _unitOfWork.SaveAsync();

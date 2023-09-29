@@ -26,7 +26,7 @@ namespace ApiProyecto.Controllers
             var nuevosProveedores = _mapper.Map<Proveedor[]>(dtosPersona);
             _unitOfWork.Proveedores.AddRange(nuevosProveedores);
             await _unitOfWork.SaveAsync();
-            return Ok();
+            return Ok(_mapper.Map<PersonaCreationDTO[]>(nuevosProveedores));
         }
 
         [HttpPost("register/{proveedorId:int}")]

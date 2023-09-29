@@ -1,40 +1,43 @@
+import { postProveedor } from "../../Apis/ApiFarmacia/proveedor-serviceApi.js";
 export { FrmProveedor };
 
 class FrmProveedor extends HTMLElement {
     constructor() {
         super();
         this.formulario();
+        this.obtenerDatosFrmProveedores();
+
     }
     formulario() {
         this.innerHTML = /* html */ `
             <!--Forumulario-->
-            <div class="container">
+            <div class="container mt-3">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-center">Ingrese los datos del proveedor</h4>
                     </div>
                     <div class="card-body">
-                        <form id="fromDatosProveedor">
+                        <form id="frmDatosProveedor">
                             <div class="container">
                                 <h5>Información Personal:</h5>
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="mb-3">
-                                            <label for="Nombre" class="form-label">Nombre Proveedor:*</label>
-                                            <input type="text" class="form-control" id="Nombre" name="Nombre"/>
+                                            <label for="nombre" class="form-label">Nombre Proveedor:*</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre"/>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mb-3">
-                                            <label for="NumIdentificacion" class="form-label">Numero de Identificación:*</label>
-                                            <input type="number" class="form-control" id="NumIdentificacion" name="NumIdentificacion" min="0"/>
+                                            <label for="numIdentificacion" class="form-label">Numero de Identificación:*</label>
+                                            <input type="number" class="form-control" id="numIdentificacion" name="numIdentificacion" min="0"/>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mb-3">
-                                            <label for="FechaNacimiento" class="form-label">Fecha de Nacimiento:*</label>
-                                            <input type="date" class="form-control" id="FechaNacimiento"
-                                            name="FechaNacimiento"/>
+                                            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:*</label>
+                                            <input type="date" class="form-control" id="fechaNacimiento"
+                                            name="fechaNacimiento"/>
                                         </div>
                                     </div>
                                 </div>
@@ -42,45 +45,41 @@ class FrmProveedor extends HTMLElement {
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="mb-3">
-                                            <label for="Correo" class="form-label">Correo electronico:*</label>
-                                            <input type="email" class="form-control" id="Corre" name="Corre"/>
+                                            <label for="correo" class="form-label">Correo electronico:*</label>
+                                            <input type="email" class="form-control" id="correo" name="correo"/>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mb-3">
-                                            <label for="Telefono" class="form-label">Numero de Telefono:*</label>
-                                            <input type="text" class="form-control" id="Telefono" name="Telefono"/>
+                                            <label for="telefono" class="form-label">Numero de Telefono:*</label>
+                                            <input type="text" class="form-control" id="telefono" name="telefono"/>
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="mb-3">
-                                            <label for="UsuarioId" class="form-label">Ingrese su Id de su Usuario:*</label>
-                                            <input type="number" class="form-control" id="UsuarioId"
-                                            name="UsuarioId" min="0"/>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="mb-3">
-                                            <label for="Pais" class="form-label">Pais:*</label>
-                                            <select class="form-select form-select-lg mb-3" id="Pais " name="Pais">
+                                            <label for="pais" class="form-label">Pais:*</label>
+                                            <select class="form-select form-select-lg mb-3" id="pais">
                                                 <option selected>Paises</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mb-3">
-                                            <label for="Departamento" class="form-label">Departamento:*</label>
-                                            <select class="form-select form-select-lg mb-3" id="Departamento " name="Departamento">
+                                            <label for="departamento" class="form-label">Departamento:*</label>
+                                            <select class="form-select form-select-lg mb-3" id="departamento">
                                                 <option selected>Departamentos</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mb-3">
-                                            <label for="Ciudad" class="form-label">Ciudad:*</label>
-                                            <select class="form-select form-select-lg mb-3" id="Ciudad " name="Ciudad">
+                                            <label for="ciudad" class="form-label">Ciudad:*</label>
+                                            <select class="form-select form-select-lg mb-3" id="ciudad" name="ciudadId">
                                                 <option selected>Ciudades</option>
                                             </select>
                                         </div>
@@ -90,46 +89,46 @@ class FrmProveedor extends HTMLElement {
                                     <label>Dirección:*</label>
                                     <div class="col-2">
                                         <div class="mb-3">
-                                            <label for="TipoVia" class="form-label">Tipo Via:</label>
-                                            <input type="text" aria-label="First name" class="form-control" id="TipoVia" name="TipoVia" placeholder="Tipo via"/>
+                                            <label for="tipoVia" class="form-label">Tipo Via:</label>
+                                            <input type="text" aria-label="First name" class="form-control" id="TipoVia" name="tipoVia" placeholder="Tipo via"/>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="mb-3">
-                                            <label for="NumeroVia" class="form-label">Numero:</label>
-                                            <input type="text" aria-label="First name" class="form-control" id="NumeroVia" name="NumeroVia" placeholder="Numero"/>
+                                            <label for="numeroVia" class="form-label">Numero:</label>
+                                            <input type="text" aria-label="First name" class="form-control" id="numeroVia" name="numeroVia" placeholder="Numero"/>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="mb-3">
-                                            <label for="LetraVia" class="form-label">Letra:</label>
-                                            <input type="text" aria-label="First name" class="form-control" id="LetraVia" name="LetraVia" placeholder="Letra"/>
+                                            <label for="letraVia" class="form-label">Letra:</label>
+                                            <input type="text" aria-label="First name" class="form-control" id="letraVia" name="letraVia" placeholder="Letra"/>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="mb-3">
-                                            <label for="SufijoCardinal" class="form-label">Sufijo Cardinal:</label>
-                                            <input type="text" aria-label="First name" class="form-control" id="SufijoCardinal" name="SufijoCardinal" placeholder="Sufijo Cardinal"/>
+                                            <label for="sufijoCardinal" class="form-label">Sufijo Cardinal:</label>
+                                            <input type="text" aria-label="First name" class="form-control" id="sufijoCardinal" name="sufijoCardinal" placeholder="Sufijo Cardinal"/>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="mb-3">
-                                            <label for="Barrio" class="form-label">Barrio:</label>
-                                            <input type="text" class="form-control" id="Barrio"
-                                            name="Barrio"/>
+                                            <label for="barrio" class="form-label">Barrio:</label>
+                                            <input type="text" class="form-control" id="barrio"
+                                            name="barrio"/>
                                         </div>  
                                     </div>
                                     <div class="col-2">
                                         <div class="mb-3">
-                                            <label for="CodigoPostal" class="form-label">Cod Postal:</label>
-                                            <input type="text" class="form-control" id="CodigoPostal"
-                                            name="CodigoPostal"/>
+                                            <label for="codigoPostal" class="form-label">Cod Postal:</label>
+                                            <input type="text" class="form-control" id="codigoPostal"
+                                            name="codigoPostal"/>
                                         </div> 
                                     </div>
                                 </div>
                             </div>
                             <div class="container text-center">
-                                <button type="reset" value="reset" class="btn btn-primary botonn" id="nuevoProveedor" data-habilitardesabilitar='[["#guardarProveedor"], ["#nuevoProveedor"]]'>NUEVO PROVEEDOR</button>
+                                <button type="reset" value="reset" class="btn btn-info botonn" id="nuevoProveedor" data-habilitardesabilitar='[["#guardarProveedor"], ["#nuevoProveedor"]]'>NUEVO PROVEEDOR</button>
                                 <button disabled type="submit" class="btn btn-success botonn" id="guardarProveedor"
                                 data-habilitardesabilitar='[["#nuevoProveedor"], ["#guardarProveedor"]]'>GUARDAR PROVEEDOR</button>
                             </div>
@@ -140,8 +139,38 @@ class FrmProveedor extends HTMLElement {
         `;
     }
 
+    //---metodo para enviar los datos a la base de datos
+    obtenerDatosFrmProveedores = () => {
+        const frmDatosProveedor = document.querySelector('#frmDatosProveedor'); //llamado del formulario 
+        document.querySelector('#guardarProveedor').addEventListener('click', (e) => {
+            const datosFrm = Object.fromEntries(new FormData(frmDatosProveedor).entries());
+            let data = 
+            [
+                {
+                    "numIdentificacion": datosFrm.numIdentificacion,
+                    "nombre": datosFrm.nombre,
+                    "fechaNacimiento": datosFrm.fechaNacimiento,
+                    "correo": datosFrm.correo,
+                    "telefono": datosFrm.telefono,
+                    "direccion": {
+                        "tipoVia": datosFrm.tipoVia,
+                        "numeroVia": datosFrm.numeroVia,
+                        "letraVia": datosFrm.letraVia,
+                        "sufijoCardinal": datosFrm.sufijoCardinal,
+                        "barrio": datosFrm.barrio,
+                        "ciudadId": datosFrm.ciudadId,
+                        "codigoPostal": datosFrm.codigoPostal
+                    }
+                }
+            ];
+            console.log(data)
+            postProveedor(data); //METODO POST 
+            alert("El Proveedor fue registrado exitosamente")
+            location.reload();
+
+            e.preventDefault();
+        });
+    }
     
-
-
 }
 customElements.define('frm-reg-proveedor', FrmProveedor);

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="../style.css">
+    <script src="../appErik.js" type="module" defer></script>
+    <script src="../Controllers/totalVentas.js" type="module" defer></script>
+    <title>Total Recaudo Ventas</title>
+</head>
+<body>
+    <section id="sidebar">
+        <side-bar></side-bar> 
+    </section>
+     
+    <section id="content">
+        <nav-bar></nav-bar>
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    Cantidad total de dinero recaudado por las ventas de Medicamentos
+                </div>
+                <div class="card-body">
+
+                    <div id="total">
+
+                    </div>
+
+                    <button type="button" id="totalRecaudo" class="btn btn-primary">Obtener Total</button>
+
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Numero de medicamentos por Proveedor
+                </div>
+                <div class="card-body">
+
+                    <div>
+                        <h2 class="text-center mt-3">Medicamentos por proveedor</h2>
+                        <table class="table table-success table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">numeroDeMedicamentos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoMedicamento">
+        
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button type="button" id="totalMedicamentos" class="btn btn-primary">Obtener Total Medicamentos</button>
+
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    obtener el total de medicamentos vendidos en marzo 2023
+                </div>
+                <div class="card-body">
+
+                    <form id="medicamnetoFecha">
+
+                        <div class="mb-3">
+                            <label for="fechaano" class="form-label">Ingrese la fecha en la que desea buscar</label>
+                            <input type="date" class="form-control" id="fechaano" name="fechaano">
+                        </div>
+
+                        <button type="button" id="fechaMedica" class="btn btn-primary">Enviar</button>
+                    </form>
+                    <br>
+                    <br>
+                    <div id="fecha">
+
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </section>
+    <script src="../main.js" defer ></script>
+</body>
+</html>

@@ -23,6 +23,7 @@ public class CompraRepository : GenericRepository<Compra>, ICompra
         var totalRegistros=await _context.Set<Compra>().CountAsync();
         var registros = await _context.Set<Compra>()
             .Include(p=>p.MedicamentosComprados)
+            .Include(p => p.Proveedor)
             .Skip((pageIndex-1)*pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -31,7 +32,10 @@ public class CompraRepository : GenericRepository<Compra>, ICompra
 
     public override async Task<Compra> GetByIdAsync(int id)
     {
-        return await _context.Set<Compra>().Include(p=>p.MedicamentosComprados).FirstOrDefaultAsync(p=>p.Id==id);
+        return await _context.Set<Compra>()
+        .Include(p=>p.MedicamentosComprados)
+        .Include(p => p.Proveedor)
+        .FirstOrDefaultAsync(p=>p.Id==id);
     }
 
     public override void Add(Compra entity)

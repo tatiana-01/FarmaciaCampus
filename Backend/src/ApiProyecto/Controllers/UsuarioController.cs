@@ -165,7 +165,7 @@ public class UsuariosController : BaseApiControllerN
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<UsuarioDto>> PutEditar(int id, [FromBody] UsuarioDto usuarioDto)
+    public async Task<ActionResult<UsuarioDto>> Put(int id, [FromBody] UsuarioDto usuarioDto)
     {
         if (usuarioDto == null) {
             return NotFound();
