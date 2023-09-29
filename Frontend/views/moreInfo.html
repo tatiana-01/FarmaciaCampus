@@ -11,6 +11,7 @@
         crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="../style.css">
     <script src="../app.js" type="module" defer></script>
+    <script src="../controllers/register.js" type="module" defer></script>
     <title>Document</title>
 </head>
 <body>
@@ -34,11 +35,24 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  
-                </div>
+                
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="username" placeholder="@Jn23" name="username">
+                      <label for="username">Nombre de Usuario</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+                      <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                      <label for="floatingPassword">Password</label>
+                    </div>
+                  </div>
+                 
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-primary btnRegister">Register</button>
                 </div>
               </div>
             </div>
