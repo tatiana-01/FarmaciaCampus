@@ -19,3 +19,6 @@ import'./components/sideBarPaciente.js';
 import'./components/caducanEnero2024.js';
 
 
+import './components/cardComponent.js';
+import './components/component_1.js';
+import './components/component_2.js';
