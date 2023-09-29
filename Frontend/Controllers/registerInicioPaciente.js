@@ -97,9 +97,14 @@ function postPaciente(){
             let dataUsuario = Object.fromEntries(new FormData(document.querySelector('#formUsuario')));
             console.log(data[0].id);
             registerPaciente(dataUsuario, data[0].id).then((response) => {
-                console.log(response);
-               
-                //location.reload();
+               if(response.rta.includes('exitosamente')){
+                alert(response.rta)
+                window.location=`./contact.html`
+               }else{
+                alert(response.rta)
+               }
+            }).catch((error)=>{
+                alert('Ocurrio un error en la creacion del usuario, por favor asegurese de llenar todos los campos')
             })
             
        

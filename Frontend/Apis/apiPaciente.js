@@ -51,6 +51,12 @@ const getDataDepartamento = async()=>{
     return res;
 }
 
+const getDataGastos = async()=>{
+    config.method = "GET";
+    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Paciente/gastosPacientes2023",config)).json();
+    return res;
+}
+
 const postDataPaciente = async(data,token)=>{
     config.method = "POST";
     config.body=JSON.stringify(data);
@@ -67,14 +73,15 @@ const registerPaciente = async(data,id)=>{
     config.method = "POST";
     config.body=JSON.stringify(data);
     //config.headers.append('Authorization',`Bearer ${token}`)
-    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/register/${id}`,config));
+    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/register/${id}`,config)).json();
     console.log(res);
+    return res;
 }
 
-const putDataPaciente = async(data,id)=>{
+const putDataPaciente = async(data,id,idUsuario)=>{
     config.method = "PUT";
     config.body=JSON.stringify(data);
-    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/${id}`,config)).json();
+    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/${id}/${idUsuario}`,config)).json();
     console.log(res);
 }
 
@@ -90,9 +97,14 @@ const getPacienteById= async(id)=>{
     return res;
 }
 
-
+const getPacienteByUsuarioId= async(id)=>{
+    config.method = "GET";
+    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Paciente/usuarioId/${id}`,config)).json();
+    return res;
+}
 
 
 export {
-    opc, getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getPacienteById, getDataCiudad, getDataPais, getPaisById, getDepartamentoById, getCiudadById, registerPaciente
+    opc, getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getPacienteById, getDataCiudad, getDataPais, getPaisById, getDepartamentoById, getCiudadById, registerPaciente, getPacienteByUsuarioId, getDataGastos
 }
+

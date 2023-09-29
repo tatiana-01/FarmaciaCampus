@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="../style.css">
+    <script src="../controllers/PacienteDatos.js" type="module" defer></script>
+    <script src="../app.js" type="module" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <section id="sidebar">
+		<a href="#" class="brand noLine"><i class='bx bxs-smile icon'></i> AdminSite</a>
+		<ul class="side-menu">
+			<li><a  href="#" class="active noLine home"><i class='bx bxs-dashboard icon' ></i> Home</a></li>
+			<li class="divider" data-text="main">Main</li>
+			<li><a class="noLine" href="#" id="datos" class="noLine "><i class='bx bxs-widget icon' ></i> Mis Datos</a></li>
+			<li><a class="noLine" href="#" id="compras" class="noLine"><i class='bx bx-table icon' ></i> Mis Compras</a></li>
+		</ul>
+	</section> 
+     
+    <section id="content">
+        <nav-bar></nav-bar>
+        <main>
+            
+            <div class="content mx-auto mt-4" style="width: 90%">
+                <!-- INFO CAMPERS -->
+                <div class="row">
+                    <h3>Informacion Básica</h3>
+                        <hr>
+                    <div class="col-12 col-md-6">
+                        <div class="card bg-secondary-subtle" id="infoPersonas" >
+                            <!-- <img src="../../images/" class="card-img-top" > -->
+                             <div class="card-body">                            
+                                <h5 class="card-title">Datos Personales</h5>
+                                <hr>
+                                <div class="card-text contenido">
+                                    <p class="fw-bold m-0">Numero de Indetificación:</p>
+                                    <p id='numIdentificacion'></p>
+                                    <p class="fw-bold m-0">Nombre:</p>
+                                    <p id='nombre'>nombre</p>                 
+                                    <p class="fw-bold m-0">Fecha de nacimiento:</p>
+                                    <p id='fechaNacimiento'>fecha</p> 
+                                    <p class="fw-bold m-0">Email:</p>
+                                    <p id='correo'>@</p>                        
+                                    <p class="fw-bold m-0">Telefono:</p>
+                                    <p id='telefono'>5254</p>                                                                  
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card bg-secondary-subtle" id="infoPersonas" >
+                            <!-- <img src="../../images/" class="card-img-top" > -->
+                            <div class="card-body">
+                            <h5 class="card-title">Datos de Contacto</h5>
+                            <hr>
+                                <div class="card-text contenido">                                  
+                                    
+                                    <p class="fw-bold m-0">Direccion:</p>
+                                    <p id='direccion'>5254</p>
+                                    <p class="fw-bold m-0">Barrio:</p>
+                                    <p id='barrio'>5254</p>
+                                    <p class="fw-bold m-0">codigo Postal:</p>
+                                    <p id='codigoPostal'>5254</p>
+                                    <p class="fw-bold m-0">Ciudad:</p>
+                                    <p id='ciudad' data-ciudad="" data-region='' data-pais=''>fhgh</p>                                           
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-secondary-subtle mt-2" id="usuarioPaciente" >
+                            <!-- <img src="../../images/" class="card-img-top" > -->
+                            <div class="card-body">
+                            <h5 class="card-title" >Datos de Usuario</h5>
+                            <hr>
+                                <div class="card-text contenido" id="infoUsuario">                                  
+                                    
+                                    <p class="fw-bold m-0">Username:</p>
+                                    <p id='direccion'>Usuario</p> 
+                                    <p class="fw-bold m-0">Correo:</p>
+                                    <p id='direccion'>correo</p>                                         
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-warning mx-auto" id='btnEditarPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Editar</button>
+                <!--     <button class="btn btn-success mx-auto" id='btnUsuarioPaciente' type="submit" data-bs-toggle="modal" data-bs-target="#modalGeneric">Asignar Usuario</button> -->
+                </div>
+                <div class="modal fade" id="modalGeneric" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg ">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="labelModal">Confirmar eliminación</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body infoModal">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger accion d-none">Eliminar</button>
+                            <button type="button" class="btn btn-success accionAsignar d-none">Asignar</button>
+                            <button type="button" class="btn btn-warning accionEditar d-none">Enviar Edición</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </section>
+    
+
+   
+    <script src="../main.js" defer ></script>
+</body>
+</html>

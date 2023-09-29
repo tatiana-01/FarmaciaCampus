@@ -134,7 +134,7 @@ public class UsuariosController : BaseApiControllerN
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<UsuarioXrolDto> GetByUsername(string username)
     {
-        var usuarioXrol =  _unitOfWork.Usuarios.Find(p=>p.Username==username);
+        var usuarioXrol =  _unitOfWork.Usuarios.Find(p=>p.Username==username).First();
 
         if (usuarioXrol == null) {
             return NotFound();

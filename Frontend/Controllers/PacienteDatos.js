@@ -3,6 +3,14 @@ import { getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente,
 let params = new URL(document.location).searchParams;
 let id = parseInt(params.get("id"));
 console.log(id);
+let datos=document.querySelector('#datos')
+let compras=document.querySelector('#compras')
+let brans=document.querySelector('.brand')
+let home=document.querySelector('.home')
+datos.href=`#`
+compras.href=`./MasInfoPaciente.html?id=${id}`
+brans.href=`../indexPaciente.html?id=${id}`
+home.href=`../indexPaciente.html?id=${id}`
 getPacienteById(id)
     .then((response) => { llenarCampos(response) });
 
@@ -26,42 +34,14 @@ function llenarCampos(data) {
         document.querySelector('#infoUsuario').innerHTML = "No tiene usuario asignado"
     } else {
         campos[19].innerHTML = data.usuario.username
-        campos[19].id=data.usuario.id
+        campos[19].id = data.usuario.id
+        campos[21].innerHTML = data.usuario.email
     }
 
-    document.querySelector('.delete').setAttribute("data-id", data.id);
-    document.querySelector('#btnEditarPaciente').setAttribute("data-id", data.id);
-    console.log(data);
 }
 
 
-function eliminarPaciente() {
-    let botonEliminar = document.querySelector('.delete');
-    botonEliminar.addEventListener('click', (e) => {
-        document.querySelector('.accion').classList.remove('d-none')
-        document.querySelector('.accionEditar').classList.add('d-none')
-        document.querySelector('.accionAsignar').classList.add('d-none')
-        let eliminarConfirmacion = document.querySelector('.accion')
-        eliminarConfirmacion.setAttribute("data-idDelete", e.target.dataset.id)
-        confirmarEliminar();
-        console.log(e.target.dataset.id);
 
-    })
-}
-eliminarPaciente();
-function confirmarEliminar() {
-    let eliminarConfirmacion = document.querySelector('.accion')
-    let infoPaciente = document.querySelector('.infoModal')
-    document.querySelector('#labelModal').innerHTML = "Confirmar Eliminación"
-    console.log(eliminarConfirmacion);
-    getPacienteById(eliminarConfirmacion.dataset.iddelete).then((response) => {
-        infoPaciente.innerHTML = `Desea eliminar al paciente ${response.nombre} con numero de identificación ${response.numIdentificacion}`
-        eliminarConfirmacion.addEventListener('click', (e) => {
-            deleteDataPaciente(e.target.dataset.iddelete).then((response) => console.log(response))
-            window.location = 'mostrarPacientes.html'
-        })
-    })
-}
 editarModal();
 function editarModal() {
     let btnEditar = document.querySelector('#btnEditarPaciente')
@@ -217,10 +197,8 @@ function fillModalEdit(data) {
         dataDireccion.ciudadId = document.querySelector("#selectCiudad").value;
         dataDireccion.id = campos[10].id
         dataPersonal.Direccion = dataDireccion;
-        
-        console.log(dataPersonal);
-        putDataPaciente(dataPersonal, id,parseInt(campos[19].id)).then((response) => console.log(response))
-        //location.reload()
+        putDataPaciente(dataPersonal, id,campos[19].id).then((response) => console.log(response))
+        location.reload()
     })
 }
 
@@ -268,31 +246,6 @@ function asignarUsuario() {
     })
 
 }
-
-
-/* function accionBD(){
-    let btnAccion=document.querySelector('.accion')
-    btnAccion.addEventListener('click',(e)=>{
-        if(e.innerHTML=="Eliminar"){
-            accionEliminar();
-        }else{
-            accionEditar();
-        }
-    })
-}
-
-function accionEliminar(){
-    deleteDataPaciente(id).then((response)=>{
-        console.log(response);
-    })
-}
-
-function accionEliminar(){
-    deleteDataPaciente(id).then((response)=>{
-        console.log(response);
-    })
-} */
-
 
 function eventoSelects() {
     let selectPais = document.querySelector('#selectPais');

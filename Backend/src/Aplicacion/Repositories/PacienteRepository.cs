@@ -29,6 +29,7 @@ public class PacienteRepository : GenericRepository<Paciente>, IPaciente
         return await _context.Pacientes
         .Include(e =>e.Usuario)
         .Include(e =>e.Direccion)
+        .Include(e=>e.Ventas).ThenInclude(e=>e.MedicamentosVendidos)
         .FirstOrDefaultAsync(e =>e.Id == id);   
     }
      public object ConsultaPaceniteMasGastador()
