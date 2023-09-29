@@ -34,6 +34,8 @@ getMedMenos().then((response)=>{
 getMedsTrimestre().then((response)=>{
     console.log(response);
     document.querySelector('.medsTrimestre').innerHTML=`se vendieron ${response[1].totalMedicamentosVendidos} medicamentos`
+}).catch((error)=>{
+    document.querySelector('.medsTrimestre').innerHTML=`no se encontraros ventas en este periodo`
 })
 
 getVentasEmpleados().then((response)=>{
@@ -44,19 +46,21 @@ getVentasEmpleados().then((response)=>{
         console.log(element.cantidadDeVentas);
         ventas.push(element.cantidadDeVentas)
     });
-    let maximo=Math.max(ventas)
+    let maximo=Math.max(...ventas)
+    console.log(maximo);
     response.forEach(element=>{
-        element.cantidadDeVentas==maximo
+        if(element.cantidadDeVentas==maximo){
         document.querySelector('.empleado').innerHTML=element.infoEmpleado.nombre
         document.querySelector('.ventasEmpleado').innerHTML=`con ${element.cantidadDeVentas} ventas`
         document.querySelector('.porcentajeVentas').dataset.value=`${(element.cantidadDeVentas*100)/totalVentas}%`
         document.querySelector('.labelPorcentaje').innerHTML=`${(element.cantidadDeVentas*100)/totalVentas}%`
-
-        const allProgress = document.querySelectorAll('main .card .progress');
+        }
+             
+    })
+    const allProgress = document.querySelectorAll('main .card .progress');
         allProgress.forEach(item=> {
             item.style.setProperty('--value', item.dataset.value)
         })
-    })
 })
 
 getClienteGastador().then((response)=>{

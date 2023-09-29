@@ -20,7 +20,6 @@ class component1 extends HTMLElement{
             <th scope="col">Precio</th>
             <th scope="col">Stock</th>
             <th scope="col">Fecha Expiracion</th>
-            <th scope="col">Proveedor</th>
           </tr>
         </thead>
         <tbody>
@@ -54,14 +53,14 @@ class component1 extends HTMLElement{
             data.forEach(element => {
                 
                 const {id,nombre,precio,stock,fechaExpiracion} = element
+                let fecha=fechaExpiracion.substring(0,10)
                 template+= `
                 <tr>
                 <th scope="row">${id}</th>
                 <td>${nombre}</td>
                 <td>${precio}</td>
                 <td>${stock}</td>
-                <td>${fechaExpiracion}</td>
-                <td>NombreProveedor</td>
+                <td>${fecha}</td>
               </tr>`  
             });
             tableBody.innerHTML =template
