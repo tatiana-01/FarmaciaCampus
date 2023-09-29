@@ -73,13 +73,32 @@ class List extends HTMLElement {
                 <td>${tipoVia} ${numeroVia} ${letraVia} ${sufijoCardinal}</td>
                 <td>
                     <button data-id="${id}" class="btn btn-danger delete">Eliminar</button>
-                    <button class="btn btn-success">+</button>
+                    <button data-id="${id}" class="btn btn-success moreInfo">+</button>
                 </td>
             </tr>
             `
         });
         mainSection.innerHTML = template;
+        
+        let btnsEliminar = this.shadowRoot.querySelectorAll(".delete");
+        btnsEliminar.forEach(btn =>{
+            btn.addEventListener("click",(e)=>{
+                let id = e.target.dataset.id;
+                employeeOptions.delete(id);
+            })
+        })
+        let btnsMoreInfo = this.shadowRoot.querySelectorAll(".moreInfo");
+        btnsMoreInfo.forEach(btn =>{
+            btn.addEventListener("click",(e)=>{
+                let id = e.target.dataset.id;
+
+                window.location =`moreInfo.html?id=${id}`;
+
+            })
+        })
 
     }
+    
+
 }
 window.customElements.define("app-list", List);

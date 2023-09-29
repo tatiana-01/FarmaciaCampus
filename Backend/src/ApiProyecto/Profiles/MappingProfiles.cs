@@ -75,6 +75,7 @@ public class MappingProfiles : Profile
 
     CreateMap<Paciente,PersonaCreationDTO>().ReverseMap();
     CreateMap<Paciente,PersonaDTO>().ReverseMap();
+    CreateMap<Paciente,PacienteGetAllDTO>().ReverseMap();
 
     CreateMap<Proveedor,PersonaCreationDTO>().ReverseMap();
     CreateMap<Proveedor,PersonaDTO>().ReverseMap();

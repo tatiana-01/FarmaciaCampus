@@ -29,12 +29,15 @@ namespace ApiProyecto.Controllers
         }
         //[Authorize]
         [HttpPost("register/{pacienteId:int}")]
-        public async Task<ActionResult> CrearUsuarioAPaciente(int pacienteId, RegisterDto registerDto)
+        public async Task<ActionResult<object>> CrearUsuarioAPaciente(int pacienteId, RegisterDto registerDto)
         {
             //Numero entero equivalente a la categoria de Paciente nescesario para crear un usuario
             int opcionPaciente = 2;
             var result = await _userService.ResgisterAsync(registerDto, opcionPaciente, pacienteId);
-            return Ok(result);
+            var res=new {
+                rta = result
+            };
+            return Ok(res);
         }
 
         [HttpGet]
@@ -64,16 +67,26 @@ namespace ApiProyecto.Controllers
             return Ok(paciente);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpGet("usuarioId/{usuarioId:int}")]
+        public ActionResult<PersonaDTO> GetPacienteByUsuarioId(int usuarioId)
+        {
+            var paciente = _unitOfWork.Pacientes.Find(p=>p.UsuarioId==usuarioId).First();
+            if (paciente is null) return NotFound();
+            var pacienteMapeado = _mapper.Map<PersonaDTO>(paciente);
+            return Ok(paciente);
+        }
+
+        [HttpPut("{id:int}/{idUsuario:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> EditPaciente(int id, PersonaDTO dtoPersona)
+        public async Task<ActionResult> EditPaciente(int id, PersonaDTO dtoPersona, int idUsuario)
         {
             bool existePaciente = _unitOfWork.Pacientes.Exist(e => e.Id == id);
             if (existePaciente)
             {
                 var paciente = _mapper.Map<Paciente>(dtoPersona);
                 paciente.Id = id;
+                paciente.UsuarioId=idUsuario;
                 //_unitOfWork.Direcciones.ConfigureUnchangedState(paciente.Direccion);
                 _unitOfWork.Pacientes.Update(paciente);
                 await _unitOfWork.SaveAsync();
@@ -140,7 +153,7 @@ namespace ApiProyecto.Controllers
             {
                 var paciente=_unitOfWork.Pacientes.GetByIdAsync(item.paciente).Result;
                 resultado.Add(new{
-                    infoPaciente=_mapper.Map<PersonaDTO>(paciente),
+                    infoPaciente=_mapper.Map<PacienteGetAllDTO>(paciente),
                     TotalGastado=item.CantidadGastado
                 });
 

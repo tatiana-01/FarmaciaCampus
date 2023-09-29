@@ -16,14 +16,14 @@
 @import url(animate.min.css);
 @import url(normalize.css);
 @import url(icomoon.css);
-@import url(css/font-awesome.min.css);
+/* @import url(css/font-awesome.min.css); */
 @import url(meanmenu.css);
-@import url(owl.carousel.min.css);
-@import url(swiper.min.css);
+/* @import url(owl.carousel.min.css); */
+/* @import url(swiper.min.css);
 @import url(slick.css);
-@import url(jquery.fancybox.min.css);
+@import url(jquery.fancybox.min.css); */
 @import url(jquery-ui.css);
-@import url(nice-select.css);
+/* @import url(nice-select.css); */
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
 
@@ -789,7 +789,7 @@ button {
 .client_section_2 {
     width: 100%;
     float: left;
-    padding-top: 60px;
+    padding-top: 10px;
 }
 
 .client_left {
@@ -997,3 +997,14 @@ input.Enter_text::placeholder {
     color: #d6d6d6;
 }
 
+.padding_right{
+    padding-right: 0;
+}
+
+.padding_left{
+    padding-left: 0;
+}
+
+.frmUserPaciente{
+    width:50%
+}
