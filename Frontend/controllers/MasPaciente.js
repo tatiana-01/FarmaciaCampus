@@ -26,7 +26,6 @@ function llenarCampos(data) {
         document.querySelector('#infoUsuario').innerHTML = "No tiene usuario asignado"
     } else {
         campos[19].innerHTML = data.usuario.username
-        campos[19].id=data.usuario.id
     }
 
     document.querySelector('.delete').setAttribute("data-id", data.id);
@@ -217,10 +216,8 @@ function fillModalEdit(data) {
         dataDireccion.ciudadId = document.querySelector("#selectCiudad").value;
         dataDireccion.id = campos[10].id
         dataPersonal.Direccion = dataDireccion;
-        
-        console.log(dataPersonal);
-        putDataPaciente(dataPersonal, id,parseInt(campos[19].id)).then((response) => location.reload())
-        //
+        putDataPaciente(dataPersonal, id).then((response) => console.log(response))
+        location.reload()
     })
 }
 
