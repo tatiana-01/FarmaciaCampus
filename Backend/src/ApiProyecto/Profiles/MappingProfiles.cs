@@ -78,5 +78,6 @@ public class MappingProfiles : Profile
 
     CreateMap<Proveedor,PersonaCreationDTO>().ReverseMap();
     CreateMap<Proveedor,PersonaDTO>().ReverseMap();
+     CreateMap<Proveedor,ProveedorDTO>().ReverseMap();
   }
 }

@@ -24,16 +24,16 @@ class FrmUsuarioProveedor extends HTMLElement {
                         <form id="frmDatosUsuarioProveedor">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-4">
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Nombre de Usuario:*</label>
                                             <input type="text" class="form-control" id="username" name="username" placeholder="username"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-4">
                                         
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-4">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email:*</label>
                                             <input type="text" class="form-control" id="email" name="email" placeholder="email"/>
@@ -41,16 +41,16 @@ class FrmUsuarioProveedor extends HTMLElement {
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-4">
                                        
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-4">
                                         <div class="mb-3">
                                             <label for="password" class="form-label">Dijite la Contraseña:*</label>
                                             <input type="text" class="form-control" id="password" name="password" placeholder="password"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-4">
                                         
                                     </div>
                                 </div>

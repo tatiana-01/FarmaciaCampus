@@ -1,5 +1,5 @@
 import { getDataPais, getDepartamentoById, getPaisById } from "../Apis/ApiFarmacia/proveedor-serviceApi.js";
-export { activarDesactivarBoton, listarPaises};
+export { activarDesactivarBoton, listarPaises };
 
 const activarDesactivarBoton = () => {
     document.querySelectorAll(".botonn").forEach((boton) => {

@@ -140,7 +140,6 @@ class FrmProveedor extends HTMLElement {
     }
 
     //---metodo para enviar los datos a la base de datos
-
     obtenerDatosFrmProveedores = () => {
         const frmDatosProveedor = document.querySelector('#frmDatosProveedor'); //llamado del formulario 
         document.querySelector('#guardarProveedor').addEventListener('click', (e) => {

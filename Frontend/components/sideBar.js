@@ -40,9 +40,11 @@ class SideBar extends HTMLElement {
             <ul class="side-dropdown">
                 <li><a id="empleadoLink" href="empleado.html">Empleados</a></li>
                 <li><a id="pacienteLink" href="paciente.html">Pacientes</a></li>
-                <li><a id="proveedoreLink" href="proveedor.htm">Proveedores</a></li>
+                <li><a id="proveedoreLink" href="proveedor.html">Proveedores</a></li>
                 <li><a id="ventaLink" href="ventas.html"">Ventas</a></li>
+                <li><a id="usuariosLink" href="usuarios.html">Usuarios</a></li>
                 <li><a id="comprasLink" href="compras.html">Compras</a></li>
+                <li><a id="medicamentosLink" href="medicamentos.html">Medicamentos</a></li>
             </ul>
         </li>
         <li>
@@ -54,15 +56,15 @@ class SideBar extends HTMLElement {
             </ul>
         </li>
         <li><a href="#"><i class='bx bxs-widget icon' ></i> Widgets</a></li>
-        <li class="divider" data-text="table and forms">Table and forms</li>
-        <li><a href="#"><i class='bx bx-table icon' ></i> Tables</a></li>
+        <li class="divider" data-text="OTRAS CONSULTAS">OTRAS CONSULTAS</li>
+        <!--<li><a href="#"><i class='bx bx-table icon' ></i> Tables</a></li>-->
         <li>
-            <a href="#"><i class='bx bxs-notepad icon' ></i> Forms <i class='bx bx-chevron-right icon-right' ></i></a>
+            <a href="#"><i class='bx bxs-notepad icon' ></i>MEDICAMENTOS<i class='bx bx-chevron-right icon-right' ></i></a>
             <ul class="side-dropdown">
-                <li><a href="#">Basic</a></li>
-                <li><a href="#">Select</a></li>
-                <li><a href="#">Checkbox</a></li>
-                <li><a href="#">Radio</a></li>
+                <li><a href="consulta2.html">Paracetanol</a></li>
+                <li><a href="recaudo.html">ventas-fecha-total</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
             </ul>
         </li>
     </ul>
@@ -78,6 +80,7 @@ class SideBar extends HTMLElement {
         this.pacienteLink = document.getElementById("pacienteLink");
         this.proveedoreLink = document.getElementById("proveedoreLink");
         this.ventaLink = document.getElementById("ventaLink");
+        this.comprasLink = document.getElementById("comprasLink");
         this.comprasLink = document.getElementById("comprasLink");
 
         this.brandLink.addEventListener("click", () => this.navigateTo("../index.html"));
