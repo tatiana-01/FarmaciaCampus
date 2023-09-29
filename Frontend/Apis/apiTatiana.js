@@ -40,18 +40,29 @@ const getMedsExpiranAntes2024 = async()=>{
     return res;
 }
 
+const getClienteGastador= async()=>{
+    config.method = "GET";
+    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Paciente/masGastador",config)).json();
+    return res;
+}
+
+const getProveedor= async()=>{
+    config.method = "GET";
+    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Proveedor",config)).json();
+    return res;
+}
+
 const postDataRecluta = async(data)=>{
     config.method = "POST";
     config.body=JSON.stringify(data);
-    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Medicamento/vencenantesde2024",config)).json();
+    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Proveedor",config)).json();
     console.log(res);
 }
 
-const putDataRecluta = async(data,id)=>{
-    config.method = "PUT";
-    config.body=JSON.stringify(data);
-    let res= await ( await fetch(`http://localhost:3000/reclutas/${id}`,config)).json();
-    console.log(res);
+const getProveedorName = async(nombre)=>{
+    config.method = "GET";
+    let res= await ( await fetch(`http://localhost:5000/api/Farmacia/Medicamento/proveedor/${nombre}`,config)).json();
+    return res;
 }
 
 const deleteDataRecluta = async(id)=>{
@@ -67,5 +78,5 @@ const getReclutaById= async(id)=>{
 }
 
 export {
-    getComprasMeds,getProveedorMasMed, getMedMenos, getMedsTrimestre, getVentasEmpleados, getMedsExpiranAntes2024
+    getComprasMeds,getProveedorMasMed, getMedMenos, getMedsTrimestre, getVentasEmpleados, getMedsExpiranAntes2024, getClienteGastador, getProveedorName, getProveedor
 }

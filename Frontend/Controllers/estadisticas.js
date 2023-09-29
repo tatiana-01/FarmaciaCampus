@@ -1,4 +1,4 @@
-import { getComprasMeds, getProveedorMasMed, getMedMenos, getMedsTrimestre, getVentasEmpleados } from '../Apis/apiTatiana.js';
+import { getComprasMeds, getProveedorMasMed, getMedMenos, getMedsTrimestre, getVentasEmpleados, getClienteGastador} from '../Apis/apiTatiana.js';
 let total=0;
 getProveedorMasMed().then((response)=>{
     let data=response[0]
@@ -57,4 +57,9 @@ getVentasEmpleados().then((response)=>{
             item.style.setProperty('--value', item.dataset.value)
         })
     })
+})
+
+getClienteGastador().then((response)=>{
+    document.querySelector('.clienteFiel').innerHTML=`${response.paciente.nombre} es nuestro cliente fiel`
+        document.querySelector('.gastoCliente').innerHTML=`con un total de ${response.totalGastado} invertido en su salud`
 })
