@@ -16,6 +16,6 @@ namespace ApiProyecto.Dtos
         public string Telefono { get; set; }
         public DireccionDTO Direccion { get; set; }
         public UsuarioDto Usuario {get; set;}
-        List<VentaDTO> Ventas {get;set;}
+        public ICollection<VentaDTO> Ventas {get;set;}
     }
 }

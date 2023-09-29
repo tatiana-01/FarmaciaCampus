@@ -14,5 +14,8 @@ import'./components/listarVentas.js';
 import'./components/listarRol.js';
 import'./components/listarDepartamento.js';
 import'./components/medicamentos.js';
+import'./components/comprasPaciente.js';
+import'./components/sideBarPaciente.js';
+import'./components/caducanEnero2024.js';
 
 

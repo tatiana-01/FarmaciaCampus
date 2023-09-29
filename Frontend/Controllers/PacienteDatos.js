@@ -7,8 +7,8 @@ let datos=document.querySelector('#datos')
 let compras=document.querySelector('#compras')
 let brans=document.querySelector('.brand')
 let home=document.querySelector('.home')
-datos.href=`#`
-compras.href=`./MasInfoPaciente.html?id=${id}`
+//datos.href=`#`
+compras.href=`./comprasPaciente.html?id=${id}`
 brans.href=`../indexPaciente.html?id=${id}`
 home.href=`../indexPaciente.html?id=${id}`
 getPacienteById(id)
@@ -197,55 +197,12 @@ function fillModalEdit(data) {
         dataDireccion.ciudadId = document.querySelector("#selectCiudad").value;
         dataDireccion.id = campos[10].id
         dataPersonal.Direccion = dataDireccion;
-        putDataPaciente(dataPersonal, id,campos[19].id).then((response) => console.log(response))
-        location.reload()
+        putDataPaciente(dataPersonal, id,campos[19].id).then((response) => location.reload())
+        
     })
 }
 
-asignarUsuario();
 
-function asignarUsuario() {
-    let btnUsuario = document.querySelector('#btnUsuarioPaciente')
-  
-    btnUsuario.addEventListener('click', (e) => {
-        document.querySelector('.accionEditar').classList.add('d-none')
-        document.querySelector('.accion').classList.add('d-none')
-        document.querySelector('.accionAsignar').classList.remove('d-none')
-        let confirmacion = document.querySelector('.accionAsignar')
-        let infoPaciente = document.querySelector('.infoModal')
-        document.querySelector('#labelModal').innerHTML = "Asignar Usuario"
-        confirmacion.innerHTML = "Asignar"
-        confirmacion.classList.remove("btn-danger")
-        confirmacion.classList.remove("btn-warning")
-        confirmacion.classList.add("btn-success")
-        console.log(confirmacion.classList);
-        infoPaciente.innerHTML =/*html*/`
-        <form id="formUsuario">
-        <label for="numIdentificacion" class="form-label">Coreo</label>
-        <input type="text" aria-label="First name" class="form-control" name="email">
-        <label for="numIdentificacion" class="form-label">Usuario</label>
-        <input type="text" aria-label="First name" class="form-control" name="username">
-        <label for="numIdentificacion" class="form-label">Contraseña</label>
-        <input type="text" aria-label="First name" class="form-control" name="password">
-        </form>                             
-        `
-
-        document.querySelector('.accionAsignar').addEventListener('click', (e) => {
-            let dataUsuario = Object.fromEntries(new FormData(document.querySelector('#formUsuario')));
-            console.log(id);
-            registerPaciente(dataUsuario, id).then((response) => {
-                console.log(response);
-                location.reload();
-            })
-            
-        })
-  
-        /* getDataPais().then((response) => { selectPais(response.registers) });
-        getPacienteById(id).then((response) => fillModalEdit(response));
-        eventoSelects(); */
-    })
-
-}
 
 function eventoSelects() {
     let selectPais = document.querySelector('#selectPais');

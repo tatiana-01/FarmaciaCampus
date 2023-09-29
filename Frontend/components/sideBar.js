@@ -53,7 +53,7 @@ class SideBar extends HTMLElement {
                 <li><a  href="#">Ciudad</a></li>
             </ul>
         </li>
-        <li><a href="#"><i class='bx bxs-widget icon' ></i> Widgets</a></li>
+        <li><a href="estadisticas.html"><i class='bx bxs-widget icon' ></i> Estadisticas</a></li>
         <li class="divider" data-text="table and forms">Table and forms</li>
         <li><a href="#"><i class='bx bx-table icon' ></i> Tables</a></li>
         <li>

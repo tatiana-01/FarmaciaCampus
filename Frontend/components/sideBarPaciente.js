@@ -29,8 +29,12 @@ class SideBarPaciente extends HTMLElement {
         let id = parseInt(params.get("id"));
         let datos=document.querySelector('#datos')
         let compras=document.querySelector('#compras')
+        let brand=document.querySelector('.brand')
+        let home=document.querySelector('.home')
         datos.href=`./PacienteDatos.html?id=${id}`
         compras.href=`./comprasPaciente.html?id=${id}`
+        brand.href=`../indexPaciente.html?id=${id}`
+        home.href=`../indexPaciente.html?id=${id}`
     }
 
    

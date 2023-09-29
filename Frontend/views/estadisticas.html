@@ -10,7 +10,9 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="../style.css">
+	<script src="../Controllers/estadisticas.js" type="module" defer></script>
     <script src="../app.js" type="module" defer></script>
+	
     <title>Document</title>
 </head>
 <body>
@@ -21,9 +23,59 @@
     <section id="content">
         <nav-bar></nav-bar>
         <main>
-            <div class="container">
-                
-            </div>
+            <div class="info-data">
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2 class="proveedor">Proveedor</h2>
+							<p>es el proveedor que mas medicamentos a suministrado en 2023</p>
+							<p class="cantidadProveedor fw-bold">cantidad</p>
+						</div>
+						<i class='bx bx-trending-up icon' ></i>
+					</div>
+					<span class="progress barraProveedor" data-value="40%"></span>
+					<span class="label labelProveedor">40%</span>
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2 class="medMenosVendido">Medicamento</h2>
+							<p>es el medicamento menos vendido</p>
+							<p class="fw-bold mb-0">Cantidad</p>
+							<p class="cantidadMenos">cantidad</p>
+							<p class="fw-bold mb-0">Proveedor</p>
+							<p class="proveedorMenos">Proveedor</p>
+						</div>
+						<i class='bx bx-trending-down icon down' ></i>
+					</div>
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2 >Medicamentos vendidos </h2><br>
+							<p class="fw-bold">en el primer trimestre de 2023</p>
+							<p class="medsTrimestre">se vendieron medicamentos</p>
+						</div>
+						<i class='bx bx-trending-up icon' ></i>
+					</div>
+					<!-- <span class="progress" data-value="30%"></span>
+					<span class="label">30%</span> -->
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2 class="empleado">Empleado</h2>
+							<p>tuvo el mayor numero de ventas</p>
+							<p class="ventasEmpleado">con ventas</p>
+						</div>
+						<i class='bx bx-trending-up icon' ></i>
+					</div>
+					<span class="progress porcentajeVentas" data-value="80%"></span>
+					<span class="label  labelPorcentaje">80%</span>
+				</div>
+			</div>
+
+			<lista-meds-caducan-2024></lista-meds-caducan-2024>
 
         </main>
     </section>

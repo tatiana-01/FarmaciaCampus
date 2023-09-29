@@ -153,7 +153,7 @@ namespace ApiProyecto.Controllers
             {
                 var paciente=_unitOfWork.Pacientes.GetByIdAsync(item.paciente).Result;
                 resultado.Add(new{
-                    infoPaciente=_mapper.Map<PersonaDTO>(paciente),
+                    infoPaciente=_mapper.Map<PacienteGetAllDTO>(paciente),
                     TotalGastado=item.CantidadGastado
                 });
 

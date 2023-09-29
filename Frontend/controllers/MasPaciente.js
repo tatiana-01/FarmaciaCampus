@@ -219,8 +219,8 @@ function fillModalEdit(data) {
         dataPersonal.Direccion = dataDireccion;
         
         console.log(dataPersonal);
-        putDataPaciente(dataPersonal, id,parseInt(campos[19].id)).then((response) => console.log(response))
-        //location.reload()
+        putDataPaciente(dataPersonal, id,parseInt(campos[19].id)).then((response) => location.reload())
+        //
     })
 }
 
