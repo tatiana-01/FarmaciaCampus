@@ -61,19 +61,14 @@ class SideBar extends HTMLElement {
         <li>
             <a href="#"><i class='bx bxs-notepad icon' ></i>MEDICAMENTOS<i class='bx bx-chevron-right icon-right' ></i></a>
             <ul class="side-dropdown">
-<<<<<<< HEAD
                 <li><a href="consulta2.html">Buscar por Medicamento</a></li>
                 <li><a href="recaudo.html">ventas-fecha-total</a></li>
                 <li><a href="MasConsultas.html">Otras Consultas</a></li>
                 <li><a href="#"></a></li>
-=======
-            <li><a class="noLine" href="consulta2.html">Paracetamol</a></li>
-            <li><a class="noLine" href="recaudo.html">ventas-fecha-total</a></li>
-            <li><a class="noLine" href="50Unidades.html">Menos de 50 unidades</a></li>
-            <li><a class="noLine" href="VendidosDespues.html">Vendidos despues del 1 enero 2023</a></li>
-            <li><a class="noLine" href="caducanAntes2024.html">caducan antes del 2024</a></li>
-            <li><a class="noLine" href="medsByProveedor.html">medicamentos por proveedor</a></li>
->>>>>>> Backend
+                <li><a class="noLine" href="50Unidades.html">Menos de 50 unidades</a></li>
+                <li><a class="noLine" href="VendidosDespues.html">Vendidos despues del 1 enero 2023</a></li>
+                <li><a class="noLine" href="caducanAntes2024.html">caducan antes del 2024</a></li>
+                <li><a class="noLine" href="medsByProveedor.html">medicamentos por proveedor</a></li>
             </ul>
         </li>
     </ul>
