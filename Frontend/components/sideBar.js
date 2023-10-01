@@ -61,9 +61,9 @@ class SideBar extends HTMLElement {
         <li>
             <a href="#"><i class='bx bxs-notepad icon' ></i>MEDICAMENTOS<i class='bx bx-chevron-right icon-right' ></i></a>
             <ul class="side-dropdown">
-                <li><a href="consulta2.html">Paracetanol</a></li>
+                <li><a href="consulta2.html">Buscar por Medicamento</a></li>
                 <li><a href="recaudo.html">ventas-fecha-total</a></li>
-                <li><a href="#"></a></li>
+                <li><a href="MasConsultas.html">Otras Consultas</a></li>
                 <li><a href="#"></a></li>
             </ul>
         </li>
