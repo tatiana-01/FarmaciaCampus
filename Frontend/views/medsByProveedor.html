@@ -10,26 +10,25 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="../style.css">
+	<script src="../Controllers/estadisticas.js" type="module" defer></script>
     <script src="../app.js" type="module" defer></script>
+	
     <title>Document</title>
 </head>
 <body>
     <section id="sidebar">
         <side-bar></side-bar> 
     </section>
-    
+     
     <section id="content">
         <nav-bar></nav-bar>
         <main>
-            <div class="btn-group mb-5" role="group" aria-label="Basic outlined example">
-                <a href="registroEmpleados.html" class="btn btn-outline-primary">Registrar Paciente</a>
-                <a href="mostrarEmpleados.html" class="btn btn-outline-primary">Mostrar Pacientes</a>
-              </div>
-           <app-list data-url="http://localhost:5000/api/Farmacia/Empleado"></app-list>
-
-        </main>
+			<lista-meds-proveedor></lista-meds-proveedor>
+		</main>
     </section>
     
-    <script src="../main.js" defer ></script>
+
+   <script src="../main.js" defer ></script>
+    
 </body>
 </html>

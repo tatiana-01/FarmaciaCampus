@@ -1,11 +1,12 @@
 import { getDataProducto, postDataProducto, putDataProducto, deleteDataProducto, getDataEmpleado, getProductoById } from '../Apis/apiProductoo.js';
-import { getUserByUsername,getEmpleadoById,getProveedorById } from '../Apis/apiProductoo.js';
+import { getUserByUsername, getEmpleadoById, getProveedorById } from '../Apis/apiProductoo.js';
 import { getPacienteById } from '../Apis/apiPaciente.js';
 class Medicamentos extends HTMLElement {
     constructor() {
         super();
         this.render();
         this.getApiMedicamentos();
+        
 
         // this.redireccionarPagina();
         /* this.postDataDepartamento();
@@ -31,7 +32,7 @@ class Medicamentos extends HTMLElement {
         let template = ""
         data.forEach(element => {
             const { nombre, precio, stock } = element;
-            if(stock>0){
+            if (stock > 0) {
                 template += `
                 <div class="col-lg-6 col-md-12 col-md-6 col-xl-3 mt-4 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
@@ -45,19 +46,13 @@ class Medicamentos extends HTMLElement {
                 </div>
             </div>
             `
-            }           
-             
+            }
+
 
         });
         mainSection.innerHTML = template;
-
-        let script=`<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>`
-        document.querySelector('body').appendChild(script);
     }
 
+    
 };
 customElements.define('medicamentos-inicio', Medicamentos);

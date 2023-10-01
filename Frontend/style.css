@@ -361,7 +361,7 @@ main .breadcrumbs li.divider {
 main .info-data {
 	margin-top: 36px;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 	grid-gap: 20px;
 }
 main .info-data .card {

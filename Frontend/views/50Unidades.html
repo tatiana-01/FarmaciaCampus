@@ -11,25 +11,19 @@
         crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="../style.css">
     <script src="../app.js" type="module" defer></script>
-    <title>Document</title>
+    <title>por Medicamento</title>
 </head>
 <body>
     <section id="sidebar">
         <side-bar></side-bar> 
     </section>
-    
+     
     <section id="content">
         <nav-bar></nav-bar>
         <main>
-            <div class="btn-group mb-5" role="group" aria-label="Basic outlined example">
-                <a href="registroEmpleados.html" class="btn btn-outline-primary">Registrar Paciente</a>
-                <a href="mostrarEmpleados.html" class="btn btn-outline-primary">Mostrar Pacientes</a>
-              </div>
-           <app-list data-url="http://localhost:5000/api/Farmacia/Empleado"></app-list>
-
+           <component-med1></component-med1>
         </main>
     </section>
-    
     <script src="../main.js" defer ></script>
 </body>
 </html>

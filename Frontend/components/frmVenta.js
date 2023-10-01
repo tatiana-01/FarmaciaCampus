@@ -264,8 +264,8 @@ class FrmVenta extends HTMLElement {
             })
             dataVenta.medicamentosVendidos=meds;
             console.log(dataVenta);
-            postDataVenta(dataVenta).then(response=>console.log(response))
-            setTimeout(location.reload(),1000)
+            postDataVenta(dataVenta).then(response=>location.reload())
+            //setTimeout(location.reload(),2000)
             ;
         })
     }
