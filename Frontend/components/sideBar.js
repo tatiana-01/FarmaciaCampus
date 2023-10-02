@@ -45,6 +45,7 @@ class SideBar extends HTMLElement {
                 <li><a id="usuariosLink" href="usuarios.html">Usuarios</a></li>
                 <li><a id="comprasLink" href="compras.html">Compras</a></li>
                 <li><a id="medicamentosLink" href="medicamento.html">Medicamentos</a></li>
+                <li><a id="medicamentosLink" href="addRol.html">Asignar Rol</a></li>
             </ul>
         </li>
         <li>
