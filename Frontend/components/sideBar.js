@@ -31,7 +31,7 @@ class SideBar extends HTMLElement {
     render() {
         this.innerHTML +=
             `
-    <a href="../index.html" class="brand"><i class='bx bxs-smile icon'></i> AdminSite</a>
+    <a href="../index.html" class="brand"><i class='bx bxs-smile icon'></i> FarmaVital</a>
     <ul class="side-menu">
         <li><a href="../index.html" class="active"><i class='bx bxs-dashboard icon' ></i> Dashboard</a></li>
         <li class="divider" data-text="main">Main</li>
@@ -45,6 +45,7 @@ class SideBar extends HTMLElement {
                 <li><a id="usuariosLink" href="usuarios.html">Usuarios</a></li>
                 <li><a id="comprasLink" href="compras.html">Compras</a></li>
                 <li><a id="medicamentosLink" href="medicamento.html">Medicamentos</a></li>
+                <li><a id="medicamentosLink" href="addRol.html">Asignar Rol</a></li>
             </ul>
         </li>
         <li>
@@ -61,16 +62,18 @@ class SideBar extends HTMLElement {
         <li>
             <a href="#"><i class='bx bxs-notepad icon' ></i>MEDICAMENTOS<i class='bx bx-chevron-right icon-right' ></i></a>
             <ul class="side-dropdown">
-                <li><a href="consulta2.html">Buscar por Medicamento</a></li>
-                <li><a href="recaudo.html">ventas-fecha-total</a></li>
-                <li><a href="MasConsultas.html">Otras Consultas</a></li>
-                <li><a href="#"></a></li>
-                <li><a class="noLine" href="50Unidades.html">Menos de 50 unidades</a></li>
-                <li><a class="noLine" href="VendidosDespues.html">Vendidos despues del 1 enero 2023</a></li>
-                <li><a class="noLine" href="caducanAntes2024.html">caducan antes del 2024</a></li>
-                <li><a class="noLine" href="medsByProveedor.html">medicamentos por proveedor</a></li>
+            <li><a class="noLine" href="consulta2.html">Buscar por Medicamento</a></li>
+					<li><a class="noLine" href="recaudo.html">ventas-fecha-total</a></li>
+					<li><a class="noLine" href="MasConsultas.html">Otras Consultas</a></li>
+					<li><a class="noLine" href="#"></a></li>
+					<li><a class="noLine" href="50Unidades.html">Menos de 50 unidades</a></li>
+					<li><a class="noLine" href="VendidosDespues.html">Vendidos despues del 1 enero 2023</a></li>
+					<li><a class="noLine" href="caducanAntes2024.html">caducan antes del 2024</a></li>
+					<li><a class="noLine" href="medsByProveedor.html">medicamentos por proveedor</a></li>
             </ul>
         </li>
+        <li class="divider" data-text="Mas">Config</li>
+        <li><a href="../Inicio/index.html"><i class='bx bxs-widget icon' ></i> Cerrar Sesion</a></li>
     </ul>
 `;
 //this.funcionalidad();

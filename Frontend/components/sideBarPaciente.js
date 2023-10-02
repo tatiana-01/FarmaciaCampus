@@ -14,13 +14,16 @@ class SideBarPaciente extends HTMLElement {
 
     render() {
         this.innerHTML =/*html*/`
-        <a href="#" class="brand noLine"><i class='bx bxs-smile icon'></i> AdminSite</a>
+        <a href="#" class="brand noLine"><i class='bx bxs-smile icon'></i> FarmaVital</a>
 		<ul class="side-menu">
 			<li><a  href="#" class="active noLine home"><i class='bx bxs-dashboard icon' ></i> Home</a></li>
 			<li class="divider" data-text="main">Main</li>
 			<li><a class="noLine" href="#" id="datos" class="noLine "><i class='bx bxs-widget icon' ></i> Mis Datos</a></li>
 			<li><a class="noLine" href="#" id="compras" class="noLine"><i class='bx bx-table icon' ></i> Mis Compras</a></li>
-		</ul>
+            <li class="divider" data-text="Mas">Config</li>
+			<li><a class="noLine" href="../Inicio/index.html" class="noLine"><i class='bx bxs-widget icon ' ></i> Cerrar Sesion</a></li>
+            </ul>
+        
           `
     }
 
