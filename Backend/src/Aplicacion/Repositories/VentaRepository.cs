@@ -81,7 +81,7 @@ public class VentaRepository : GenericRepository<Venta>, IVenta
     {
         var lstEmpleadosSinVentas = _context.Set<Empleado>()
         .Include(p => p.Ventas)
-        .Where(p => p.Ventas.Count() != 0)
+        .Where(p => (p.Ventas.Count() != 0 || p.Ventas.Count() == 0))
         .Where(p => !p.Ventas.Any(p => (p.FechaVenta.Year == year.Date.Year)))
         .ToListAsync();
 

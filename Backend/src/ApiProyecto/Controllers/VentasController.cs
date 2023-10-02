@@ -155,9 +155,9 @@ public class VentasController : BaseApiControllerN
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<List<EmpleadosSinVentasDTO>>> GetEmpleadosSinVentas(DateTime year)
+    public async Task<ActionResult<List<EmpleadosSinVentasDTO>>> GetEmpleadosSinVentas(DateTime fecha)
     {
-        var lstEmpleadosSinVentas = await _unitOfWork.Ventas.GetAllEmpleadoSinVentasAsync(year);
+        var lstEmpleadosSinVentas = await _unitOfWork.Ventas.GetAllEmpleadoSinVentasAsync(fecha);
 
         if ((lstEmpleadosSinVentas.Count() == 0) || (lstEmpleadosSinVentas == null))
         {

@@ -32,8 +32,9 @@
 
                     </div>
 
-                    <button type="button" id="totalRecaudo" class="btn btn-primary">Obtener Total</button>
-
+                    <button type="reset" value="reset" class="btn btn-info botonn" id="totalRecaudo" data-habilitardesabilitar='[["#nuevoTotal"], ["#totalRecaudo"]]'>Obtener Total</button>
+                    <button disabled type="submit" class="btn btn-success botonn" id="nuevoTotal"
+                    data-habilitardesabilitar='[["#totalRecaudo"], ["#nuevoTotal"]]'>Nuevo Total</button>
                 </div>
             </div>
             <br>
@@ -44,14 +45,14 @@
                 </div>
                 <div class="card-body">
 
-                    <div>
+                    <div id="ocultarDiv" style="display: none;">
                         <h2 class="text-center mt-3">Medicamentos por proveedor</h2>
                         <table class="table table-success table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">numeroDeMedicamentos</th>
+                                    <th scope="col">numero De Medicamentos</th>
                                 </tr>
                             </thead>
                             <tbody id="cuerpoMedicamento">
@@ -59,8 +60,10 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <button type="button" id="totalMedicamentos" class="btn btn-primary">Obtener Total Medicamentos</button>
+                    
+                    <button type="reset" value="reset" class="btn btn-info botonn" id="totalMedicamentos" data-habilitardesabilitar='[["#nuevaBusqueda"], ["#totalMedicamentos"]]'>Obtener Total Medicamentos</button>
+                    <button disabled type="submit" class="btn btn-success botonn" id="nuevaBusqueda"
+                    data-habilitardesabilitar='[["#totalMedicamentos"], ["#nuevaBusqueda"]]'>Nueva Busqueda</button>
 
                 </div>
             </div>
@@ -79,17 +82,55 @@
                             <input type="date" class="form-control" id="fechaano" name="fechaano">
                         </div>
 
-                        <button type="button" id="fechaMedica" class="btn btn-primary">Enviar</button>
+                        <button type="reset" value="reset" class="btn btn-info botonn" id="fechaMedica" data-habilitardesabilitar='[["#nuevaFecha"], ["#fechaMedica"]]'>Bucar Medicamentos</button>
+                        <button disabled type="submit" class="btn btn-success botonn" id="nuevaFecha"
+                        data-habilitardesabilitar='[["#fechaMedica"], ["#nuevaFecha"]]'>Nueva Busqueda</button>
+
                     </form>
-                    <br>
-                    <br>
+                
                     <div id="fecha">
 
                     </div>
 
                 </div>
             </div>
+            <br>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Empleados que hayan echo mas de (n) ventas en total 
+                </div>
+                <div class="card-body">
+                    <form id="empleadosVentas">
 
+                        <div class="mb-3">
+                            <label for="ventasEmpleado" class="form-label">Ingrese la cantidad de ventas a buscar:</label>
+                            <input type="number" class="form-control" id="ventasEmpleado" name="ventasEmpleado" min="0">
+                        </div>
+
+                        <button type="reset" value="reset" class="btn btn-info botonn" id="numeroEmpleado" data-habilitardesabilitar='[["#nuevoNumeroEmpleado"], ["#numeroEmpleado"]]'>Buscar Empleados con  mas ventas</button>
+                        <button disabled type="submit" class="btn btn-success botonn" id="nuevoNumeroEmpleado"
+                        data-habilitardesabilitar='[["#numeroEmpleado"], ["#nuevoNumeroEmpleado"]]'>Nueva Busqueda</button>
+                    </form>
+                </div>
+
+                <div class="container" id="ocultarTablaCinco" style="display: none;">
+                    <h2 class="text-center mt-3">Empleados</h2>
+                    <table class="table table-success table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Cargo</th>
+                                <th scope="col">Numero de Ventas Echas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTablaCinco">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
     </section>
     <script src="../main.js" defer ></script>
