@@ -1,10 +1,10 @@
 import { medicamentosOptions } from "../Apis/ApiFarmacia/apiFarmacia.js";
-class component2 extends HTMLElement{
-    constructor(){
+class component2 extends HTMLElement {
+    constructor() {
         super()
-        let shadow =   this.attachShadow({ mode: 'open' });
+        let shadow = this.attachShadow({ mode: 'open' });
         shadow.innerHTML = /*html*/
-        `
+            `
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -15,35 +15,35 @@ class component2 extends HTMLElement{
         <div class="main"></div>
          `
     }
-    connectedCallback(){
+    connectedCallback() {
         this.mostrarInfo()
 
     }
-    mostrarInfo(){
+    mostrarInfo() {
         medicamentosOptions.vendidosDespues1Enero2023()
-        .then(response =>response.json())
-        .then(json =>{
-            this.llenarTabla(json)
-        }
-        )
+            .then(response => response.json())
+            .then(json => {
+                this.llenarTabla(json)
+            }
+            )
     }
-    llenarTabla(data){
+    llenarTabla(data) {
         let mainDiv = this.shadowRoot.querySelector(".main")
-        if(data.length == 0){
+        if (data.length == 0) {
             console.log("vacio");
             let divTitle = this.shadowRoot.querySelector(".title")
             let template = "No existen datos con estas especificaciones"
             divTitle.innerHTML = template
         }
-        else{
-            let template =""
-            let template2 =""
+        else {
+            let template = ""
+            let template2 = ""
             data.forEach(element => {
-                
-                const {idVenta,fechaVenta} = element
-                element.medicamentosRecetados.forEach(med =>{
-                    const {medicamentoId,nombre,precio,cantidadVendida} =med
-                    template2+=` <tr>
+
+                const { idVenta, fechaVenta } = element
+                element.medicamentosRecetados.forEach(med => {
+                    const { medicamentoId, nombre, precio, cantidadVendida } = med
+                    template2 += ` <tr>
                     <th>${medicamentoId}</th>
                     <td>${nombre}</td>
                     <td>${precio}</td>
@@ -51,8 +51,8 @@ class component2 extends HTMLElement{
                   </tr>`
 
                 })
-                
-                template+= `
+
+                template += `
                 <h3>Numero de Venta</h3>
         <p class="pIdVenta"> ${idVenta}</p>
         <h3>Fecha de Venta</h3>
@@ -73,12 +73,12 @@ class component2 extends HTMLElement{
          </tbody>
        </table>
 
-     </div> `  
+     </div> `
             });
-            mainDiv.innerHTML =template
+            mainDiv.innerHTML = template
         }
 
 
     }
 }
-window.customElements.define("compo-mv2",component2);
+window.customElements.define("compo-mv2", component2);
