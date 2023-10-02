@@ -126,6 +126,7 @@ class ComprasPaciente extends HTMLElement {
         let paciente = document.querySelector('.paciente')
         let empleado = document.querySelector('.empleado')
         let medicamentos = document.querySelector('.medsFactura')
+        medicamentos.innerHTML=""
         let campoTotal = document.querySelector('.total')
         let identificacionPaciente = document.querySelector('.identificacion')
         id.innerHTML = `Factura No.${data.id}`
