@@ -39,6 +39,7 @@ class component2 extends HTMLElement {
             let template = ""
             let template2 = ""
             data.forEach(element => {
+                template2 = "";
 
                 const { idVenta, fechaVenta } = element
                 element.medicamentosRecetados.forEach(med => {

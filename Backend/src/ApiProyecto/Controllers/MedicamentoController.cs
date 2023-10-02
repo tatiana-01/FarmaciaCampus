@@ -37,8 +37,8 @@ public class MedicamentoController : BaseApiControllerN
 
     //METODO GET (Para obtener paginacion, registro y busqueda en la entidad)
     [HttpGet("Pagina")]
-    //[Authorize]
-    //[MapToApiVersion("1.1")]
+    [Authorize]
+    [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
