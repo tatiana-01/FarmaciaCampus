@@ -31,7 +31,7 @@ class SideBar extends HTMLElement {
     render() {
         this.innerHTML +=
             `
-    <a href="../index.html" class="brand"><i class='bx bxs-smile icon'></i> AdminSite</a>
+    <a href="../index.html" class="brand"><i class='bx bxs-smile icon'></i> FarmaVital</a>
     <ul class="side-menu">
         <li><a href="../index.html" class="active"><i class='bx bxs-dashboard icon' ></i> Dashboard</a></li>
         <li class="divider" data-text="main">Main</li>
@@ -69,6 +69,8 @@ class SideBar extends HTMLElement {
             <li><a class="noLine" href="medsByProveedor.html">medicamentos por proveedor</a></li>
             </ul>
         </li>
+        <li class="divider" data-text="Mas">Config</li>
+        <li><a href="../Inicio/index.html"><i class='bx bxs-widget icon' ></i> Cerrar Sesion</a></li>
     </ul>
 `;
 //this.funcionalidad();

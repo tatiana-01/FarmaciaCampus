@@ -68,7 +68,17 @@ const postDataPaciente = async(data,token)=>{
         return res.json()
     }
 }
-
+const postRol = async(data)=>{
+    config.method = "POST";
+    config.body=JSON.stringify(data);
+    //config.headers.append('Authorization',`Bearer ${token}`)
+    let res= await ( await fetch("http://localhost:5000/api/Farmacia/Usuarios/addrol",config));
+    if(res.status!=200){
+        return "error";
+    }else{
+        return res.json()
+    }
+}
 const registerPaciente = async(data,id)=>{
     config.method = "POST";
     config.body=JSON.stringify(data);
@@ -105,6 +115,6 @@ const getPacienteByUsuarioId= async(id)=>{
 
 
 export {
-    opc, getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getPacienteById, getDataCiudad, getDataPais, getPaisById, getDepartamentoById, getCiudadById, registerPaciente, getPacienteByUsuarioId, getDataGastos
+    opc, getDataPaciente, postDataPaciente, putDataPaciente, deleteDataPaciente, getPacienteById, getDataCiudad, getDataPais, getPaisById, getDepartamentoById, getCiudadById, registerPaciente, getPacienteByUsuarioId, getDataGastos, postRol
 }
 

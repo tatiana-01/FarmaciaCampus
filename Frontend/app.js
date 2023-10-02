@@ -18,6 +18,7 @@ import'./components/comprasPaciente.js';
 import'./components/sideBarPaciente.js';
 import'./components/caducanEnero2024.js';
 import'./components/medsProveedor.js';
+import'./components/addRol.js';
 
 import './components/cardComponent.js';
 import './components/component_1.js';
