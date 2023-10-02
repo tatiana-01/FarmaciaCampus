@@ -20,8 +20,53 @@ public class UsuarioRepository : GenericRepository<Usuario>, IUsuario
     public async Task<Usuario> GetByUsernameAsync(string username)
     {
         return await _context.Usuarios
-                            .Include(u=>u.Roles)
-                            .FirstOrDefaultAsync(u=>u.Username.ToLower()==username.ToLower());
+                                    .Include(u=>u.Roles)
+                                    .Include(p => p.RefreshTokens)
+                                    .FirstOrDefaultAsync(u=>u.Username.ToLower()==username.ToLower());
+    }
+
+    public async Task<Usuario> GetByRefreshTokenAsync(string refreshToken)
+    {
+        return await _context.Usuarios
+                                    .Include(p => p.Roles)
+                                    .Include(p => p.RefreshTokens)
+                                    .FirstOrDefaultAsync(p => p.RefreshTokens.Any(p => p.Token == refreshToken));
+    }
+
+    public override async Task<IEnumerable<Usuario>> GetAllAsync()
+    {
+        return await _context.Set<Usuario>()
+        .Include(p => p.Roles)
+        .Include(p => p.UsuariosRoles)
+        .ToListAsync();
+    }
+
+    public override async Task<Usuario> GetByIdAsync(int id)
+    {
+        return await _context.Set<Usuario>()
+        .Include(p => p.Roles)
+        .Include(p => p.UsuariosRoles)
+        .FirstOrDefaultAsync(p => p.Id == id);
+    }
+
+    public override async Task<(int totalRegistros, IEnumerable<Usuario> registros)> GetAllAsync(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.Usuarios as IQueryable<Usuario>;
+
+        if (!string.IsNullOrEmpty(search)) 
+        {
+            query = query.Where(p => p.Username.ToLower().Contains(search.ToLower()));
+        }
+
+        var totalRegistros=await query.CountAsync();
+        var registros = await query
+                                .Include(p => p.Roles)
+                                .Include(p => p.UsuariosRoles)
+                                .Skip((pageIndex-1)*pageSize)
+                                .Take(pageSize)
+                                .ToListAsync();
+                                
+        return (totalRegistros,registros);
     }
 
   

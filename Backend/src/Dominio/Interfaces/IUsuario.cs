@@ -9,4 +9,5 @@ namespace Dominio.Interfaces;
     {
         //nuevos metodos
         Task<Usuario> GetByUsernameAsync(string username);
+        Task<Usuario> GetByRefreshTokenAsync(string username);
     }

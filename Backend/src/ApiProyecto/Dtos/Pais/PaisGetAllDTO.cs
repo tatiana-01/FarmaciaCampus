@@ -9,5 +9,5 @@ namespace ApiProyecto.Dtos.Pais;
     {
         public int Id { get; set; }
         public string Nombre {get; set;}
-        public ICollection<DepartamentoDTO> Departamentos {get;set;}
+        public ICollection<DepartamentoGetAllDTO> Departamentos {get;set;}
     }

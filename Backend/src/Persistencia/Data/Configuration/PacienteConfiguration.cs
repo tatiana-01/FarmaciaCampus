@@ -38,12 +38,10 @@ public class PacienteConfiguration : IEntityTypeConfiguration<Paciente>
 
         builder.HasOne(p => p.Usuario)
         .WithOne(p => p.Paciente)
-        .HasForeignKey<Paciente>(p => p.UsuarioId)
-        .IsRequired();
+        .HasForeignKey<Paciente>(p => p.UsuarioId);
 
         builder.HasOne(p => p.Direccion)
         .WithMany(p => p.Pacientes)
-        .HasForeignKey(p => p.DireccionId)
-        .IsRequired();
+        .HasForeignKey(p => p.DireccionId);
     }
 }

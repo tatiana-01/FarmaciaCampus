@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="style.css">
+	<script src="main.js" async></script>
+	<script src="./Controllers/saludo.js" type="module" defer></script>
+
+	<script src="app.js" defer type="module" defer></script>
+	<title>AdminSite</title>
+</head>
+<body>
+	<!-- SIDEBAR -->
+	  <section id="sidebar">
+		<a href="#" class="brand noLine"><i class='bx bxs-smile icon'></i> FarmaVital</a>
+		<ul class="side-menu">
+			<li><a  href="#" class="active noLine home"><i class='bx bxs-dashboard icon' ></i> Home</a></li>
+			<li class="divider" data-text="main">Main</li>
+			<li><a class="noLine" href="" id="datos" class="noLine "><i class='bx bxs-widget icon' ></i> Mis Datos</a></li>
+			<li><a class="noLine" href="#" id="compras" class="noLine"><i class='bx bx-table icon' ></i> Mis Compras</a></li>
+			<li class="divider" data-text="Mas">Config</li>
+			<li><a class="noLine" href="./Inicio/index.html"><i class='bx bxs-widget icon' ></i> Cerrar Sesion</a></li>
+		</ul>
+		
+	</section> 
+	
+	<!-- SIDEBAR -->
+
+	<!-- NAVBAR -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu toggle-sidebar' ></i>
+			<form action="#">
+				
+			</form>
+			
+			<span class="divider"></span>
+			<div class="profile">
+				<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+				<ul class="profile-link">
+					<li><a class="noLine" href=""><i class='bx bxs-user-circle icon' ></i> Profile</a></li>
+					<li><a class="noLine" href="#"><i class='bx bxs-cog' ></i> Settings</a></li>
+					<li><a class="noLine" href="#"><i class='bx bxs-log-out-circle' ></i> Logout</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<h1 class="title">FarmaciaVital</h1>
+			<ul class="breadcrumbs">
+				<li><a class="noLine" href="#">Home</a></li>
+				<li class="divider">/</li>
+				<li><a class="noLine" href="#" class="active">FarmaciaVital</a></li>
+			</ul>
+			<div class="data">
+				<div class="content-data">
+					<div class="head">
+						<h1 class="bienvenido">Bienvenido</h1>
+						
+					</div>
+					<!-- conteido -->
+					<h5>Aqui encuentras los productos disponibles</h5>
+				</div>
+			
+			</div>
+			<medicamentos-inicio></medicamentos-inicio>
+			<!-- <div class="info-data">
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>1500</h2>
+							<p>Traffic</p>
+						</div>
+						<i class='bx bx-trending-up icon' ></i>
+					</div>
+					<span class="progress" data-value="40%"></span>
+					<span class="label">40%</span>
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>234</h2>
+							<p>Sales</p>
+						</div>
+						<i class='bx bx-trending-down icon down' ></i>
+					</div>
+					<span class="progress" data-value="60%"></span>
+					<span class="label">60%</span>
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>465</h2>
+							<p>Pageviews</p>
+						</div>
+						<i class='bx bx-trending-up icon' ></i>
+					</div>
+					<span class="progress" data-value="30%"></span>
+					<span class="label">30%</span>
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>235</h2>
+							<p>Visitors</p>
+						</div>
+						<i class='bx bx-trending-up icon' ></i>
+					</div>
+					<span class="progress" data-value="80%"></span>
+					<span class="label">80%</span>
+				</div>
+			</div> -->
+			
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- NAVBAR -->
+	<link class="noLine" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+	
+</body>
+</html>

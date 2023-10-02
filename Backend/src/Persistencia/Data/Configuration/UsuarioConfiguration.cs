@@ -49,6 +49,10 @@ public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
                             t.RolId
                         });
                     });
+
+        builder.HasMany(p => p.RefreshTokens)
+        .WithOne(p => p.Usuario)
+        .HasForeignKey(p => p.UsuarioId);
     }
 
 }

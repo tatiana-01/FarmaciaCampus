@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Persistencia;
 
 namespace Aplicacion.Repositories;
-    public class GenericRepository<T> : IGeneric<T> where T : BaseEntity
-    {
+public class GenericRepository<T> : IGeneric<T> where T : BaseEntity
+{
          private readonly FarmaciaContext _context;
 
     public GenericRepository(FarmaciaContext context)
@@ -32,6 +32,14 @@ namespace Aplicacion.Repositories;
     {
         return _context.Set<T>().Where(expression);
     }
+    public virtual bool Exist(Expression<Func<T, bool>> expression)
+    {
+        return _context.Set<T>().Any(expression);
+    }
+    public async Task<int> ExecuteDeleteAsync(Expression<Func<T, bool>> expression)
+    {
+        return await _context.Set<T>().Where(expression).ExecuteDeleteAsync();
+    }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()
     {
@@ -52,6 +60,10 @@ namespace Aplicacion.Repositories;
     {
         return await _context.Set<T>().FindAsync(id);
     }
+    public virtual T GetById(Expression<Func<T, bool>> expression)
+    {
+        return _context.Set<T>().FirstOrDefault(expression);
+    }
 
 
     public virtual void Remove(T entity)
@@ -69,4 +81,9 @@ namespace Aplicacion.Repositories;
         _context.Set<T>()
             .Update(entity);
     }
+    public void ConfigureUnchangedState(T entity)
+    {
+        _context.Entry(entity).State = EntityState.Unchanged;
+    }
+   
     }

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="../style.css">
+    <script src="../appErik.js" type="module" defer></script>
+    <script src="../Controllers/listaProvvedores.js" type="module" defer></script>
+    <title>por Medicamento</title>
+</head>
+<body>
+    <section id="sidebar">
+        <side-bar></side-bar> 
+    </section>
+     
+    <section id="content">
+        <nav-bar></nav-bar>
+        <main>
+            <div class="card">
+                <div class="card-header">
+                  Total de ventas por medicamento 
+                </div>
+                <div class="card-body" id="targeta">
+
+                    <form id="medicamneto">
+
+                        <div class="mb-3">
+                            <label for="medicamento" class="form-label">Ingrese el nombre del medicamento a consular</label>
+                            <input type="text" class="form-control" id="medicamento" name="medicamento">
+                        </div>
+                        <button type="reset" value="reset" class="btn btn-info botonn" id="dato" data-habilitardesabilitar='[["#datos"], ["#dato"]]'>BUSCAR</button>
+                        <button disabled type="submit" class="btn btn-success botonn" id="datos"
+                            data-habilitardesabilitar='[["#dato"], ["#datos"]]'>NUEVA BUSQUEDA</button>
+                    </form>
+                </div>
+
+                <div id="ocultarTabla" style="display: none;">
+                    <h2 class="text-center mt-3">Medicamento</h2>
+                    <table class="table table-success table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Total de medicamentos vendidos</th>
+                                <th scope="col">Presio de la Venta</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Promedio de medicamentos comprados por venta 
+                </div>
+                <div class="card-body">
+
+                    <div id="promedio">
+
+                    </div>
+
+                    <button type="reset" value="reset" class="btn btn-info botonn" id="promedioVenta" data-habilitardesabilitar='[["#nuevoPromedio"], ["#promedioVenta"]]'>Obtener Promedio Ventas</button>
+                    <button disabled type="submit" class="btn btn-success botonn" id="nuevoPromedio"
+                    data-habilitardesabilitar='[["#promedioVenta"], ["#nuevoPromedio"]]'>Nuevo Promedio</button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Listar los proveedores con su información de contacto en medicamentos
+                </div>
+                <div class="card-body">
+
+                    <div class="container" id="ocultarTablaSeis" style="display: none;">
+                        <h2 class="text-center mt-3">Proveedores</h2>
+                        <table class="table table-success table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre del Proveedor</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Medicamentos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoTablaSeis">
+    
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <button type="reset" value="reset" class="btn btn-info botonn" id="listaProvee" data-habilitardesabilitar='[["#nuevoListaProve"], ["#listaProvee"]]'>Listar Proveedores</button>
+                    <button disabled type="submit" class="btn btn-success botonn" id="nuevoListaProve"
+                    data-habilitardesabilitar='[["#listaProvee"], ["#nuevoListaProve"]]'>Nueva Lista</button>
+
+                </div>
+            </div>
+        </main>
+    </section>
+    <script src="../main.js" defer ></script>
+</body>
+</html>

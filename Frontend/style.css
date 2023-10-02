@@ -5,6 +5,10 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+
+}
+.noLine{
+	text-decoration: none;
 }
 
 :root {
@@ -14,9 +18,9 @@
 	--dark: #000;
 	--green: #81D43A;
 	--light-green: #E3FFCB;
-	--blue: #1775F1;
+	--blue: #4bc5b8;
 	--light-blue: #D0E4FF;
-	--dark-blue: #0C5FCD;
+	--dark-blue: #4bc5b8;
 	--red: #FC3B56;
 }
 
@@ -205,6 +209,8 @@ li {
 	left: 260px;
 	transition: all .3s ease;
 }
+
+
 #sidebar.hide + #content {
 	width: calc(100% - 60px);
 	left: 60px;
@@ -355,7 +361,7 @@ main .breadcrumbs li.divider {
 main .info-data {
 	margin-top: 36px;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 	grid-gap: 20px;
 }
 main .info-data .card {
@@ -580,8 +586,61 @@ main .btn-send:hover {
 /* MAIN */
 /* CONTENT */
 
+.botones{
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
 
+.card-productos{
+    height: 25rem;
+    overflow-y: scroll;
+}
 
+.eliminar{
+    width:2.5rem;
+}
+
+.eliminar:hover{
+    cursor: pointer;
+}
+
+.productoFrm{
+    border: 2px dashed #65636b;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 25px;
+}
+
+.row{
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner{
+    border: 1px solid #bdbcc0;
+    border-radius: 10px 10px 0 0;
+}
+
+.products-table{
+    border: 1px solid #bdbcc0;
+    border-radius: 0 0 10px 10px;
+}
+
+#nroFactura{
+    padding: 6px;
+    border-radius: 22px;
+    background-color: #bdbcc0;
+}
+
+.enviar{
+	background-color: var(--blue);
+	color: white;
+}
 
 
 
@@ -595,4 +654,86 @@ main .btn-send:hover {
 	nav .divider {
 		display: none;
 	}
+}
+
+.logoFactura{
+	width: 40%;
+	height: 40%;
+	margin-bottom: 1rem;
+}
+
+.todo{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 90%;
+	border-top-style: dashed;
+	border-bottom-style: dashed;
+  border-width: 4px;
+  
+
+}
+
+.fondo{
+	background-color: #4bc5b944;
+	width: 40%;
+	border-radius: 10px;
+	margin-top: 2rem;
+}
+
+.medsFactura{
+
+	border-top-style: dotted;
+  border-width: 4px;
+  padding: 1rem;
+}
+
+.totalMeds{
+	padding: 1rem; 
+}
+
+.all{
+	margin: 1rem;
+}
+
+.logoFactura{
+	width: 40%;
+	height: 40%;
+	margin-bottom: 1rem;
+}
+
+.todo{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 90%;
+	border-top-style: dashed;
+	border-bottom-style: dashed;
+  border-width: 4px;
+  
+
+}
+
+.fondo{
+	background-color: #4bc5b944;
+	width: 40%;
+	border-radius: 10px;
+	margin-top: 2rem;
+}
+
+.medsFactura{
+
+	border-top-style: dotted;
+  border-width: 4px;
+  padding: 1rem;
+}
+
+.totalMeds{
+	padding: 1rem; 
+}
+
+.all{
+	margin: 1rem;
 }

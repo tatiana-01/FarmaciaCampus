@@ -38,12 +38,10 @@ public class ProveedorConfiguation : IEntityTypeConfiguration<Proveedor>
 
         builder.HasOne(p => p.Usuario)
         .WithOne(p => p.Proveedor)
-        .HasForeignKey<Proveedor>(p => p.UsuarioId)
-        .IsRequired();
+        .HasForeignKey<Proveedor>(p => p.UsuarioId);
 
         builder.HasOne(p => p.Direccion)
         .WithMany(p => p.Proveedores)
-        .HasForeignKey(p => p.DireccionId)
-        .IsRequired();
+        .HasForeignKey(p => p.DireccionId);
     }
 }

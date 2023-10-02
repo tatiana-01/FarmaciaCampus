@@ -22,4 +22,5 @@ namespace Dominio.Interfaces;
         IUsuario Usuarios { get; }
         IRol Roles { get; }
         Task<int> SaveAsync();
+        
     }

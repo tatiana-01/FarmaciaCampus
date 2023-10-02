@@ -5,10 +5,15 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Dominio.Entities;
 using Microsoft.EntityFrameworkCore;
+using Persistencia.seeding;
 
 namespace Persistencia;
 public class FarmaciaContext : DbContext
 {
+    public FarmaciaContext()
+    {
+    }
+
     public FarmaciaContext(DbContextOptions<FarmaciaContext> options) : base(options)
     {
 
@@ -32,9 +37,8 @@ public class FarmaciaContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        
+        SeedingInicial.Seed(modelBuilder);
     }
 }
