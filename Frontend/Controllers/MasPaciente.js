@@ -218,7 +218,6 @@ function fillModalEdit(data) {
         dataDireccion.id = campos[10].id
         dataPersonal.Direccion = dataDireccion;
         putDataPaciente(dataPersonal, id,campos[19].id).then((response) => location.reload())
-        location.reload()
     })
 }
 
