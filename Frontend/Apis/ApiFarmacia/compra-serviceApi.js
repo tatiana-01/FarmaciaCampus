@@ -9,6 +9,7 @@ const opc={
 let config={
     headers:new Headers({
         "Content-Type": "application/json"
+        
     })
 };
 
